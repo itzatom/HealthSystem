@@ -26,9 +26,3 @@ sudo apt-get install postgresql postgresql-contrib
 
 #   Restart PostegreSQL
 #sudo /etc/init.d/postgresql restart
-
-#   Run init files
-python3 init_mongodb.py
-python3 init_postgresql.py
-
-
