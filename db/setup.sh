@@ -13,9 +13,6 @@ sudo apt-get update
 #   Now we can install the MongoDB package itself.
 sudo apt-get install -y mongodb-org
 
-#   Copy db's files
-sudo cp ./mongodb/* /var/lib/mongodb/
-
 #   Next, start MongoDB with systemctl.
 sudo systemctl start mongod
 sudo systemctl status mongod
@@ -27,10 +24,11 @@ sudo systemctl enable mongod
 sudo apt-get update
 sudo apt-get install postgresql postgresql-contrib
 
-#   Copy db's files
-sudo cp ./postgresql/* /var/lib/postgresql/9.5/main
-
 #   Restart PostegreSQL
-sudo /etc/init.d/postgresql restart
+#sudo /etc/init.d/postgresql restart
+
+#   Run init files
+python3 init_mongodb.py
+python3 init_postgresql.py
 
 
