@@ -1,3 +1,5 @@
+#   Check if you are in HealthSystem/db dir before start this script!
+
 #   Run init files
-python3 HealthSystem/db/mongodb/init_mongodb.py
-python3 HealthSystem/db/postgresql/init_postgresql.py
+python3 mongodb/init_mongodb.py
+python3 postgresql/init_postgresql.py
