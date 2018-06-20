@@ -13,15 +13,15 @@ command -v virtualenv > /dev/null 2>&1 || { echo >&2 "Python-virtualenv 3 needed
 if [ -e venv ]
 then
     echo "venv folder already exists..."
-		echo "creating a new one? y or whatever..."
-		read ANSWER
+    echo "creating a new one? y or whatever..."
+    read ANSWER
     case "$ANSWER" in
-		    YES | yes | Y | y | yep | YEP | yup | YUP) rm -rf venv/ && $VENV ;;
+        YES | yes | Y | y | yep | YEP | yup | YUP) rm -rf venv/ && $VENV ;;
         *) echo "aborting..."; exit;;
     esac
 else
     echo "creating venv folder..."
-		$VENV
+    $VENV
 fi
 
 echo "enter the v(irtual)environ"
@@ -31,7 +31,7 @@ pip3 install -r requirements.txt
 echo "back to normality?"
 read ANSWER2
 case "$ANSWER2" in
-		    YES | yes | Y | y | yep | YEP | yup | YUP) deactivate;;
-        *) echo "Welcome to your developing venv: HAPPY CODING!"; exit;;
+    YES | yes | Y | y | yep | YEP | yup | YUP) deactivate;;
+    *) echo "Welcome to your developing venv: HAPPY CODING!"; exit;;
 esac
 
