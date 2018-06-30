@@ -30,11 +30,6 @@ sudo /etc/init.d/postgresql status
 sudo service postgresql start
 sudo service postgresql restart
 
-#   Create user
-sudo -u postgres createuser dbahealthsystem -d -E
-sudo -u postgres createdb HealthSystem -O dbahealthsystem
-sudo -i -u postgres psql -c "alter USER dbahealthsystem WITH PASSWORD 'healthsystem'"
-
 sudo /etc/init.d/postgresql reload
 
 
