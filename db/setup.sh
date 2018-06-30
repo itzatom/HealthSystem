@@ -1,3 +1,4 @@
+#!/bin/sh
 #   Installing Mongo DB on Ubuntu 16.04
 
 #   From www.digitalocean.com
@@ -30,8 +31,9 @@ sudo service postgresql start
 sudo service postgresql restart
 
 #   Create user
-sudo -i -u postgres psql -c "CREATE USER dbahealthsystem WITH PASSWORD 'healthsystem';"
-sudo -u postgres createdb -O dbahealthsystem HealthSystem
+sudo -u postgres createuser dbahealthsystem -d -E
+sudo -u postgres createdb HealthSystem -O dbahealthsystem
+sudo -i -u postgres psql -c "alter USER dbahealthsystem WITH PASSWORD 'healthsystem'"
 
 sudo /etc/init.d/postgresql reload
 
