@@ -1,5 +1,5 @@
-GRANT CONNECT ON healthsystem to medico;
-GRANT CONNECT ON healthsystem to paziente;
+GRANT CONNECT ON HealthSystem to medico;
+GRANT CONNECT ON HealthSystem to paziente;
 
 
 GRANT SELECT ON MEDICO TO medico;
