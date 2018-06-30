@@ -7,7 +7,7 @@ sudo -u postgres dropuser medico
 #   Create user
 sudo -u postgres createuser dbahealthsystem -d -E
 sudo -u postgres createdb healthsystem -O dbahealthsystem
-sudo -i -u postgres psql -c "alter USER dbahealthsystem WITH PASSWORD 'healthsystem'"
+sudo -i -u postgres psql -c "alter USER dbahealthsystem WITH PASSWORD 'passwddba'"
 
 sudo -u postgres createuser medico -D -E
 sudo -i -u postgres psql -c "alter USER medico WITH PASSWORD 'passwdmedico'"
@@ -18,3 +18,8 @@ sudo -i -u postgres psql -c "alter USER paziente WITH PASSWORD 'passwdpaziente'"
 sudo -u postgres psql -d healthsystem -U dbahealthsystem -W -f sqlfiles/postgres_ddl.sql
 sudo -u postgres psql -d healthsystem -U dbahealthsystem -W -f sqlfiles/postgres_dcl.sql
 sudo -u postgres psql -d healthsystem -U dbahealthsystem -W -f sqlfiles/postgres_dml.sql
+
+
+#	Command for run PostgreSQL command line
+# sudo -u postgres psql -d healthsystem -U dbahealthsystem -W 
+
