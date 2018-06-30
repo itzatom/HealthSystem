@@ -11,5 +11,4 @@ sudo -i -u postgres psql -c "alter USER medico WITH PASSWORD 'passwdmedico'"
 sudo -u postgres createuser paziente -D -E
 sudo -i -u postgres psql -c "alter USER paziente WITH PASSWORD 'passwdpaziente'"
 
-sudo -u postgres psql -d healthsystem -U dbahealthsystem -W -f sqlfiles/postgres_ddl.sql
-sudo -u postgres psql -d healthsystem -U dbahealthsystem -W -f sqlfiles/postgres_dcl.sql 
+sudo -u postgres psql -d healthsystem -U dbahealthsystem -W -f sqlfiles/* 
