@@ -25,4 +25,15 @@ sudo apt-get update
 sudo apt-get install postgresql postgresql-contrib
 
 #   Restart PostegreSQL
-#sudo /etc/init.d/postgresql restart
+sudo /etc/init.d/postgresql status
+sudo service postgresql start
+sudo service postgresql restart
+
+#   Create user
+sudo -u postgres createuser -D -A -P dbaHealthSystem
+sudo -u postgres createdb -O dbaHealthSystem HealthSystem
+
+sudo /etc/init.d/postgresql reload
+
+
+
