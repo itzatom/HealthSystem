@@ -1,6 +1,7 @@
 --  Insert on table TIPO_DOC
 --  DEFAULT is for Serial id_tipo
 insert into tipo_doc values (DEFAULT, 'passaporto');
+insert into tipo_doc values (DEFAULT, 'patente');
 insert into tipo_doc values (DEFAULT, 'carta di identita');
 
 --  Insert on table INDIRIZZO
