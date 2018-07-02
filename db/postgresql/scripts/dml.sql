@@ -298,16 +298,16 @@ insert into stud_leg (id_studio, id_indirizzo, orario_inizio, orario_fine, da_gi
 insert into stud_leg (id_studio, id_indirizzo, orario_inizio, orario_fine, da_giorno, a_giorno) values (DEFAULT, 50, '10:00', '17:30', 'martedi', 'giovedi');
 
 -- Insert on table MEDICO
-insert into medico (id_medico, id_studio) values (41, 41);
-insert into medico (id_medico, id_studio) values (42, 42);
-insert into medico (id_medico, id_studio) values (43, 43);
-insert into medico (id_medico, id_studio) values (44, 44);
-insert into medico (id_medico, id_studio) values (45, 45);
-insert into medico (id_medico, id_studio) values (46, 46);
-insert into medico (id_medico, id_studio) values (47, 47);
-insert into medico (id_medico, id_studio) values (48, 48);
-insert into medico (id_medico, id_studio) values (49, 49);
-insert into medico (id_medico, id_studio) values (50, 50);
+insert into medico (id_medico, id_studio) values (41, 1);
+insert into medico (id_medico, id_studio) values (42, 2);
+insert into medico (id_medico, id_studio) values (43, 3);
+insert into medico (id_medico, id_studio) values (44, 4);
+insert into medico (id_medico, id_studio) values (45, 5);
+insert into medico (id_medico, id_studio) values (46, 6);
+insert into medico (id_medico, id_studio) values (47, 7);
+insert into medico (id_medico, id_studio) values (48, 8);
+insert into medico (id_medico, id_studio) values (49, 9);
+insert into medico (id_medico, id_studio) values (50, 10);
 
 -- Insert on table PAZIENTE
 insert into paziente (id_paziente, id_medico) values (1, 41);
