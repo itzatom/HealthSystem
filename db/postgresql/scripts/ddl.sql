@@ -39,7 +39,7 @@ CREATE TABLE PERSONA
 
 CREATE TABLE DOCUMENTO
 (
-	CODICE_DOCUMENTO varchar(50) primary key,
+	ID_DOCUMENTO varchar(50) primary key,
 	ID_PERSONA integer references PERSONA(ID_PERSONA),
 	ID_TIPO integer references TIPO_DOC(ID_TIPO)
 );

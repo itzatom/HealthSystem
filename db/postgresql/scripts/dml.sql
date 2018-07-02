@@ -286,16 +286,16 @@ insert into email (email, id_persona) values ('apoytres1d@thetimes.co.uk', 50);
 
 -- Insert on table STUD_LEG
 -- DEFAULT is for Serial id_studio
-insert into stud_leg (id_studio, id_indirizzo, id_persona, orario_inizio, orario_fine, da_giorno, a_giorno) values (DEFAULT, 41, 41, '9:00', '17:00', 'lunedi', 'giovedi');
-insert into stud_leg (id_studio, id_indirizzo, id_persona, orario_inizio, orario_fine, da_giorno, a_giorno) values (DEFAULT, 42, 42, '9:30', '17:30', 'martedi', 'giovedi');
-insert into stud_leg (id_studio, id_indirizzo, id_persona, orario_inizio, orario_fine, da_giorno, a_giorno) values (DEFAULT, 43, 43, '9:15', '17:00', 'mercoledi', 'venerdi');
-insert into stud_leg (id_studio, id_indirizzo, id_persona, orario_inizio, orario_fine, da_giorno, a_giorno) values (DEFAULT, 44, 44, '11:00', '17:30', 'mercoledi', 'venerdi');
-insert into stud_leg (id_studio, id_indirizzo, id_persona, orario_inizio, orario_fine, da_giorno, a_giorno) values (DEFAULT, 45, 45, '10:30', '16:30', 'martedi', 'giovedi');
-insert into stud_leg (id_studio, id_indirizzo, id_persona, orario_inizio, orario_fine, da_giorno, a_giorno) values (DEFAULT, 46, 46, '9:45', '18:00', 'martedi', 'giovedi');
-insert into stud_leg (id_studio, id_indirizzo, id_persona, orario_inizio, orario_fine, da_giorno, a_giorno) values (DEFAULT, 47, 47, '11:00', '18:00', 'martedi', 'giovedi');
-insert into stud_leg (id_studio, id_indirizzo, id_persona, orario_inizio, orario_fine, da_giorno, a_giorno) values (DEFAULT, 48, 48, '9:30', '17:00', 'martedi', 'venerdi');
-insert into stud_leg (id_studio, id_indirizzo, id_persona, orario_inizio, orario_fine, da_giorno, a_giorno) values (DEFAULT, 49, 49, '9:00', '18:00', 'lunedi', 'venerdi');
-insert into stud_leg (id_studio, id_indirizzo, id_persona, orario_inizio, orario_fine, da_giorno, a_giorno) values (DEFAULT, 50, 50, '10:00', '17:30', 'martedi', 'giovedi');
+insert into stud_leg (id_studio, id_indirizzo, orario_inizio, orario_fine, da_giorno, a_giorno) values (DEFAULT, 41,'9:00', '17:00', 'lunedi', 'giovedi');
+insert into stud_leg (id_studio, id_indirizzo, orario_inizio, orario_fine, da_giorno, a_giorno) values (DEFAULT, 42, '9:30', '17:30', 'martedi', 'giovedi');
+insert into stud_leg (id_studio, id_indirizzo, orario_inizio, orario_fine, da_giorno, a_giorno) values (DEFAULT, 43, '9:15', '17:00', 'mercoledi', 'venerdi');
+insert into stud_leg (id_studio, id_indirizzo, orario_inizio, orario_fine, da_giorno, a_giorno) values (DEFAULT, 44,'11:00', '17:30', 'mercoledi', 'venerdi');
+insert into stud_leg (id_studio, id_indirizzo, orario_inizio, orario_fine, da_giorno, a_giorno) values (DEFAULT, 45,'10:30', '16:30', 'martedi', 'giovedi');
+insert into stud_leg (id_studio, id_indirizzo, orario_inizio, orario_fine, da_giorno, a_giorno) values (DEFAULT, 46, '9:45', '18:00', 'martedi', 'giovedi');
+insert into stud_leg (id_studio, id_indirizzo, orario_inizio, orario_fine, da_giorno, a_giorno) values (DEFAULT, 47, '11:00', '18:00', 'martedi', 'giovedi');
+insert into stud_leg (id_studio, id_indirizzo, orario_inizio, orario_fine, da_giorno, a_giorno) values (DEFAULT, 48,'9:30', '17:00', 'martedi', 'venerdi');
+insert into stud_leg (id_studio, id_indirizzo, orario_inizio, orario_fine, da_giorno, a_giorno) values (DEFAULT, 49, '9:00', '18:00', 'lunedi', 'venerdi');
+insert into stud_leg (id_studio, id_indirizzo, orario_inizio, orario_fine, da_giorno, a_giorno) values (DEFAULT, 50, '10:00', '17:30', 'martedi', 'giovedi');
 
 -- Insert on table MEDICO
 insert into medico (id_medico, id_studio) values (41, 41);
@@ -384,7 +384,7 @@ insert into medico (id_ricetta, id_paziente, id_medico, campo, data_emissione) v
 insert into medico (id_ricetta, id_paziente, id_medico, campo, data_emissione) values (DEFAULT, 29, 45, 'interdum mauris ullamcorper purus sit amet nulla quisque arcu libero rutrum', '15/01/2018');
 insert into medico (id_ricetta, id_paziente, id_medico, campo, data_emissione) values (DEFAULT, 30, 46, 'luctus ultricies eu nibh quisque id justo sit amet sapien dignissim vestibulum vestibulum ante ipsum', '07/01/2018');
 insert into medico (id_ricetta, id_paziente, id_medico, campo, data_emissione) values (DEFAULT, 31, 46, 'aenean fermentum donec ut mauris eget massa tempor convallis nulla neque libero convallis eget eleifend luctus ultricies eu nibh quisque', '06/02/2018');
-insert into medico (id_ricetta, id_paziente, id_medico, campo, data_emissione) values (DEFAULT, 32, 46, 'felis ut at dolor quis odio consequat varius integer ac leo pellentesque ultrices mattis odio donec vitae', '04/01/2018');ins
+insert into medico (id_ricetta, id_paziente, id_medico, campo, data_emissione) values (DEFAULT, 32, 46, 'felis ut at dolor quis odio consequat varius integer ac leo pellentesque ultrices mattis odio donec vitae', '04/01/2018');
 insert into medico (id_ricetta, id_paziente, id_medico, campo, data_emissione) values (DEFAULT, 33, 47, 'orci pede venenatis non sodales sed tincidunt', '01/01/2018');
 insert into medico (id_ricetta, id_paziente, id_medico, campo, data_emissione) values (DEFAULT, 34, 47, 'amet eros suspendisse accumsan tortor quis turpis sed ante vivamus', '28/01/2018');
 insert into medico (id_ricetta, id_paziente, id_medico, campo, data_emissione) values (DEFAULT, 35, 48, 'erat nulla tempus vivamus in felis eu sapien cursus vestibulum proin eu mi', '18/01/2018');
@@ -392,4 +392,4 @@ insert into medico (id_ricetta, id_paziente, id_medico, campo, data_emissione) v
 insert into medico (id_ricetta, id_paziente, id_medico, campo, data_emissione) values (DEFAULT, 37, 50, 'primis in faucibus orci luctus et ultrices posuere', '06/02/2018');
 insert into medico (id_ricetta, id_paziente, id_medico, campo, data_emissione) values (DEFAULT, 38, 50, 'eros viverra eget congue eget semper rutrum nulla nunc purus', '18/01/2018');
 insert into medico (id_ricetta, id_paziente, id_medico, campo, data_emissione) values (DEFAULT, 39, 50, 'suspendisse potenti cras in purus eu magna vulputate luctus cum sociis natoque penatibus et magnis dis parturient montes nascetur', '11/01/2018');
--- insert into medico (id_ricetta, id_paziente, id_medico, campo, data_emissione) values (DEFAULT, 40, 50, 'quisque ut erat curabitur gravida nisi at nibh in hac habitasse platea dictumst aliquam augue quam', '22/01/2018');
+insert into medico (id_ricetta, id_paziente, id_medico, campo, data_emissione) values (DEFAULT, 40, 50, 'quisque ut erat curabitur gravida nisi at nibh in hac habitasse platea dictumst aliquam augue quam', '22/01/2018');
