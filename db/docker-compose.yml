@@ -11,5 +11,29 @@ services:
         environment:
             - POSTGRES_USER=postgres
             - POSTGRES_PASSWORD=postgres
+<<<<<<< HEAD
 networks:
     net:
+=======
+    flask:
+        build: ./flask
+        container_name: flask
+        volumes:
+            - ./flask:/usr/src/app
+        networks:
+            - net
+        environment:
+            - DB_MED_URL=postgresql://medico:passwdmedico@postgres:5432/healthsystem
+            - DB_MED_URL=postgresql://paziente:passwdpaziente@postgres:5432/healthsystem       
+        depends_on:
+            - postgres
+        links:
+            - postgres
+
+volumes:
+    postgres:
+
+networks:
+    net:
+
+>>>>>>> first setup creating flaskr app and make it comunicating with postgres
