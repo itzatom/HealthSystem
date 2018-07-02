@@ -286,16 +286,16 @@ insert into email (email, id_persona) values ('apoytres1d@thetimes.co.uk', 50);
 
 -- Insert on table STUD_LEG
 -- DEFAULT is for Serial id_studio
-insert into stud_leg (id_studio, id_indirizzo, orario_inizio, orario_fine, da_giorno, a_giorno) values (DEFAULT, 41,'9:00', '17:00', 'lunedi', 'giovedi');
-insert into stud_leg (id_studio, id_indirizzo, orario_inizio, orario_fine, da_giorno, a_giorno) values (DEFAULT, 42, '9:30', '17:30', 'martedi', 'giovedi');
-insert into stud_leg (id_studio, id_indirizzo, orario_inizio, orario_fine, da_giorno, a_giorno) values (DEFAULT, 43, '9:15', '17:00', 'mercoledi', 'venerdi');
-insert into stud_leg (id_studio, id_indirizzo, orario_inizio, orario_fine, da_giorno, a_giorno) values (DEFAULT, 44,'11:00', '17:30', 'mercoledi', 'venerdi');
-insert into stud_leg (id_studio, id_indirizzo, orario_inizio, orario_fine, da_giorno, a_giorno) values (DEFAULT, 45,'10:30', '16:30', 'martedi', 'giovedi');
-insert into stud_leg (id_studio, id_indirizzo, orario_inizio, orario_fine, da_giorno, a_giorno) values (DEFAULT, 46, '9:45', '18:00', 'martedi', 'giovedi');
-insert into stud_leg (id_studio, id_indirizzo, orario_inizio, orario_fine, da_giorno, a_giorno) values (DEFAULT, 47, '11:00', '18:00', 'martedi', 'giovedi');
-insert into stud_leg (id_studio, id_indirizzo, orario_inizio, orario_fine, da_giorno, a_giorno) values (DEFAULT, 48,'9:30', '17:00', 'martedi', 'venerdi');
-insert into stud_leg (id_studio, id_indirizzo, orario_inizio, orario_fine, da_giorno, a_giorno) values (DEFAULT, 49, '9:00', '18:00', 'lunedi', 'venerdi');
-insert into stud_leg (id_studio, id_indirizzo, orario_inizio, orario_fine, da_giorno, a_giorno) values (DEFAULT, 50, '10:00', '17:30', 'martedi', 'giovedi');
+insert into stud_leg (id_studio, id_indirizzo, orario_inizio, orario_fine, da_giorno, a_giorno) values (DEFAULT, 51,'9:00', '17:00', 'lunedi', 'giovedi');
+insert into stud_leg (id_studio, id_indirizzo, orario_inizio, orario_fine, da_giorno, a_giorno) values (DEFAULT, 52, '9:30', '17:30', 'martedi', 'giovedi');
+insert into stud_leg (id_studio, id_indirizzo, orario_inizio, orario_fine, da_giorno, a_giorno) values (DEFAULT, 53, '9:15', '17:00', 'mercoledi', 'venerdi');
+insert into stud_leg (id_studio, id_indirizzo, orario_inizio, orario_fine, da_giorno, a_giorno) values (DEFAULT, 54,'11:00', '17:30', 'mercoledi', 'venerdi');
+insert into stud_leg (id_studio, id_indirizzo, orario_inizio, orario_fine, da_giorno, a_giorno) values (DEFAULT, 55,'10:30', '16:30', 'martedi', 'giovedi');
+insert into stud_leg (id_studio, id_indirizzo, orario_inizio, orario_fine, da_giorno, a_giorno) values (DEFAULT, 56, '9:45', '18:00', 'martedi', 'giovedi');
+insert into stud_leg (id_studio, id_indirizzo, orario_inizio, orario_fine, da_giorno, a_giorno) values (DEFAULT, 57, '11:00', '18:00', 'martedi', 'giovedi');
+insert into stud_leg (id_studio, id_indirizzo, orario_inizio, orario_fine, da_giorno, a_giorno) values (DEFAULT, 58,'9:30', '17:00', 'martedi', 'venerdi');
+insert into stud_leg (id_studio, id_indirizzo, orario_inizio, orario_fine, da_giorno, a_giorno) values (DEFAULT, 59, '9:00', '18:00', 'lunedi', 'venerdi');
+insert into stud_leg (id_studio, id_indirizzo, orario_inizio, orario_fine, da_giorno, a_giorno) values (DEFAULT, 60, '10:00', '17:30', 'martedi', 'giovedi');
 
 -- Insert on table MEDICO
 insert into medico (id_medico, id_studio) values (41, 1);
