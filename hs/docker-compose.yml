@@ -30,7 +30,12 @@ services:
         links:
             - postgres
         command: flask run
-
+    mongo:
+        build: ./mongo
+        container_name: mongo
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: admin
+            MONGO_INITDB_ROOT_PASSWORD: passwd
 volumes:
     postgres:
 networks:
