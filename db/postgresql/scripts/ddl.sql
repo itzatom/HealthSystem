@@ -39,25 +39,23 @@ CREATE TABLE PERSONA
 
 CREATE TABLE DOCUMENTO
 (
-	ID_DOCUMENTO serial primary key,
+	CODICE_DOCUMENTO varchar(50) primary key,
 	ID_PERSONA integer references PERSONA(ID_PERSONA),
-	ID_TIPO integer references TIPO_DOC(ID_TIPO),
-	CODICE_DOCUMENTO varchar(50) not null unique
+	ID_TIPO integer references TIPO_DOC(ID_TIPO)
 );
 
 CREATE TABLE TELEFONO
 (
-	ID_NUMERO serial primary key,
-	ID_PERSONA integer references PERSONA(ID_PERSONA),
-	NUMERO_CELLULARE varchar(10) not null unique
+	NUMERO_CELLULARE varchar(11) primary key,
+	ID_PERSONA integer references PERSONA(ID_PERSONA)
 );
 
 
 CREATE TABLE EMAIL
 (
-	ID_EMAIL serial primary key,
-	ID_PERSONA integer references PERSONA(ID_PERSONA),
-	EMAIL varchar(50) not null unique
+	
+	EMAIL varchar(50) primary key,
+	ID_PERSONA integer references PERSONA(ID_PERSONA)
 );
 
 CREATE TABLE STUD_LEG
@@ -73,7 +71,7 @@ CREATE TABLE STUD_LEG
 
 CREATE TABLE MEDICO
 (
-	ID_MEDICO serial primary key references PERSONA(ID_PERSONA),
+	ID_MEDICO integer primary key references PERSONA(ID_PERSONA),
 	ID_STUDIO integer references STUD_LEG(ID_STUDIO)
 );
 

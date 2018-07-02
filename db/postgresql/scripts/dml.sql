@@ -1,8 +1,8 @@
 --  Insert on table TIPO_DOC
 --  DEFAULT is for Serial id_tipo
+insert into tipo_doc values (DEFAULT, 'carta di identita');
 insert into tipo_doc values (DEFAULT, 'passaporto');
 insert into tipo_doc values (DEFAULT, 'patente');
-insert into tipo_doc values (DEFAULT, 'carta di identita');
 
 --  Insert on table INDIRIZZO
 --  DEFAULT is for Serial id_indirizzo
@@ -122,3 +122,274 @@ insert into persona values (DEFAULT, 'Way',      'Wortt',        'wwortt1a',    
 insert into persona values (DEFAULT, 'Erie',     'Krysztowczyk', 'ekrysztowczyk1b', 'tecweb', 'STONBM52I08O505Y', 48, 'As Suqaylibīyah', '22/03/1978');
 insert into persona values (DEFAULT, 'Augusto',  'Bent',         'abent1c',         'tecweb', 'JSBUWM76J37T412W', 49, 'Göteborg',        '06/06/1959');
 insert into persona values (DEFAULT, 'Mattheus', 'Puddicombe',   'mpuddicombe1d',   'tecweb', 'FQEKNJ96J37E931X', 50, 'Batangtoru',      '26/02/1979');
+
+-- Insert on table DOCUMENTO
+-- identity card
+insert into documento (id_documento, id_persona, id_tipo) values ('CJ43262OF', 1, '1');
+insert into documento (id_documento, id_persona, id_tipo) values ('CV43382DX', 2, '1');
+insert into documento (id_documento, id_persona, id_tipo) values ('CA62151KW', 3, '1');
+insert into documento (id_documento, id_persona, id_tipo) values ('CA65654NC', 4, '1');
+insert into documento (id_documento, id_persona, id_tipo) values ('CZ78473DF', 5, '1');
+insert into documento (id_documento, id_persona, id_tipo) values ('CL08653HE', 6, '1');
+insert into documento (id_documento, id_persona, id_tipo) values ('CK25028OG', 7, '1');
+insert into documento (id_documento, id_persona, id_tipo) values ('CS50570FP', 8, '1');
+insert into documento (id_documento, id_persona, id_tipo) values ('CO51625XL', 9, '1');
+insert into documento (id_documento, id_persona, id_tipo) values ('CF95442QM', 10, '1');
+insert into documento (id_documento, id_persona, id_tipo) values ('CM00445WH', 11, '1');
+insert into documento (id_documento, id_persona, id_tipo) values ('CB62265UH', 12, '1');
+insert into documento (id_documento, id_persona, id_tipo) values ('CW67735CS', 13, '1');
+insert into documento (id_documento, id_persona, id_tipo) values ('CD50228HA', 14, '1');
+insert into documento (id_documento, id_persona, id_tipo) values ('CN22711AF', 15, '1');
+insert into documento (id_documento, id_persona, id_tipo) values ('CG00948DC', 16, '1');
+insert into documento (id_documento, id_persona, id_tipo) values ('CQ76721SH', 17, '1');
+insert into documento (id_documento, id_persona, id_tipo) values ('CS94659AF', 18, '1');
+insert into documento (id_documento, id_persona, id_tipo) values ('CY66720RZ', 19, '1');
+insert into documento (id_documento, id_persona, id_tipo) values ('CF35314WN', 20, '1');
+insert into documento (id_documento, id_persona, id_tipo) values ('CQ79755TZ', 21, '1');
+insert into documento (id_documento, id_persona, id_tipo) values ('CX30224YU', 22, '1');
+insert into documento (id_documento, id_persona, id_tipo) values ('CE10654SX', 23, '1');
+insert into documento (id_documento, id_persona, id_tipo) values ('CW63607ZH', 24, '1');
+insert into documento (id_documento, id_persona, id_tipo) values ('CW77100ZJ', 25, '1');
+insert into documento (id_documento, id_persona, id_tipo) values ('CS05820KS', 26, '1');
+insert into documento (id_documento, id_persona, id_tipo) values ('CP22622LF', 27, '1');
+insert into documento (id_documento, id_persona, id_tipo) values ('CE76713MP', 28, '1');
+insert into documento (id_documento, id_persona, id_tipo) values ('CW75155SY', 29, '1');
+insert into documento (id_documento, id_persona, id_tipo) values ('CR25987VR', 30, '1');
+
+-- passport
+insert into documento (id_documento, id_persona, id_tipo) values ('YA4632809', 31, '2');
+insert into documento (id_documento, id_persona, id_tipo) values ('YA5253972', 32, '2');
+insert into documento (id_documento, id_persona, id_tipo) values ('YA4089878', 33, '2');
+insert into documento (id_documento, id_persona, id_tipo) values ('YA8863160', 34, '2');
+insert into documento (id_documento, id_persona, id_tipo) values ('YA4860706', 35, '2');
+insert into documento (id_documento, id_persona, id_tipo) values ('YA0023011', 36, '2');
+insert into documento (id_documento, id_persona, id_tipo) values ('YA5127668', 37, '2');
+insert into documento (id_documento, id_persona, id_tipo) values ('YA9066397', 38, '2');
+insert into documento (id_documento, id_persona, id_tipo) values ('YA2345031', 39, '2');
+insert into documento (id_documento, id_persona, id_tipo) values ('YA8899246', 40, '2');
+
+-- patente
+insert into documento (id_documento, id_persona, id_tipo) values ('NA6141277Q', 41, '3');
+insert into documento (id_documento, id_persona, id_tipo) values ('NA9703662H', 42, '3');
+insert into documento (id_documento, id_persona, id_tipo) values ('NA8884998E', 43, '3');
+insert into documento (id_documento, id_persona, id_tipo) values ('NA3767619G', 44, '3');
+insert into documento (id_documento, id_persona, id_tipo) values ('NA5040689G', 45, '3');
+insert into documento (id_documento, id_persona, id_tipo) values ('NA0613995B', 46, '3');
+insert into documento (id_documento, id_persona, id_tipo) values ('NA5388682N', 47, '3');
+insert into documento (id_documento, id_persona, id_tipo) values ('NA0244813X', 48, '3');
+insert into documento (id_documento, id_persona, id_tipo) values ('NA7302149U', 49, '3');
+insert into documento (id_documento, id_persona, id_tipo) values ('NA7262305Z', 50, '3');
+
+-- Insert on table NUMERO_CELLULARE
+insert into telefono (numero_cellulare, id_persona) values ('6255307213', 1);
+insert into telefono (numero_cellulare, id_persona) values ('6145855443', 2);
+insert into telefono (numero_cellulare, id_persona) values ('5814928440', 3);
+insert into telefono (numero_cellulare, id_persona) values ('7072947176', 4);
+insert into telefono (numero_cellulare, id_persona) values ('7232037174', 5);
+insert into telefono (numero_cellulare, id_persona) values ('8282551537', 6);
+insert into telefono (numero_cellulare, id_persona) values ('7147923290', 7);
+insert into telefono (numero_cellulare, id_persona) values ('8961160072', 8);
+insert into telefono (numero_cellulare, id_persona) values ('1682339249', 9);
+insert into telefono (numero_cellulare, id_persona) values ('4127910131', 10);
+insert into telefono (numero_cellulare, id_persona) values ('3576779915', 11);
+insert into telefono (numero_cellulare, id_persona) values ('2016854218', 12);
+insert into telefono (numero_cellulare, id_persona) values ('9842469249', 13);
+insert into telefono (numero_cellulare, id_persona) values ('8472358281', 14);
+insert into telefono (numero_cellulare, id_persona) values ('3297138675', 15);
+insert into telefono (numero_cellulare, id_persona) values ('2516410627', 16);
+insert into telefono (numero_cellulare, id_persona) values ('7018039586', 17);
+insert into telefono (numero_cellulare, id_persona) values ('9078303323', 18);
+insert into telefono (numero_cellulare, id_persona) values ('3519055681', 19);
+insert into telefono (numero_cellulare, id_persona) values ('8249325366', 20);
+insert into telefono (numero_cellulare, id_persona) values ('4358140594', 21);
+insert into telefono (numero_cellulare, id_persona) values ('9086777096', 22);
+insert into telefono (numero_cellulare, id_persona) values ('9507024795', 23);
+insert into telefono (numero_cellulare, id_persona) values ('1808481482', 24);
+insert into telefono (numero_cellulare, id_persona) values ('7555693386', 25);
+insert into telefono (numero_cellulare, id_persona) values ('2889781512', 26);
+insert into telefono (numero_cellulare, id_persona) values ('1225822696', 27);
+insert into telefono (numero_cellulare, id_persona) values ('3767363494', 28);
+insert into telefono (numero_cellulare, id_persona) values ('3824619048', 29);
+insert into telefono (numero_cellulare, id_persona) values ('7579689980', 30);
+insert into telefono (numero_cellulare, id_persona) values ('6094904510', 31);
+insert into telefono (numero_cellulare, id_persona) values ('7994121440', 32);
+insert into telefono (numero_cellulare, id_persona) values ('5787724011', 33);
+insert into telefono (numero_cellulare, id_persona) values ('5608030029', 34);
+insert into telefono (numero_cellulare, id_persona) values ('6106422463', 35);
+insert into telefono (numero_cellulare, id_persona) values ('3943755015', 36);
+insert into telefono (numero_cellulare, id_persona) values ('8403480185', 37);
+insert into telefono (numero_cellulare, id_persona) values ('2093624210', 38);
+insert into telefono (numero_cellulare, id_persona) values ('2318915148', 39);
+insert into telefono (numero_cellulare, id_persona) values ('6302994364', 40);
+insert into telefono (numero_cellulare, id_persona) values ('3124513140', 41);
+insert into telefono (numero_cellulare, id_persona) values ('9128367432', 42);
+insert into telefono (numero_cellulare, id_persona) values ('9566946040', 43);
+insert into telefono (numero_cellulare, id_persona) values ('3185349297', 44);
+insert into telefono (numero_cellulare, id_persona) values ('6502075220', 45);
+insert into telefono (numero_cellulare, id_persona) values ('4606989597', 46);
+insert into telefono (numero_cellulare, id_persona) values ('3894785617', 47);
+insert into telefono (numero_cellulare, id_persona) values ('9101333224', 48);
+insert into telefono (numero_cellulare, id_persona) values ('3465475436', 49);
+insert into telefono (numero_cellulare, id_persona) values ('9249880652', 50);
+
+-- Insert on table EMAIL
+insert into email (email, id_persona) values ('spadbery0@goodreads.com', 1);
+insert into email (email, id_persona) values ('agiacomuzzo1@state.gov', 2);
+insert into email (email, id_persona) values ('gdrakes2@php.net', 3);
+insert into email (email, id_persona) values ('rlangdon3@sbwire.com', 4);
+insert into email (email, id_persona) values ('pschenfisch4@delicious.com', 5);
+insert into email (email, id_persona) values ('mpashler5@cdbaby.com', 6);
+insert into email (email, id_persona) values ('repiscopio6@ebay.co.uk', 7);
+insert into email (email, id_persona) values ('bmctrustey7@mail.ru', 8);
+insert into email (email, id_persona) values ('jjoseland8@360.cn', 9);
+insert into email (email, id_persona) values ('dconnor9@timesonline.co.uk', 10);
+insert into email (email, id_persona) values ('wstaffa@latimes.com', 11);
+insert into email (email, id_persona) values ('vhowsb@accuweather.com', 12);
+insert into email (email, id_persona) values ('atantec@domainmarket.com', 13);
+insert into email (email, id_persona) values ('ggleasaned@thetimes.co.uk', 14);
+insert into email (email, id_persona) values ('nlabatiee@feedburner.com', 15);
+insert into email (email, id_persona) values ('dchristouf@un.org', 16);
+insert into email (email, id_persona) values ('apudeng@ucoz.ru', 17);
+insert into email (email, id_persona) values ('mscopesh@utexas.edu', 18);
+insert into email (email, id_persona) values ('tclaringboldi@goodreads.com', 19);
+insert into email (email, id_persona) values ('dducarnej@examiner.com', 20);
+insert into email (email, id_persona) values ('dgritskovk@accuweather.com', 21);
+insert into email (email, id_persona) values ('mpinnigerl@amazon.de', 22);
+insert into email (email, id_persona) values ('bgiloglym@paginegialle.it', 23);
+insert into email (email, id_persona) values ('ldunsiren@constantcontact.com', 24);
+insert into email (email, id_persona) values ('afleckneyo@psu.edu', 25);
+insert into email (email, id_persona) values ('vrapep@harvard.edu', 26);
+insert into email (email, id_persona) values ('tpoundsfordq@homestead.com', 27);
+insert into email (email, id_persona) values ('ktailourr@diigo.com', 28);
+insert into email (email, id_persona) values ('lwormans@bandcamp.com', 29);
+insert into email (email, id_persona) values ('gloudt@ca.gov', 30);
+insert into email (email, id_persona) values ('kwayneu@shop-pro.jp', 31);
+insert into email (email, id_persona) values ('wpiscottiv@cnn.com', 32);
+insert into email (email, id_persona) values ('phebbornew@nhs.uk', 33);
+insert into email (email, id_persona) values ('spennellsx@indiatimes.com', 34);
+insert into email (email, id_persona) values ('efortnamy@unesco.org', 35);
+insert into email (email, id_persona) values ('gdennittsz@twitpic.com', 36);
+insert into email (email, id_persona) values ('bstears10@bluehost.com', 37);
+insert into email (email, id_persona) values ('klewnden11@ox.ac.uk', 38);
+insert into email (email, id_persona) values ('mwethered12@toplist.cz', 39);
+insert into email (email, id_persona) values ('kmarco13@soup.io', 40);
+insert into email (email, id_persona) values ('creddihough14@dmoz.org', 41);
+insert into email (email, id_persona) values ('gseal15@addtoany.com', 42);
+insert into email (email, id_persona) values ('nmacduff16@cnn.com', 43);
+insert into email (email, id_persona) values ('mmardoll17@hao123.com', 44);
+insert into email (email, id_persona) values ('apeckett18@wikipedia.org', 45);
+insert into email (email, id_persona) values ('lingrem19@youku.com', 46);
+insert into email (email, id_persona) values ('vlauks1a@amazon.de', 47);
+insert into email (email, id_persona) values ('dgyde1b@bing.com', 48);
+insert into email (email, id_persona) values ('dbonnar1c@ted.com', 49);
+insert into email (email, id_persona) values ('apoytres1d@thetimes.co.uk', 50);
+
+-- Insert on table STUD_LEG
+-- DEFAULT is for Serial id_studio
+insert into stud_leg (id_studio, id_indirizzo, id_persona, orario_inizio, orario_fine, da_giorno, a_giorno) values (DEFAULT, 41, 41, '9:00', '17:00', 'lunedi', 'giovedi');
+insert into stud_leg (id_studio, id_indirizzo, id_persona, orario_inizio, orario_fine, da_giorno, a_giorno) values (DEFAULT, 42, 42, '9:30', '17:30', 'martedi', 'giovedi');
+insert into stud_leg (id_studio, id_indirizzo, id_persona, orario_inizio, orario_fine, da_giorno, a_giorno) values (DEFAULT, 43, 43, '9:15', '17:00', 'mercoledi', 'venerdi');
+insert into stud_leg (id_studio, id_indirizzo, id_persona, orario_inizio, orario_fine, da_giorno, a_giorno) values (DEFAULT, 44, 44, '11:00', '17:30', 'mercoledi', 'venerdi');
+insert into stud_leg (id_studio, id_indirizzo, id_persona, orario_inizio, orario_fine, da_giorno, a_giorno) values (DEFAULT, 45, 45, '10:30', '16:30', 'martedi', 'giovedi');
+insert into stud_leg (id_studio, id_indirizzo, id_persona, orario_inizio, orario_fine, da_giorno, a_giorno) values (DEFAULT, 46, 46, '9:45', '18:00', 'martedi', 'giovedi');
+insert into stud_leg (id_studio, id_indirizzo, id_persona, orario_inizio, orario_fine, da_giorno, a_giorno) values (DEFAULT, 47, 47, '11:00', '18:00', 'martedi', 'giovedi');
+insert into stud_leg (id_studio, id_indirizzo, id_persona, orario_inizio, orario_fine, da_giorno, a_giorno) values (DEFAULT, 48, 48, '9:30', '17:00', 'martedi', 'venerdi');
+insert into stud_leg (id_studio, id_indirizzo, id_persona, orario_inizio, orario_fine, da_giorno, a_giorno) values (DEFAULT, 49, 49, '9:00', '18:00', 'lunedi', 'venerdi');
+insert into stud_leg (id_studio, id_indirizzo, id_persona, orario_inizio, orario_fine, da_giorno, a_giorno) values (DEFAULT, 50, 50, '10:00', '17:30', 'martedi', 'giovedi');
+
+-- Insert on table MEDICO
+insert into medico (id_medico, id_studio) values (41, 41);
+insert into medico (id_medico, id_studio) values (42, 42);
+insert into medico (id_medico, id_studio) values (43, 43);
+insert into medico (id_medico, id_studio) values (44, 44);
+insert into medico (id_medico, id_studio) values (45, 45);
+insert into medico (id_medico, id_studio) values (46, 46);
+insert into medico (id_medico, id_studio) values (47, 47);
+insert into medico (id_medico, id_studio) values (48, 48);
+insert into medico (id_medico, id_studio) values (49, 49);
+insert into medico (id_medico, id_studio) values (50, 50);
+
+-- Insert on table PAZIENTE
+insert into paziente (id_paziente, id_medico) values (1, 41);
+insert into paziente (id_paziente, id_medico) values (2, 41);
+insert into paziente (id_paziente, id_medico) values (3, 41);
+insert into paziente (id_paziente, id_medico) values (4, 41);
+insert into paziente (id_paziente, id_medico) values (5, 41);
+insert into paziente (id_paziente, id_medico) values (6, 41);
+insert into paziente (id_paziente, id_medico) values (7, 41);
+insert into paziente (id_paziente, id_medico) values (8, 41);
+insert into paziente (id_paziente, id_medico) values (9, 41);
+insert into paziente (id_paziente, id_medico) values (10, 41);
+insert into paziente (id_paziente, id_medico) values (11, 42);
+insert into paziente (id_paziente, id_medico) values (12, 42);
+insert into paziente (id_paziente, id_medico) values (13, 42);
+insert into paziente (id_paziente, id_medico) values (14, 42);
+insert into paziente (id_paziente, id_medico) values (15, 42);
+insert into paziente (id_paziente, id_medico) values (16, 43);
+insert into paziente (id_paziente, id_medico) values (17, 43);
+insert into paziente (id_paziente, id_medico) values (18, 43);
+insert into paziente (id_paziente, id_medico) values (19, 43);
+insert into paziente (id_paziente, id_medico) values (20, 43);
+insert into paziente (id_paziente, id_medico) values (21, 44);
+insert into paziente (id_paziente, id_medico) values (22, 44);
+insert into paziente (id_paziente, id_medico) values (23, 44);
+insert into paziente (id_paziente, id_medico) values (24, 44);
+insert into paziente (id_paziente, id_medico) values (25, 44);
+insert into paziente (id_paziente, id_medico) values (26, 45);
+insert into paziente (id_paziente, id_medico) values (27, 45);
+insert into paziente (id_paziente, id_medico) values (28, 45);
+insert into paziente (id_paziente, id_medico) values (29, 45);
+insert into paziente (id_paziente, id_medico) values (30, 46);
+insert into paziente (id_paziente, id_medico) values (31, 46);
+insert into paziente (id_paziente, id_medico) values (32, 46);
+insert into paziente (id_paziente, id_medico) values (33, 47);
+insert into paziente (id_paziente, id_medico) values (34, 47);
+insert into paziente (id_paziente, id_medico) values (35, 48);
+insert into paziente (id_paziente, id_medico) values (36, 49);
+insert into paziente (id_paziente, id_medico) values (37, 50);
+insert into paziente (id_paziente, id_medico) values (38, 50);
+insert into paziente (id_paziente, id_medico) values (39, 50);
+insert into paziente (id_paziente, id_medico) values (40, 50);
+
+-- Insert on table RICETTA
+
+insert into medico (id_ricetta, id_paziente, id_medico, campo, data_emissione) values (DEFAULT, 1, 41, 'mauris vulputate elementum nullam varius nulla', '21/01/2018');
+insert into medico (id_ricetta, id_paziente, id_medico, campo, data_emissione) values (DEFAULT, 2, 41, 'pretium nisl ut volutpat sapien arcu sed augue aliquam erat volutpat in congue etiam justo', '21/01/2018');
+insert into medico (id_ricetta, id_paziente, id_medico, campo, data_emissione) values (DEFAULT, 3, 41, 'nisl nunc rhoncus dui vel', '28/01/2018');
+insert into medico (id_ricetta, id_paziente, id_medico, campo, data_emissione) values (DEFAULT, 4, 41, 'odio odio elementum eu interdum eu tincidunt in leo maecenas pulvinar lobortis est phasellus sit amet erat nulla tempus', '22/01/2018');
+insert into medico (id_ricetta, id_paziente, id_medico, campo, data_emissione) values (DEFAULT, 5, 41, 'purus aliquet at feugiat non pretium', '03/02/2018');
+insert into medico (id_ricetta, id_paziente, id_medico, campo, data_emissione) values (DEFAULT, 6, 41, 'morbi odio odio elementum eu interdum eu tincidunt in leo', '30/01/2018');
+insert into medico (id_ricetta, id_paziente, id_medico, campo, data_emissione) values (DEFAULT, 7, 41, 'vel est donec odio justo sollicitudin ut suscipit a feugiat et eros vestibulum ac est lacinia', '29/01/2018');
+insert into medico (id_ricetta, id_paziente, id_medico, campo, data_emissione) values (DEFAULT, 8, 41, 'faucibus orci luctus et ultrices posuere cubilia curae duis faucibus accumsan odio curabitur convallis duis', '26/01/2018');
+insert into medico (id_ricetta, id_paziente, id_medico, campo, data_emissione) values (DEFAULT, 9, 41, 'nulla quisque arcu libero rutrum ac lobortis vel dapibus at', '08/01/2018');
+insert into medico (id_ricetta, id_paziente, id_medico, campo, data_emissione) values (DEFAULT, 10, 41, 'ut suscipit a feugiat et eros vestibulum ac est lacinia nisi venenatis tristique fusce congue diam id', '11/01/2018');
+insert into medico (id_ricetta, id_paziente, id_medico, campo, data_emissione) values (DEFAULT, 11, 42, 'duis consequat dui nec nisi volutpat eleifend donec ut dolor', '21/01/2018');
+insert into medico (id_ricetta, id_paziente, id_medico, campo, data_emissione) values (DEFAULT, 12, 42, 'ligula suspendisse ornare consequat lectus in est risus auctor sed', '31/01/2018');
+insert into medico (id_ricetta, id_paziente, id_medico, campo, data_emissione) values (DEFAULT, 13, 42, 'in faucibus orci luctus et ultrices posuere cubilia curae donec pharetra magna vestibulum aliquet ultrices erat', '20/01/2018');
+insert into medico (id_ricetta, id_paziente, id_medico, campo, data_emissione) values (DEFAULT, 14, 42, 'quis justo maecenas rhoncus aliquam lacus morbi quis tortor id nulla', '27/01/2018');
+insert into medico (id_ricetta, id_paziente, id_medico, campo, data_emissione) values (DEFAULT, 15, 42, 'dui vel sem sed sagittis nam congue risus semper porta', '11/01/2018');
+insert into medico (id_ricetta, id_paziente, id_medico, campo, data_emissione) values (DEFAULT, 16, 43, 'quam nec dui luctus rutrum nulla tellus in sagittis dui vel nisl duis ac nibh fusce lacus purus', '08/01/2018');
+insert into medico (id_ricetta, id_paziente, id_medico, campo, data_emissione) values (DEFAULT, 17, 43, 'pellentesque viverra pede ac diam cras pellentesque volutpat dui maecenas tristique est et tempus semper est quam pharetra', '20/01/2018');
+insert into medico (id_ricetta, id_paziente, id_medico, campo, data_emissione) values (DEFAULT, 18, 43, 'erat eros viverra eget congue eget semper rutrum nulla nunc purus phasellus in felis donec semper sapien a libero', '03/02/2018');
+insert into medico (id_ricetta, id_paziente, id_medico, campo, data_emissione) values (DEFAULT, 19, 43, 'in blandit ultrices enim lorem ipsum dolor', '17/01/2018');
+insert into medico (id_ricetta, id_paziente, id_medico, campo, data_emissione) values (DEFAULT, 20, 43, 'mi pede malesuada in imperdiet et commodo vulputate justo in blandit ultrices enim lorem', '03/02/2018');
+insert into medico (id_ricetta, id_paziente, id_medico, campo, data_emissione) values (DEFAULT, 21, 44, 'nibh in quis justo maecenas rhoncus aliquam lacus morbi quis', '02/01/2018');
+insert into medico (id_ricetta, id_paziente, id_medico, campo, data_emissione) values (DEFAULT, 22, 44, 'primis in faucibus orci luctus et ultrices posuere cubilia', '29/01/2018');
+insert into medico (id_ricetta, id_paziente, id_medico, campo, data_emissione) values (DEFAULT, 23, 44, 'id luctus nec molestie sed justo pellentesque viverra pede ac diam cras', '12/01/2018');
+insert into medico (id_ricetta, id_paziente, id_medico, campo, data_emissione) values (DEFAULT, 24, 44, 'eget vulputate ut ultrices vel augue vestibulum ante ipsum primis', '23/01/2018');
+insert into medico (id_ricetta, id_paziente, id_medico, campo, data_emissione) values (DEFAULT, 25, 44, 'nec sem duis aliquam convallis nunc proin at turpis a pede posuere', '25/01/2018');
+insert into medico (id_ricetta, id_paziente, id_medico, campo, data_emissione) values (DEFAULT, 26, 45, 'cum sociis natoque penatibus et magnis dis parturient', '02/02/2018');
+insert into medico (id_ricetta, id_paziente, id_medico, campo, data_emissione) values (DEFAULT, 27, 45, 'vestibulum velit id pretium iaculis diam erat fermentum justo nec', '23/01/2018');
+insert into medico (id_ricetta, id_paziente, id_medico, campo, data_emissione) values (DEFAULT, 28, 45, 'faucibus orci luctus et ultrices', '11/01/2018');
+insert into medico (id_ricetta, id_paziente, id_medico, campo, data_emissione) values (DEFAULT, 29, 45, 'interdum mauris ullamcorper purus sit amet nulla quisque arcu libero rutrum', '15/01/2018');
+insert into medico (id_ricetta, id_paziente, id_medico, campo, data_emissione) values (DEFAULT, 30, 46, 'luctus ultricies eu nibh quisque id justo sit amet sapien dignissim vestibulum vestibulum ante ipsum', '07/01/2018');
+insert into medico (id_ricetta, id_paziente, id_medico, campo, data_emissione) values (DEFAULT, 31, 46, 'aenean fermentum donec ut mauris eget massa tempor convallis nulla neque libero convallis eget eleifend luctus ultricies eu nibh quisque', '06/02/2018');
+insert into medico (id_ricetta, id_paziente, id_medico, campo, data_emissione) values (DEFAULT, 32, 46, 'felis ut at dolor quis odio consequat varius integer ac leo pellentesque ultrices mattis odio donec vitae', '04/01/2018');ins
+insert into medico (id_ricetta, id_paziente, id_medico, campo, data_emissione) values (DEFAULT, 33, 47, 'orci pede venenatis non sodales sed tincidunt', '01/01/2018');
+insert into medico (id_ricetta, id_paziente, id_medico, campo, data_emissione) values (DEFAULT, 34, 47, 'amet eros suspendisse accumsan tortor quis turpis sed ante vivamus', '28/01/2018');
+insert into medico (id_ricetta, id_paziente, id_medico, campo, data_emissione) values (DEFAULT, 35, 48, 'erat nulla tempus vivamus in felis eu sapien cursus vestibulum proin eu mi', '18/01/2018');
+insert into medico (id_ricetta, id_paziente, id_medico, campo, data_emissione) values (DEFAULT, 36, 49, 'orci luctus et ultrices posuere cubilia', '27/01/2018');
+insert into medico (id_ricetta, id_paziente, id_medico, campo, data_emissione) values (DEFAULT, 37, 50, 'primis in faucibus orci luctus et ultrices posuere', '06/02/2018');
+insert into medico (id_ricetta, id_paziente, id_medico, campo, data_emissione) values (DEFAULT, 38, 50, 'eros viverra eget congue eget semper rutrum nulla nunc purus', '18/01/2018');
+insert into medico (id_ricetta, id_paziente, id_medico, campo, data_emissione) values (DEFAULT, 39, 50, 'suspendisse potenti cras in purus eu magna vulputate luctus cum sociis natoque penatibus et magnis dis parturient montes nascetur', '11/01/2018');
+-- insert into medico (id_ricetta, id_paziente, id_medico, campo, data_emissione) values (DEFAULT, 40, 50, 'quisque ut erat curabitur gravida nisi at nibh in hac habitasse platea dictumst aliquam augue quam', '22/01/2018');
