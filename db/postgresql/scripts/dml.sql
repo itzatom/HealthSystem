@@ -66,7 +66,6 @@ insert into indirizzo values (DEFAULT, '80131', 'Via Bosco Capodimonte 101');
 insert into indirizzo values (DEFAULT, '80100', 'Via Salv. Rosa 146');
 insert into indirizzo values (DEFAULT, '80127', 'Via Tasso 183');
 insert into indirizzo values (DEFAULT, '80100', 'Via Renato Carosone 39');
-insert into indirizzo values (DEFAULT, '80129', 'Via Kerbaker 8');
 
 --  Insert on table PERSONA
 --  DEFAULT is for Serial id_persona
