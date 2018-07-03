@@ -7,28 +7,32 @@ services:
         ports:
             - 2345:5432
         networks:
-            - net
+            - sql
         environment:
             - POSTGRES_USER=postgres
             - POSTGRES_PASSWORD=postgres
+    
     mongo:
         build: ./mongo
         container_name: mongo
         ports:
             - 27017:27017
+        networks:
+            - nosql
         environment:
             MONGO_INITDB_ROOT_USERNAME: admin
             MONGO_INITDB_ROOT_PASSWORD: passwd
             MONGO_INITDB_DATABASE: healthsystem 
+          
     flask:
         build: ./flask
         container_name: flask
-        volumes:
-            - ./flask:/usr/src/app
         ports:
-                - 4999:5000
+            - 4999:5000
         networks:
-            - net
+            - sql
+            - nosql
+            - web
         environment:
             - FLASK_APP=flaskr
             - FLASK_ENV=development
@@ -40,6 +44,20 @@ services:
             - mongo
             - postgres
         command: flask run
+    
+    nginx:
+        build: ./nginx
+        container_name: nginx
+        ports:
+            - 80:80
+        networks:
+            - web
+        depends_on:
+            - flask
+        links:
+            - flask
 
 networks:
-    net:
+    sql:
+    nosql:
+    web:
