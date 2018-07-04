@@ -2,6 +2,7 @@ click==6.7
 Flask==1.0.2
 Flask-MongoAlchemy==0.7.2
 Flask-SQLAlchemy==2.1
+gunicorn==19.9.0
 inflect==0.3.1
 itsdangerous==0.24
 Jinja2==2.10
@@ -12,4 +13,5 @@ psycopg2-binary==2.7.5
 pymongo==2.8.1
 sqlacodegen==2.0.0
 SQLAlchemy==1.2.8
+uWSGI==2.0.17
 Werkzeug==0.14.1
