@@ -1,7 +1,9 @@
 FROM nginx
 
+RUN rm /etc/nginx/nginx.conf
+RUN rm /etc/nginx/conf.d/default.conf
 
-COPY nginx.conf /etc/nginx/nginx.conf
-COPY conf.d /etc/nginx/conf.d/
+RUN mkdir -p /etc/nginx/html
 
-COPY healthsystem /usr/share/nginx/html
+COPY nginx.conf /etc/nginx
+COPY healthsystem /etc/nginx/html

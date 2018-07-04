@@ -28,7 +28,7 @@ services:
         build: ./flask
         container_name: flask
         ports:
-            - 4999:5000
+            - 5000:5000
         networks:
             - sql
             - nosql
@@ -36,7 +36,6 @@ services:
         environment:
             - FLASK_APP=flaskr
             - FLASK_ENV=development
-            - FLASK_RUN_HOST=0.0.0.0
         depends_on:
             - mongo
             - postgres

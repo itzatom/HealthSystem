@@ -4,13 +4,10 @@ from .db.models import Persona
 
 app = Flask(__name__)
 
-@app.route("/hs/nginxflask", methods=('GET', 'POST'))
+@app.route("/hs", methods=('GET', 'POST'))
 def index():
     if request.method == 'POST':
         test = db_session.query(Persona.nome).all() 
-        return str(test) 
+        return "<h3> QUERIES FROM POSTGRES </h3>" + str(test)
     else:
         return "<h1> no POST method </h1>"
-
-if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=5000, debug=True)
