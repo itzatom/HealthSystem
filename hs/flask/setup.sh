@@ -27,6 +27,7 @@ fi
 echo "enter the v(irtual)environ"
 source venv/bin/activate
 # Install library and framework in virtual environment
+pip3 install -r requirements.txt
 echo "back to normality?"
 read ANSWER2
 case "$ANSWER2" in
