@@ -27,6 +27,8 @@ services:
     flask:
         build: ./flask
         container_name: flask
+        volumes:
+            - ./flask:/usr/src/app
         ports:
             - 5000:5000
         networks:
@@ -42,7 +44,7 @@ services:
         links:
             - mongo
             - postgres
-        command: gunicorn flaskr:app -b 0.0.0.0:5000
+        command: gunicorn flaskr:app -b 0.0.0.0:5000 --reload --log-level=DEBUG
 
     nginx:
         build: ./nginx

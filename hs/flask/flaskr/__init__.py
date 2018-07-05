@@ -8,6 +8,6 @@ app = Flask(__name__)
 def main():
     if request.method == 'POST':
         test = db_session.query(Persona.nome).all() 
-        return "<h3> QUERIES FROM POSTGRES </h3>" + str(test)
+        return "<h3> QUERIES FROM POSTGRES</h3>" + str(test)
     else:
         return "<h1> no POST method </h1>"
