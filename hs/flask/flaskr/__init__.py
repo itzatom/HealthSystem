@@ -10,8 +10,8 @@ app.wsgi_app = ProxyFix(app.wsgi_app)
 def home():
     return render_template('index.html')
 
-@app.route("/hs", methods=('GET', 'POST'))
-def index():
+@app.route("/main", methods=('GET', 'POST'))
+def main():
     if request.method == 'POST':
         test = db_session.query(Persona.nome).all() 
         return "<h3> QUERIES FROM POSTGRES </h3>" + str(test)
