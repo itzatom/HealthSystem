@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block head %}
+ 
+{% endblock %}
+{% block content %}
+<div class=container>
+    <div id="personalinfo">
+		    <h1>Welcome back {{ nome.persona }} </h1>
+				<ul>
+				{% for item in persona %}
+				<li class="data">{{ item }}</li>
+				{% endfor %}
+				</ul>
+     </div>
+		 <div id=patientls>
+
+		 </div>
+</div>
+
+{% endblock %}
