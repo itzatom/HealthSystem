@@ -13,6 +13,9 @@
 
 
 
+
+
+
         <style media="screen">
         html {
             font-family: sans-serif;
@@ -8149,7 +8152,6 @@
 
             }
           </style>
-
     </head>
 
     <body>
@@ -8212,7 +8214,20 @@
             /*
               Fullscreen background
             */
-            $.backstretch("https://es.best-wallpaper.net/wallpaper/1920x1080/1701/Stethoscope-medicine-tool_1920x1080.jpg");
+            // Or, to automatically choose from a set of resolutions.
+ // The width is the width of the image, and the algorithm chooses the best fit.
+
+
+ if(window.innerWidth >= 800)
+ {
+
+     $.backstretch(["https://es.best-wallpaper.net/wallpaper/1920x1080/1701/Stethoscope-medicine-tool_1920x1080.jpg"]);
+ }
+ else {
+$.backstretch(["https://www.serenamissori.it/wp-content/uploads/2017/07/medicina-funzionale-biotipizzata-750x480.jpg"]);
+
+ }
+
 
             /*
               Form validation
@@ -8236,11 +8251,16 @@
             });
 
 
+
+
             });
         </script>
 
-
-
+        <style>
+        @media (max-width: 979px) {
+        .backstretch {
+        position: absolute;
+        }
 
     </body>
 
