@@ -4,7 +4,6 @@ from .sql.models import Persona
 
 app = Flask(__name__)
 
-
 @app.teardown_appcontext
 def shutdown_session(exception=None):
     db_session.remove()
