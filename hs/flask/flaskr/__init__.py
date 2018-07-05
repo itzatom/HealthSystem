@@ -1,12 +1,8 @@
 from flask import Flask, request, render_template
-from .db.db import engine, db_session
-from .db.models import Persona
+from .sql.db import engine, db_session
+from .sql.models import Persona
 
 app = Flask(__name__)
-
-@app.route("/")
-def home():
-    return render_template('index.html')
 
 @app.route("/main", methods=('GET', 'POST'))
 def main():
