@@ -41,6 +41,12 @@ class Persona(Base):
     indirizzo = relationship('Indirizzo', uselist=False)
     stud_leg = relationship('StudLeg', secondary='medico')
 
+    def set_password(self, password):
+         self.password = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.password, password)
+
 
 class StudLeg(Base):
     __tablename__ = 'stud_leg'
@@ -74,13 +80,11 @@ class Email(Base):
 
     persona = relationship('Persona')
 
+class Medico(Base):
+    __tablename__ = 'medico'
 
-t_medico = Table(
-    'medico', metadata,
-    Column('id_medico', ForeignKey('persona.id_persona'), primary_key=True),
-    Column('id_studio', ForeignKey('stud_leg.id_studio'))
-)
-
+    id_medico = Column(ForeignKey('persona.id_persona'), primary_key=True)
+    id_studio = Column(ForeignKey('stud_leg.id_studio'))
 
 class Telefono(Base):
     __tablename__ = 'telefono'
@@ -91,12 +95,11 @@ class Telefono(Base):
     persona = relationship('Persona')
 
 
-t_paziente = Table(
-    'paziente', metadata,
-    Column('id_paziente', ForeignKey('persona.id_persona'), primary_key=True),
-    Column('id_medico', ForeignKey('medico.id_medico'))
-)
+class Paziente(Base):
+    __tablename__ = 'paziente'
 
+    id_paziente = Column(ForeignKey('persona.id_persona'), primary_key=True)
+    id_medico = Column(ForeignKey('medico.id_medico'))
 
 class Ricetta(Base):
     __tablename__ = 'ricetta'

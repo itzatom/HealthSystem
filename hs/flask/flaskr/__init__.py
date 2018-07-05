@@ -1,18 +1,11 @@
 from flask import Flask, request, render_template
-from .sql.db import engine, db_session
-from .sql.models import Persona
+from .sql.db import engine, Session
 
 app = Flask(__name__)
 
+from . import auth
 
 @app.teardown_appcontext
 def shutdown_session(exception=None):
-    db_session.remove()
+    Session.remove()
 
-@app.route("/main", methods=('GET', 'POST'))
-def main():
-    if request.method == 'POST':
-        test = db_session.query(Persona.nome).all() 
-        return "<h3> QUERIES FROM POSTGRES</h3>" + str(test)
-    else:
-        return "<h1> no POST method </h1>"
