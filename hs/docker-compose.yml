@@ -42,8 +42,8 @@ services:
         links:
             - mongo
             - postgres
-        command: gunicorn --bind 0.0.0.0:5000 flaskr:app
-    
+        command: gunicorn flaskr:app -b 0.0.0.0:5000
+
     nginx:
         build: ./nginx
         container_name: nginx
