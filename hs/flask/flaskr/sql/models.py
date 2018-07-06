@@ -7,7 +7,7 @@ class Indirizzo(db.Model):
 
     id_indirizzo = db.Column(db.Integer, primary_key=True, server_default=db.text("nextval('indirizzo_id_indirizzo_seq'::regclass)"))
     cap = db.Column(db.Integer, nullable=False)
-    indirizzo = db.Column(db.String(100), nullable=False)
+    strada = db.Column(db.String(100), nullable=False)
 
     def __init__(self, id_indirizzo, cap, indirizzo):
         self.id_indirizzo = id_indirizzo
@@ -44,12 +44,19 @@ class Persona(db.Model):
     password = db.Column(db.String(50), nullable=False)
     cf = db.Column(db.String(16), nullable=False, unique=True)
     id_indirizzo = db.Column(db.Integer, db.ForeignKey('indirizzo.id_indirizzo'), nullable=False, unique=True)
+    id_email = db.Column(db.Integer, db.ForeignKey('email.id_email'), nullable=False, unique=True)
+    id_documento = db.Column(db.Integer, db.ForeignKey('documento.id_documento'), nullable=False, unique=True)
+    id_telefono = db.Column(db.Integer, db.ForeignKey('telefono.id_telefono'), nullable=False, unique=True)
     luogo_nascita = db.Column(db.String(50), nullable=False)
     data_nascita = db.Column(db.Date, nullable=False)
 
-    indirizzo = db.relationship('Indirizzo', uselist=False)
+    indirizzo = db.relationship('Indirizzo', foreign_keys=[id_indirizzo], uselist=False)
+    email = db.relationship('Email', foreign_keys=[id_email])
+    documento = db.relationship('Documento', foreign_keys=[id_documento])
+    telefono = db.relationship('Telefono', foreign_keys=[id_telefono])
 
-    def __init__(self, id_persona, nome, cognome, username, password, cf, id_indirizzo, luogo_nascita, data_nascita):
+
+    def __init__(self, id_persona, nome, cognome, username, password, cf, id_indirizzo, id_email, id_documento, id_telefono, luogo_nascita, data_nascita):
         self.id_persona = id_persona
         self.nome = nome
         self.cognome = cognome
@@ -57,6 +64,9 @@ class Persona(db.Model):
         self.set_password(password)
         self.cf = cf
         self.id_indirizzo = id_indirizzo
+        self.id_email = id_email
+        self.id_documento = id_documento
+        self.id_telefono = id_telefono
         self.luogo_nascita = luogo_nascita
         self.data_nascita = data_nascita
 
@@ -99,16 +109,15 @@ class StudLeg(db.Model):
 class Documento(db.Model):
     __tablename__ = 'documento'
 
-    id_documento = db.Column(db.String(50), primary_key=True)
-    id_persona = db.Column(db.Integer, db.ForeignKey('persona.id_persona'))
+    id_documento = db.Column(db.Integer, primary_key=True, server_default=db.text("nextval('documento_id_documento_seq'::regclass)"))
+    codice = db.Column(db.String(50), unique=True, nullable=False)
     id_tipo = db.Column(db.Integer, db.ForeignKey('tipo_doc.id_tipo'))
 
-    persona = db.relationship('Persona')
-    tipo_doc = db.relationship('TipoDoc')
+    tipo_doc = db.relationship('TipoDoc', foreign_keys=[id_tipo])
 
-    def __init__(self, id_documento, id_persona, id_tipo):
+    def __init__(self, id_documento, documento, id_tipo):
         self.id_documento = id_documento
-        self.id_persona = id_persona
+        self.documento = documento
         self.id_tipo = id_tipo
 
     def __repr__(self):
@@ -117,14 +126,12 @@ class Documento(db.Model):
 class Email(db.Model):
     __tablename__ = 'email'
 
-    email = db.Column(db.String(50), primary_key=True)
-    id_persona = db.Column(db.Integer, db.ForeignKey('persona.id_persona'))
+    id_email = db.Column(db.Integer, primary_key=True, server_default=db.text("nextval('email_id_email_seq'::regclass)"))
+    indirizzo = db.Column(db.String(50), unique=True, nullable=False)
 
-    persona = db.relationship('Persona')
-
-    def __init__(self, email, id_persona):
+    def __init__(self, id_email, email):
+        self.id_email = id_email
         self.email = email
-        self.id_persona = id_persona
 
     def __repr__():
         return '<email {}>'.format(self.email)
@@ -149,14 +156,12 @@ class Medico(db.Model):
 class Telefono(db.Model):
     __tablename__ = 'telefono'
 
-    numero_cellulare = db.Column(db.String(11), primary_key=True)
-    id_persona = db.Column(db.Integer, db.ForeignKey('persona.id_persona'))
+    id_telefono = db.Column(db.Integer, primary_key=True, server_default=db.text("nextval('telefono_id_telefono_seq'::regclass)"))
+    numero = db.Column(db.String(11), unique=True, nullable=False)
 
-    persona = db.relationship('Persona')
-
-    def __init__(self, numero_cellulare, id_persona):
+    def __init__(self, id_telefono, numero_cellulare):
+        self.id_telefono = id_telefono
         self.numero_cellulare = numero_cellulare
-        self.id_persona = id_persona
 
     def __repr__(self):
         return '<phone number {}>'.format(self.numero_cellulare)
