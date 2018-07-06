@@ -12,7 +12,7 @@ DROP TABLE TIPO_DOC CASCADE;
 CREATE TABLE TIPO_DOC
 (
 	ID_TIPO serial primary key,
-	DOCUMENTO varchar(50)
+	TIPO_DOCUMENTO varchar(50)
 );
 
 CREATE TABLE INDIRIZZO
@@ -29,7 +29,7 @@ CREATE TABLE PERSONA
 	NOME varchar (50) not null,
 	COGNOME varchar (50) not null,
 	USERNAME varchar(50) not null,
-	PASSWORD varchar(50) not null,
+	PASSWORD varchar(100) not null,
 	CF varchar (16) not null unique,
 	constraint CFConsentito check(CF ~ '^[A-Z]{6}\d{2}[A-Z]\d{2}[A-Z]\d{3}[A-Z]$'),
 	ID_INDIRIZZO integer unique not null references INDIRIZZO(ID_INDIRIZZO),
