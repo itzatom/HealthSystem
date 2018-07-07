@@ -22,7 +22,7 @@
               <ul>
                   <li> <a> Paziente: </a> </li>
                   {% for p in users %}
-                  <li><a href={{ url_for('patiente_info',p.persona.username) }} method='GET'> {{ p.persona.nome }} {{ p.persona.cognome}} </a></li>
+                  <li><a href={{ url_for('patiente_info',username = p.persona.username) }} method='GET'> {{ p.persona.nome }} {{ p.persona.cognome}} </a></li>
                   {% endfor %}
             </ul>
           </div>
