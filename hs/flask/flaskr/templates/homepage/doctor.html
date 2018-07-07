@@ -11,7 +11,9 @@
       <div class="col-sm-6">
           <div class="row">
               <ul>
-                <li><a> NOME: {{ doctor.nome }} </a></li>
+                <li><a> {{ doctor.persona.nome }} {{ doctor.persona.cognome}} </a></li>
+                <li><a> {{ doctor.persona.email.indirizzo }} {{ doctor.persona.telefono.numero}} </a></li>
+                <li><a> {{ doctor.stud_leg.orario_inizio }} - {{ doctor.stud_leg.orario_fine}} </a></li>
               </ul>
           </div>
       </div>
@@ -20,7 +22,7 @@
               <ul>
                   <li> <a> Paziente: </a> </li>
                   {% for p in users %}
-                      <li><a> {{ users.nome }} {{ users.cognome}} </a></li>
+                      <li><a href='/hs/info/{{p.persona.username}}' method='GET'> {{ p.persona.nome }} {{ p.persona.cognome}} </a></li>
                   {% endfor %}
             </ul>
           </div>
