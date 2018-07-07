@@ -67,6 +67,13 @@
                         		<div class="form-top-left">
                         			<h3>Login to our site</h3>
                             		<p>Enter your username and password to log on:</p>
+                                {% for message in get_flashed_messages() %}
+                                <div class="alert alert-warning">
+                                  <button type="button" class="close" data-dismiss="alert">
+                                    &times;</button>
+                                  {{ message }}
+                                </div>
+                                {% endfor %}
                         		</div>
                         		<div class="form-top-right">
                         			<i class="fa fa-lock"></i>

@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Dashboard - info for {{ patiente.persona.username }}{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+
+{% block content %}
+  {{ super() }}
+  <div class=container>
+    <div class="row">
+      <div class="col-sm-6">
+          <div class="row">
+              <ul>
+                <li><a> </a> </li>
+              </ul>
+          </div>
+      </div>
+      <div class="col-sm-6">
+          <div class="row">
+              <ul>
+                  <li> <a> Paziente: {{ patiente.persona.nome}} {{ patiente.persona.cognome }} </a> </li>
+            </ul>
+          </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

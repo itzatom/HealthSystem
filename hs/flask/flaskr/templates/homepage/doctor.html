@@ -6,18 +6,27 @@
 
 {% block content %}
   {{ super() }}
-
   <div class=container>
     <div class="row">
       <div class="col-sm-6">
-        <hgroup>
-          <h1>Doctor</h1>
-        </hgroup>
+          <div class="row">
+              <ul>
+                <li><a> {{ doctor.persona.nome }} {{ doctor.persona.cognome}} </a></li>
+                <li><a> {{ doctor.persona.email.indirizzo }} {{ doctor.persona.telefono.numero}} </a></li>
+                <li><a> {{ doctor.stud_leg.orario_inizio }} - {{ doctor.stud_leg.orario_fine}} </a></li>
+              </ul>
+          </div>
       </div>
       <div class="col-sm-6">
-
+          <div class="row">
+              <ul>
+                  <li> <a> Paziente: </a> </li>
+                  {% for p in users %}
+                  <li><a href={{ url_for('patiente_info',p.persona.username) }} method='GET'> {{ p.persona.nome }} {{ p.persona.cognome}} </a></li>
+                  {% endfor %}
+            </ul>
+          </div>
       </div>
     </div>
   </div>
-
 {% endblock %}
