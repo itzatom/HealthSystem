@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Dashboard - info for {{ patient.persona.username }}{% endblock %}
+{% block title %}Dashboard - info for {{ patient.username }}{% endblock %}
 {% block head %}
   {{ super() }}
 {% endblock %}
@@ -18,7 +18,7 @@
       <div class="col-sm-6">
           <div class="row">
               <ul>
-                  <li> <a> Paziente: {{ patient.persona.nome}} {{ patient.persona.cognome }} /a> </li>
+                  <li> <a> Paziente: {{ patient.nome}} {{ patient.cognome }} </a> </li>
             </ul>
           </div>
       </div>
