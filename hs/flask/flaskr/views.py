@@ -1,6 +1,8 @@
 from flaskr import app
 from flask import render_template
 from flask import request
+from flask import redirect
+from flask import url_for
 from .sql.db_config import db
 from .sql.models import Persona
 from .sql.models import Medico
@@ -17,11 +19,15 @@ def login():
             doctor = Medico.query.filter_by(id_medico=user.id_persona).first()
 
             if doctor is not None:
-                return 'You are a doctor. You work from {0} to {1}'.format(doctor.stud_leg.da_giorno, doctor.stud_leg.a_giorno)
+                return redirect(url_for('doctor', name=user.nome))
             else:
                 return 'You are a patient.'
-
         else:
-            'Access denied!'
+            return 'Access denied!'
     else:
         return 'User not found!'
+
+@app.route('/hs/doctor/<name>', methods=['GET','POST'])
+def doctor(name):
+    if request.method == 'GET':
+        return render_template('homepage/doctor.html');
