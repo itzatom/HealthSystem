@@ -6,18 +6,28 @@
 
 {% block content %}
   {{ super() }}
-
   <div class=container>
     <div class="row">
       <div class="col-sm-6">
-          <div>
-
+          <div class="row">
+              <ul>
+                <li><a> NOME </a></li>
+                  {% for item in user %}
+                      <li><a> {{ item |capitalize }} </a></li>
+                  {% endfor %}
+              </ul>
           </div>
       </div>
       <div class="col-sm-6">
-
+          <div class="row">
+              <ul>
+                  <li> <a> Paziente 1: </a> </li>
+                  {% for patiente in Patiente %}
+                      <li><a> {{ name }} </a></li>
+                  {% endfor %}
+            </ul>
+          </div>
       </div>
     </div>
   </div>
-
 {% endblock %}

@@ -8,6 +8,11 @@ from .sql.models import Persona
 from .sql.models import Medico
 from .sql.models import StudLeg
 
+@app.route('/', methods=['GET','POST'])
+def index():
+    return render_template('index.html')
+
+
 @app.route('/hs/login', methods=['POST'])
 def login():
     inp_username = request.form['form-username']
@@ -17,7 +22,6 @@ def login():
     if user is not None:
         if user.check_password(inp_password):
             doctor = Medico.query.filter_by(id_medico=user.id_persona).first()
-
             if doctor is not None:
                 return redirect(url_for('doctor', name=user.nome))
             else:
