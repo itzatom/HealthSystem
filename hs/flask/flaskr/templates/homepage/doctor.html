@@ -6,26 +6,42 @@
 
 {% block content %}
   {{ super() }}
+
   <div class=container>
     <div class="row">
-      <div class="col-sm-6">
-          <div class="row">
-              <ul>
-                <li><a> {{ doctor.persona.nome }} {{ doctor.persona.cognome}} </a></li>
-                <li><a> {{ doctor.persona.email.indirizzo }} {{ doctor.persona.telefono.numero}} </a></li>
-                <li><a> {{ doctor.stud_leg.orario_inizio }} - {{ doctor.stud_leg.orario_fine}} </a></li>
-              </ul>
+      <div class="col-sm-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">{{ doctor.persona.nome | capitalize }} {{ doctor.persona.cognome | capitalize}}</h5>
+            <p class="card-text">{{ doctor.persona.email.indirizzo }}</p>
+            <p class="card-text">{{ doctor.persona.telefono.numero}}</p>
+            <p class="card-text">{{ doctor.persona.documento.codice}}</p>
+            <p class="card-text">{{ doctor.persona.indirizzo.strada}} , {{ doctor.persona.indirizzo.cap}}</p>
+            <h6 class="card-subtitle mb-2 text-muted">Medical office</h6>
+            <p class="card-text">{{ doctor.stud_leg.strada}} , {{ doctor.stud_leg.indirizzo.cap}}</p>
+            <p class="card-text">{{ doctor.stud_leg.orario_inizio }} - {{ doctor.stud_leg.orario_fine}}</p>
+            <p class="card-text">{{ doctor.stud_leg.da_giorno | capitalize}} - {{ doctor.stud_leg.a_giorno | capitalize}}</p>
+            <a href="#" class="btn btn-primary">Edit your profile</a>
           </div>
+        </div>
       </div>
-      <div class="col-sm-6">
-          <div class="row">
-              <ul>
-                  <li> <a> Paziente: </a> </li>
-                  {% for p in users %}
-                  <li><a href={{ url_for('info',username = p.persona.username) }} method='GET'> {{ p.persona.nome }} {{ p.persona.cognome}} </a></li>
-                  {% endfor %}
-            </ul>
-          </div>
+      <div class="col-sm-8">
+        <ul>
+            {% for p in users %}
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">{{ p.persona.nome | capitalize}} {{ p.persona.cognome | capitalize}}</h5>
+                <p class="card-text">{{ p.persona.email.indirizzo }}</p>
+                <p class="card-text">{{ p.persona.telefono.numero}}</p>
+                <p class="card-text">{{ p.persona.documento.codice}}</p>
+                <p class="card-text">{{ p.persona.indirizzo.strada}} , {{ p.persona.indirizzo.cap}}</p>
+                <p class="card-text">{{ p.persona.luogo_nascita}}</p>
+                <p class="card-text">{{ p.persona.data_nascita}}</p>
+                <a href={{ url_for('info',username = p.persona.username) }} method='GET' class="btn btn-primary">Go to his profile</a>
+              </div>
+            </div>
+            {% endfor %}
+        </ul>
       </div>
     </div>
   </div>

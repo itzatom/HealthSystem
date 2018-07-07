@@ -14,7 +14,7 @@ class Indirizzo(db.Model):
     def __init__(self, id_indirizzo, cap, indirizzo):
         self.id_indirizzo = id_indirizzo
         self.cap = cap
-        self.indirizzo = indirizzo
+        self.stada = indirizzo
 
 
 class TipoDoc(db.Model):
