@@ -23,7 +23,7 @@ def login():
         doctor = Medico.query.filter_by(id_medico=user.id_persona).first()
 
         if doctor is not None:
-            return redirect(request.args.get('next') or url_for('doctor', Persona=user))
+            return redirect(request.args.get('next') or url_for('doctor', _username=doctor.persona.username))
         else:
             return redirect(request.args.get('next') or url_for('patient', Persona=user))
 
@@ -31,12 +31,14 @@ def login():
     return render_template('index.html')
 
 
-@app.route('/hs/doctor/<Persona>', methods=['GET','POST'])
+@app.route('/hs/doctor/<_username>', methods=['GET','POST'])
 @login_required
-def doctor(Persona):
+def doctor(_username):
     if request.method == 'GET':
-        patients = Persona.query.filter(Persona.id).all()
-        return render_template('homepage/doctor.html', doctor=Persona, users=patients);
+        pers = Persona.query.filter_by(username=_username).first()
+        doc = Medico.query.filter_by(id_medico=pers.id_persona).first()
+        patients = (Paziente.query.filter_by(id_medico=doc.id_medico).all())
+        return render_template('homepage/doctor.html', doctor=doc, users=patients);
 
 @app.route('/hs/patient/<Persona>', methods=['GET','POST'])
 @login_required

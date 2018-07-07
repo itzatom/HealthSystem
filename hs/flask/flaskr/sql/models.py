@@ -16,9 +16,6 @@ class Indirizzo(db.Model):
         self.cap = cap
         self.indirizzo = indirizzo
 
-    def __repr__(self):
-        return '<id_indirizzo {}>'.format(self.id_indirizzo)
-
 
 class TipoDoc(db.Model):
     __tablename__ = 'tipo_doc'
@@ -29,9 +26,6 @@ class TipoDoc(db.Model):
     def __init(self, id_tipo, documento):
         self.id_tipo = id_tipo
         self.tipo_documento = tipo_documento
-
-    def __repr__(self):
-        return '<id_tipo {}>'.format(self.id_tipo)
 
 class Persona(UserMixin, db.Model):
     __tablename__ = 'persona'
@@ -72,8 +66,6 @@ class Persona(UserMixin, db.Model):
         self.luogo_nascita = luogo_nascita
         self.data_nascita = data_nascita
 
-    def __repr__(self):
-        return '<id {}>'.format(self.id_persona)
 
     def get_id(self):
         return self.id_persona
@@ -108,9 +100,6 @@ class StudLeg(db.Model):
         self.da_giorno = da_giorno
         self.a_giorno = a_giorno
 
-    def __repr__(self):
-        return '<id {}>'.format(self.id_studio)
-
 
 class Documento(db.Model):
     __tablename__ = 'documento'
@@ -126,9 +115,6 @@ class Documento(db.Model):
         self.documento = documento
         self.id_tipo = id_tipo
 
-    def __repr__(self):
-        return '<id {}>'.format(self.id_documento)
-
 class Email(db.Model):
     __tablename__ = 'email'
 
@@ -139,8 +125,6 @@ class Email(db.Model):
         self.id_email = id_email
         self.email = email
 
-    def __repr__():
-        return '<email {}>'.format(self.email)
 
 class Medico(db.Model):
     __tablename__ = 'medico'
@@ -155,8 +139,6 @@ class Medico(db.Model):
         self.id_medico = id_medico
         self.id_studio = id_studio
 
-    def __repr__(self):
-        return '<id {}>'.format(self.id_medico)
 
 
 class Telefono(db.Model):
@@ -178,12 +160,13 @@ class Paziente(db.Model):
     id_paziente = db.Column(db.Integer, db.ForeignKey('persona.id_persona'), primary_key=True)
     id_medico = db.Column(db.Integer, db.ForeignKey('medico.id_medico'), nullable=False)
 
+    persona = db.relationship('Persona', foreign_keys=[id_paziente])
+    medico = db.relationship('Medico', foreign_keys=[id_medico])
+
+
     def __init__(self, id_paziente, id_medico):
         self.id_paziente = id_paziente
         self.id_medico = id_medico
-
-    def __repr__(self):
-        return '<id {}>'.format(self.id_paziente)
 
 
 class Ricetta(db.Model):
@@ -204,6 +187,3 @@ class Ricetta(db.Model):
         self.id_medico = id_medico
         self.campo = campo
         self.data_emissione = data_emissione
-
-    def __repr(self):
-        return '<id {}>'.format(self.id_ricetta)
