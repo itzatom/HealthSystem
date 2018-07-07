@@ -1,5 +1,7 @@
-from .db_config import db
+from flaskr import login_manager
+from flaskr import db
 from werkzeug.security import check_password_hash, generate_password_hash
+from flask_login import UserMixin
 
 
 class Indirizzo(db.Model):
@@ -31,7 +33,7 @@ class TipoDoc(db.Model):
     def __repr__(self):
         return '<id_tipo {}>'.format(self.id_tipo)
 
-class Persona(db.Model):
+class Persona(UserMixin, db.Model):
     __tablename__ = 'persona'
     __table_args__ = (
         db.CheckConstraint("(cf)::text ~ '^[A-Z]{6}\\d{2}[A-Z]\\d{2}[A-Z]\\d{3}[A-Z]$'::text"),
@@ -81,6 +83,10 @@ class Persona(db.Model):
 
     def check_password(self, password):
         return check_password_hash(self.password, password)
+
+    @login_manager.user_loader
+    def load_user(id_persona):
+        return Persona.query.get(int(id_persona))
 
 class StudLeg(db.Model):
     __tablename__ = 'stud_leg'

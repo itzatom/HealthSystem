@@ -16,3 +16,7 @@ def method_not_allowed(e):
 @app.errorhandler(502)
 def bad_gateway(e):
     return render_template('errors/502.html'), 502
+
+@app.errorhandler(400)
+def bad_gateway(e):
+    return render_template('errors/400.html'), 400
