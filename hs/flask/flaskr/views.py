@@ -25,16 +25,23 @@ def login():
         if doctor is not None:
             return redirect(request.args.get('next') or url_for('doctor', Persona=user))
         else:
-            return redirect(url_for('patient', Persona=user))
+            return redirect(request.args.get('next') or url_for('patient', Persona=user))
 
     flash('Invalid username or password.')
-    return render_template('index.html')
+    return redirect(request.args.get('next') or url_for('index'))
+
 
 @app.route('/hs/doctor/<Persona>', methods=['GET','POST'])
 @login_required
 def doctor(Persona):
     if request.method == 'GET':
-        return render_template('homepage/doctor.html');
+        return render_template('homepage/doctor.html', Persona=Persona);
+
+@app.route('/hs/patient/<Persona>', methods=['GET','POST'])
+@login_required
+def patient(Persona):
+    if request.method == 'GET':
+        return render_template('homepage/patient.html', Persona=Persona);
 
 @app.route('/hs/logout')
 @login_required
@@ -46,9 +53,3 @@ def logout():
 @login_manager.unauthorized_handler
 def unauthorized_handler():
     return 'Unauthorized'
-
-@app.route('/hs/patient/<Persona>', methods=['GET','POST'])
-@login_required
-def patient(Persona):
-    if request.method == 'GET':
-        return render_template('homepage/patient.html');
