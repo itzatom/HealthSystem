@@ -31,6 +31,10 @@ def login():
     return render_template('index.html')
 
 
+@app.route('/hs/patient_info')
+def patient_info(username):
+    return str(username)
+
 @app.route('/hs/doctor/<_username>', methods=['GET','POST'])
 @login_required
 def doctor(_username):
