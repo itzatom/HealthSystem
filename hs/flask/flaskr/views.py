@@ -3,7 +3,7 @@ from flaskr import login_manager
 from flask import url_for, session, redirect, request, render_template, flash
 from flask_login import login_user, login_required, logout_user
 from .sql.models import Persona
-from .sql.models import Medico
+from .sql.models import Medico, Paziente
 
 login_manager.session_protection = 'strong'
 login_manager.login_view = 'login'
@@ -28,14 +28,15 @@ def login():
             return redirect(request.args.get('next') or url_for('patient', Persona=user))
 
     flash('Invalid username or password.')
-    return redirect(request.args.get('next') or url_for('index'))
+    return render_template('index.html')
 
 
 @app.route('/hs/doctor/<Persona>', methods=['GET','POST'])
 @login_required
 def doctor(Persona):
     if request.method == 'GET':
-        return render_template('homepage/doctor.html', Persona=Persona);
+        patients = Persona.query.filter(Persona.id).all()
+        return render_template('homepage/doctor.html', doctor=Persona, users=patients);
 
 @app.route('/hs/patient/<Persona>', methods=['GET','POST'])
 @login_required
