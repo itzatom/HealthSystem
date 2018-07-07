@@ -11,16 +11,16 @@
       <div class="col-sm-6">
           <div class="row">
               <ul>
-                <li><a> NOME: {{ Persona.nome }} </a></li>
+                <li><a> NOME: {{ doctor.nome }} </a></li>
               </ul>
           </div>
       </div>
       <div class="col-sm-6">
           <div class="row">
               <ul>
-                  <li> <a> Paziente 1: </a> </li>
-                  {% for patiente in Patiente %}
-                      <li><a> {{ name }} </a></li>
+                  <li> <a> Paziente: </a> </li>
+                  {% for p in users %}
+                      <li><a> {{ users.nome }} {{ users.cognome}} </a></li>
                   {% endfor %}
             </ul>
           </div>
