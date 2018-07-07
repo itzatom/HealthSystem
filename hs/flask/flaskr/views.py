@@ -31,9 +31,10 @@ def login():
     return render_template('index.html')
 
 
-@app.route('/hs/patient_info')
-def patient_info(username):
-    return str(username)
+@app.route('/hs/info/<username>')
+def info(username):
+    p = Persona.query.filter_by(username=username).first()
+    return render_template('homepage/info.html', patient=p)
 
 @app.route('/hs/doctor/<_username>', methods=['GET','POST'])
 @login_required
