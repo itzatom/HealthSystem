@@ -19,7 +19,7 @@ CREATE TABLE INDIRIZZO
 (
 	ID_INDIRIZZO serial primary key,
 	CAP int not null,
-	STRADA varchar(100) not null
+	STRADA varchar(100) not null unique
 );
 
 CREATE TABLE DOCUMENTO
