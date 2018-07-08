@@ -1,9 +1,9 @@
 from flaskr import app, db
-from flaskr import login_manager
+from flaskr import login_manager, mail
 from flask import url_for, session, redirect, request, render_template, flash
 from flask_login import login_user, login_required, logout_user
 from .sql.models import Persona
-from .sql.models import Medico, Paziente, Ricetta
+from .sql.models import Medico, Paziente, Ricetta, TipoDoc, Documento, Indirizzo, Email, Telefono
 from datetime import date
 
 login_manager.session_protection = 'strong'
@@ -41,9 +41,6 @@ def logout():
 @login_manager.unauthorized_handler
 def unauthorized_handler():
     return 'Unauthorized'
-
-
-
 
 #DOCTOR
 """ Get doctor homepage """
@@ -105,11 +102,58 @@ def remove_prescr(id_prescription):
     return redirect(request.args.get('next') or url_for('info', p_username=p.username))
 
 """ Add a new patient """
-@app.route('/hs/newpatient', methods=['GET', 'POST'])
+@app.route('/hs/doctor/<m_username>/newpatient', methods=['GET', 'POST'])
 @login_required
 def add_patient(m_username):
     if request.method == 'GET':
-        return render_template('homepage/register.html')
+        return render_template('homepage/register.html', m_username=m_username)
+
+    else:
+        tipo_doc = TipoDoc.query.filter_by(tipo_documento=request.form['form-type-doc'].lower()).first()
+        documento = Documento(None, codice=request.form['form-document-code'].upper(), id_tipo=tipo_doc.id_tipo)
+        indirizzo = Indirizzo(None, cap=request.form['form-zip-code'], strada=request.form['form-street-addr'])
+        email = Email(None, indirizzo=request.form['form-email'])
+        telefono = Telefono(None, numero=request.form['form-phonenumb'])
+
+        try:
+            db.session.add(documento)
+            db.session.add(indirizzo)
+            db.session.add(email)
+            db.session.add(telefono)
+            db.session.commit()
+        except:
+            db.session.rollback()
+
+        p_documento = db.session.query(Documento).filter_by(codice=documento.codice).first()
+        p_indirizzo = db.session.query(Indirizzo).filter_by(cap=indirizzo.cap, strada=indirizzo.strada).first()
+        p_email = db.session.query(Email).filter_by(indirizzo=email.indirizzo).first()
+        p_telefono = db.session.query(Telefono).filter_by(numero=telefono.numero).first()
+
+        persona = Persona(None, nome=request.form['form-name'], cognome=request.form['form-surname'], \
+                        username=request.form['form-user'], password=request.form['form-pass'],\
+                        cf=request.form['form-perscode'].upper(), indirizzo=p_indirizzo, email=p_email,\
+                        documento=p_documento, telefono=p_telefono, luogo_nascita=request.form['form-bplace'],\
+                        data_nascita=request.form['form-bdate'])
+
+        try:
+            db.session.add(persona)
+            db.session.commit()
+        except:
+            db.session.rollback()
+
+        paz = Persona.query.filter_by(username=persona.username).first()
+        medico = Persona.query.filter_by(username=m_username).first()
+
+        p = Paziente(id_paziente=paz.id_persona, id_medico=medico.id_persona)
+
+        try:
+            db.session.add(p)
+            db.session.commit()
+        except:
+            db.session.rollback()
+
+        return redirect(request.args.get('next') or url_for('doctor', _username=medico.username))
+
 
 """ Remove a patient choise """
 @app.route('/hs/remove/<p_username>', methods=['GET'])
@@ -127,12 +171,12 @@ def remove_patient(p_username):
      except:
          db.session.rollback()
 
-     return redirect(request.args.get('next') or url_for('doctor', _username=med.persona.username))
+     return redirect(request.args.get('next') or url_for('doctor', p_username=med.persona.username))
 
 
 #PATIENT
-@app.route('/hs/patient/<username>', methods=['GET','POST'])
+@app.route('/hs/patient/<_username>', methods=['GET','POST'])
 @login_required
-def patient(username):
+def patient(_username):
     if request.method == 'GET':
-        return render_template('homepage/patient.html', Persona=Persona);
+        return render_template('homepage/patient.html', Persona=_username);

@@ -9,9 +9,9 @@ services:
         networks:
             - sql
         environment:
-            - POSTGRES_USER=postgres
-            - POSTGRES_PASSWORD=postgres
-    
+            - POSTGRES_USER=${POSTGRES_USER}
+            - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+
     mongo:
         build: ./mongo
         container_name: mongo
@@ -22,8 +22,8 @@ services:
         environment:
             MONGO_INITDB_ROOT_USERNAME: admin
             MONGO_INITDB_ROOT_PASSWORD: passwd
-            MONGO_INITDB_DATABASE: healthsystem 
-          
+            MONGO_INITDB_DATABASE: healthsystem
+
     flask:
         build: ./flask
         container_name: flask
@@ -38,6 +38,9 @@ services:
         environment:
             - FLASK_APP=flaskr
             - FLASK_ENV=development
+            - SECRETKEY=${SECRETKEY}
+            - MAIL_USERNAME=${MAIL_USERNAME}
+            - MAIL_PASSWORD=${MAIL_PASSWORD}
         depends_on:
             - mongo
             - postgres
@@ -52,8 +55,8 @@ services:
         ports:
             - 80:80
             - 443:443
-              #volumes:
-              #- /etc/letsencrypt:/etc/letsencrypt
+        #volumes:
+           #- /etc/letsencrypt:/etc/letsencrypt
         networks:
             - web
         depends_on:
