@@ -15,7 +15,7 @@
     <title>{% block title %}{% endblock %} - HealthSystem</title>
     {% endblock %}
   </head>
-  <body>
+  <body  style="background: #D3F7FF;">
     {% block body %}
     <div id="content">
       {% block content %}
@@ -44,8 +44,9 @@
       {% endblock %}
     </div>
     {% block footer %}
-      <div id="footer justify-content-end">
-        &copy; Copyright 2018 by <a href="http://domain.invalid/">Antonio Mentone, Vittorio Fones</a>.
+
+      <div id="footer" class="navbar navbar-fixed-bottom justify-content-center mt-2" style="background-color: rgba(171, 171, 171, 0.3);">
+        <p class="text-center">&copy; Copyright 2018 by <a href="http://domain.invalid/">Antonio Mentone, Vittorio Fones</a>.</p>
       </div>
     {% endblock %}
   {% endblock %}

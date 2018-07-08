@@ -9,9 +9,9 @@
 
   <div class="container">
     <div class="row">
-      <div class="col-sm-4">
+      <div class="col-sm-12">
         <div>
-          <h4 class="text-monospace text-center mt-4">Your profile </h4>
+          <h4 class="text-monospace text-center mt-4">Register patient</h4>
           <div class="card mt-4" style="background-color: rgba(0, 209, 255, 0.1);">
             <div class="card-body">
               <h4 class="card-title">{{ doctor.persona.nome | capitalize }} {{ doctor.persona.cognome | capitalize}}</h5>
@@ -28,36 +28,8 @@
             </div>
           </div>
         </div>
-
       </div>
-
-
-      <div class="col-sm-8">
-        <ul class="list-group">
-            <h4 class="text-monospace text-center mt-4">Your patient </h4>
-            {% for p in users %}
-            <li class="" style="list-style-type: none;">
-              <div class="card mt-4" style="background-color: rgba(0, 180, 197, 0.3);">
-                <div class="card-body">
-                  <h4 class="card-title">{{ p.persona.nome | capitalize}} {{ p.persona.cognome | capitalize}}</h5>
-                  <p class="card-text"><strong>Mail address:</strong> {{ p.persona.email.indirizzo }}</p>
-                  <p class="card-text"><strong>Phone number:</strong> {{ p.persona.telefono.numero}}</p>
-                  <p class="card-text"><strong>Document:</strong> {{ p.persona.documento.codice}}</p>
-                  <p class="card-text"><strong>Home address:</strong> {{ p.persona.indirizzo.strada}} , {{ p.persona.indirizzo.cap}}</p>
-                  <p class="card-text"><strong>Birth place:</strong> {{ p.persona.luogo_nascita}}</p>
-                  <p class="card-text"><strong>Birth date:</strong> {{ p.persona.data_nascita}}</p>
-                  <a href={{ url_for('info', p_username = p.persona.username) }} method='GET' class="btn btn-primary">Go to his profile</a>
-                  <a href={{ url_for('remove_patient', p_username = p.persona.username) }} method='POST' class="btn btn-danger">Remove</a>
-                </div>
-              </div>
-            </li>
-            {% endfor %}
-        </ul>
-      </div>
-
-
     </div>
-  </div>
 {% endblock %}
 
 {% block footer %}
