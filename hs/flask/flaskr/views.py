@@ -4,6 +4,7 @@ from flask import url_for, session, redirect, request, render_template, flash
 from flask_login import login_user, login_required, logout_user
 from .sql.models import Persona
 from .sql.models import Medico, Paziente, Ricetta
+from datetime import date
 
 login_manager.session_protection = 'strong'
 login_manager.login_view = 'login'
@@ -60,7 +61,48 @@ def doctor(_username):
 @login_required
 def info(p_username):
     p = Persona.query.filter_by(username=p_username).first()
-    return render_template('homepage/info.html', patient=p)
+    r = Ricetta.query.filter_by(id_paziente=p.id_persona).all()
+    return render_template('homepage/info.html', patient=p, prescription=r)
+
+""" Add prescription """
+@app.route('/hs/add_prescr/<id_patient>', methods=['GET', 'POST'])
+@login_required
+def add_prescr(id_patient):
+    if request.method == 'POST':
+        prescription = Ricetta()
+        pat = Paziente.query.filter_by(id_paziente=id_patient).first()
+        prescription.id_paziente = pat.id_paziente
+        prescription.id_medico = pat.id_medico
+        prescription.campo = request.form['TextPrescription']
+        prescription.data_emissione = date.today()
+        try:
+            db.session.add(prescription)
+            db.session.commit()
+        except:
+            db.session.rollback()
+    return redirect(request.args.get('next') or url_for('info', p_username=pat.persona.username))
+
+""" Notify the patient about a prescription ------------------------------------------------- """
+@app.route('/hs/notify/<id_prescription>')
+@login_required
+def notify(id_prescription):
+    prescr = Ricetta.query.filter_by(id_ricetta=id_prescription).first()
+    p = Persona.query.filter_by(id_persona=prescr.id_paziente).first()
+    email = ''
+    return redirect(request.args.get('next') or url_for('info', p_username=p.username))
+
+""" Remove prescription """
+@app.route('/hs/remove_prescr/<id_prescription>')
+@login_required
+def remove_prescr(id_prescription):
+    prescr = Ricetta.query.filter_by(id_ricetta=id_prescription).first()
+    p = Persona.query.filter_by(id_persona=prescr.id_paziente).first()
+    try:
+        db.session.query(Ricetta).filter(Ricetta.id_ricetta==id_prescription).delete()
+        db.session.commit()
+    except:
+        db.session.rollback()
+    return redirect(request.args.get('next') or url_for('info', p_username=p.username))
 
 """ Add a new patient """
 @app.route('/hs/newpatient', methods=['GET', 'POST'])
@@ -68,8 +110,6 @@ def info(p_username):
 def add_patient(m_username):
     if request.method == 'GET':
         return render_template('homepage/register.html')
-
-
 
 """ Remove a patient choise """
 @app.route('/hs/remove/<p_username>', methods=['GET'])
