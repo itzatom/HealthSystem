@@ -59,21 +59,21 @@
       <div class="form-group col-md-6">
         <label for="fday-form">From day</label>
         <select name="form-fday" multiple class="form-control" id="fday-form">
-          <option "{%if 'lunedi' == user.stud_leg.da_giorno  %} selected {%endif%}">Lunedi</option>
-          <option "{%if 'martedi' == user.stud_leg.da_giorno %} selected {%endif%}">Martedi</option>
-          <option "{%if 'mercoledi' == user.stud_leg.da_giorno  %} selected {%endif%}">Mercoledi</option>
-          <option "{%if 'giovedi' == user.stud_leg.da_giorno  %} selected {%endif%}">Giovedi</option>
-          <option "{%if 'venerdi' == user.stud_leg.da_giorno  %} selected {%endif%}">Venerdi</option>
+          <option "{%if 'Lunedi' == user.stud_leg.da_giorno | capitalize  %} selected {%endif%}">Lunedi</option>
+          <option "{%if 'Martedi' == user.stud_leg.da_giorno | capitalize %} selected {%endif%}">Martedi</option>
+          <option "{%if 'Mercoledi' == user.stud_leg.da_giorno  | capitalize %} selected {%endif%}">Mercoledi</option>
+          <option "{%if 'Giovedi' == user.stud_leg.da_giorno | capitalize %} selected {%endif%}">Giovedi</option>
+          <option "{%if 'Venerdi' == user.stud_leg.da_giorno | capitalize %} selected {%endif%}">Venerdi</option>
         </select>
       </div>
       <div class="form-group col-md-6">
         <label for="tday-form">To day</label>
         <select  name="form-tday" multiple class="form-control" id="tday-form" value={{ user.stud_leg.da_giorno }}>
-          <option "{%if 'lunedi' == user.stud_leg.a_giorno  %} selected {%endif%}">Lunedi</option>
-          <option "{%if 'martedi' == user.stud_leg.a_giorno %} selected {%endif%}">Martedi</option>
-          <option "{%if 'mercoledi' == user.stud_leg.a_giorno  %} selected {%endif%}">Mercoledi</option>
-          <option "{%if 'giovedi' == user.stud_leg.a_giorno  %} selected {%endif%}">Giovedi</option>
-          <option "{%if 'venerdi' == user.stud_leg.a_giorno  %} selected {%endif%}">Venerdi</option>
+          <option "{%if 'Lunedi' == user.stud_leg.a_giorno | capitalize %} selected {%endif%}">Lunedi</option>
+          <option "{%if 'Martedi' == user.stud_leg.a_giorno | capitalize %} selected {%endif%}">Martedi</option>
+          <option "{%if 'Mercoledi' == user.stud_leg.a_giorno | capitalize  %} selected {%endif%}">Mercoledi</option>
+          <option "{%if 'Giovedi' == user.stud_leg.a_giorno  | capitalize %} selected {%endif%}">Giovedi</option>
+          <option "{%if 'Venerdi' == user.stud_leg.a_giorno | capitalize %} selected {%endif%}">Venerdi</option>
         </select>
       </div>
     </div>
