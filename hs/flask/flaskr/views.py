@@ -101,12 +101,16 @@ def notify(id_prescription):
     prescr = Ricetta.query.filter_by(id_ricetta=id_prescription).first()
     p = Persona.query.filter_by(id_persona=prescr.id_paziente).first()
     try:
-        body = "Hello from %s" %  prescr.medico.persona.nome
-        body2 = " %s " % prescr.medico.persona.cognome
-        body3 =  "a new prescription is avaible in \
-        our office since %s, see you soon." % prescr.data_emissione
-        msg = Message('healthsystem',recipients=p.email.indirizzo)
-        msg.body = body + body2 + body3
+        msg = Message('healthsystem',recipients=[p.email.indirizzo])
+
+        msg.body = "Hello from %s" %  prescr.medico.persona.nome + \
+                    " %s " % prescr.medico.persona.cognome + \
+                    "a new prescription is "  + \
+                    "available in our office %s" % \
+                    prescr.medico.stud_leg.indirizzo.strada + \
+                    ", %s " % prescr.medico.stud_leg.indirizzo.cap + \
+                    "since %s " % prescr.data_emissione + ". %s ." % prescr.campo
+
         mail.send(msg)
     except Exception as e:
         raise e
