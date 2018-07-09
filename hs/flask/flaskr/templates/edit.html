@@ -12,8 +12,14 @@
           <div class="card mt-4" style="background-color: rgba(0, 209, 255, 0.1);">
             <div class="card-body">
               <h4 class="card-title text-center mt-2">Edit your profile</h4>
-              <form role="form" action={{ url_for('edit_profile', username = user.persona.username) }} method="post">
+              <form role="form" action= {{ url_for('edit_profile', username = user.persona.username) }} method="post">
                 <h5 class="text-center" style="color: grey;">Registry</h5>
+                {% for message in get_flashed_messages() %}
+                  <div class="alert alert-warning mx-auto">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    {{ message }}
+                  </div>
+                {% endfor %}
                 <div class="form-group">
                   <label for="email-form">Email address</label>
                   <input type="email" name="form-email" class="form-control" id="email-form" value={{ user.persona.email.indirizzo }}>
@@ -21,6 +27,10 @@
                 <div class="form-group">
                   <label for="pass-form">New password</label>
                   <input type="password" name="form-pass" class="form-control" id="pass-form" placeholder="New password...">
+                </div>
+                <div class="form-group">
+                  <label for="pass-form">Confirm password</label>
+                  <input type="password" name="conf-form-pass" class="form-control" id="conf-pass-form" placeholder="Repeat password...">
                 </div>
                 <div class="form-group">
                   <label for="phonenumb-form">Phone number</label>

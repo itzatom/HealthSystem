@@ -61,9 +61,15 @@ def edit_profile(username):
             email = db.session.query(Email).filter_by(id_email=medico.persona.id_email).first()
             email.indirizzo = request.form['form-email']
 
+        a=request.form['form-pass']
+        b=request.form['conf-form-pass']
         #Check if password has changed
-        if request.form['form-pass'] is not None:
-            persona.set_password(request.form['form-pass'])
+        if a is not None and b is not None:
+            if a==b:
+                persona.set_password(request.form['form-pass'])
+            else:
+                flash('Mispelled password')
+                return redirect(url_for('edit_profile', username=persona.username))
 
         #Check if phonenumber has changed
         if medico.persona.telefono.numero != request.form['form-phonenumb']:
@@ -121,7 +127,7 @@ def edit_profile(username):
         except:
             db.session.rollback()
 
-        if request.form['form-pass'] is not None:
+        if a is not None and b is not None:
             logout_user()
             flash('Password has changed, please log in.')
             return redirect(url_for('index'))
