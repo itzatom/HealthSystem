@@ -1,4 +1,4 @@
-from flaskr import app
+from flaskr import app, login_manager
 from flask import render_template
 
 @app.errorhandler(404)
@@ -20,3 +20,7 @@ def bad_gateway(e):
 @app.errorhandler(400)
 def bad_gateway(e):
     return render_template('errors/400.html'), 400
+
+@login_manager.unauthorized_handler
+def unauthorized_handler():
+    return render_template('errors/unauthorized.html')

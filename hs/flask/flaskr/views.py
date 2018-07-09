@@ -16,6 +16,9 @@ def index():
 
 @app.route('/hs/login', methods=['GET', 'POST'])
 def login():
+    if request.method == 'GET':
+        return render_template('index.html')
+
     inp_username = request.form['form-username']
     inp_password = request.form['form-password']
     user = Persona.query.filter_by(username=inp_username).first()
@@ -39,9 +42,18 @@ def logout():
     flash('You have been logged out.')
     return redirect(url_for('index'))
 
-@login_manager.unauthorized_handler
-def unauthorized_handler():
-    return 'Unauthorized'
+@app.route('/hs/<username>/edit-profile', methods=['GET','POST'])
+@login_required
+def edit_profile(username):
+    persona = Persona.query.filter_by(username=username).first()
+    if request.method == 'GET':
+        try:
+            if persona.medico is not None:
+                return render_template('homepage/edit_patient.html', user=persona)
+        except:
+            return render_template('homepage/edit_doctor.html', user=persona)
+    pass
+    """ da finire, bisogna aggiungere anche i campi in piú all'interno di edit_medico cioé quelli dello studio medico! """
 
 #DOCTOR
 """ Get doctor homepage """

@@ -8,9 +8,9 @@
   {{ super() }}
   <div class="container">
     <div class="row">
-      <div class="col-sm-4">
+      <div class="col-sm-5">
         <div>
-          <div class="card mt-4" style="background-color: rgba(0, 209, 255, 0.1);">
+          <div class="card mt-5" style="background-color: rgba(0, 209, 255, 0.1);">
             <div class="card-body">
               <h4 class="card-title">{{ patient.nome | capitalize }} {{ patient.cognome | capitalize}}</h5>
               <p class="card-text" ><strong>Mail address:</strong><a href="mailto:{{patient.email.indirizzo}}"> {{ patient.email.indirizzo }}</a></p>
@@ -21,17 +21,18 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-8">
+      <div class="col-sm-7">
         <ul class="list-group">
-            <h4 class="text-monospace text-center mt-4"> Prescriptions </h4>
+            <h4 class="text-monospace text-center mt-4"> Prescriptions
+              <a id="presc-button" class="btn btn-success mt-1 mx-auto" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">Add</a>
+            </h4>
 
-            <a class="btn btn-success" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">Add</a>
-            <div class="collapse" id="collapseExample">
+
+            <div class="collapse mt-1" id="collapseExample">
               <form class="form-group" action= {{ url_for('add_prescr', id_patient = patient.id_persona ) }} method='POST'>
                   <textarea class="form-control" name="TextPrescription" rows="3"></textarea>
-                  <input type="submit" class="btn btn-success">
+                  <input type="submit" class="btn btn-success mt-1 text-right">
               </form>
-
             </div>
 
             {% for r in prescription %}
@@ -40,8 +41,8 @@
                 <div class="card-body">
                   <p class="card-text"><strong>Date of issue:</strong> {{ r.data_emissione }}</p>
                   <p class="card-text">{{ r.campo }}</p>
-                  <a href= {{ url_for('notify', id_prescription = r.id_ricetta) }} method='POST' class="btn btn-primary">Notify</a>
-                  <a href= {{ url_for('remove_prescr', id_prescription = r.id_ricetta) }} method='POST' class="btn btn-danger">Remove</a>
+                  <a href= {{ url_for('notify', id_prescription = r.id_ricetta) }} method='POST' class="btn btn-primary mt-1">Notify</a>
+                  <a href= {{ url_for('remove_prescr', id_prescription = r.id_ricetta) }} method='POST' class="btn btn-danger mt-1">Remove</a>
                 </div>
               </div>
              </li>
@@ -50,4 +51,22 @@
       </div>
     </div>
   </div>
+  <script>
+    $(document).ready(function(){
+      $("#presc-button").click(function(){
+        if($(this).text() == 'Add')
+        {
+          $(this).removeClass("btn-success");
+          $(this).text("Cancel");
+          $(this).addClass("btn-danger");
+        }
+        else
+        {
+          $(this).removeClass("btn-danger");
+          $(this).text("Add");
+          $(this).addClass("btn-success");
+        }
+      });
+    });
+  </script>
 {% endblock %}
