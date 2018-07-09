@@ -4,6 +4,8 @@ from flask_login import login_user, login_required, logout_user
 from flask_mail import Message
 from .sql.models import Medico, Paziente, Ricetta, TipoDoc, Documento, Indirizzo, Email, Telefono, Persona, StudLeg
 from datetime import date, time
+import re
+
 
 login_manager.session_protection = 'strong'
 login_manager.login_view = 'login'
@@ -65,10 +67,10 @@ def edit_profile(username):
         b=request.form['conf-form-pass']
         #Check if password has changed
         if a is not None and b is not None:
-            if a==b:
+            if a==b and len(a) > 8:
                 persona.set_password(request.form['form-pass'])
             else:
-                flash('Mispelled password')
+                flash('Password error: less than 8 char or misplelled')
                 return redirect(url_for('edit_profile', username=persona.username))
 
         #Check if phonenumber has changed
@@ -255,7 +257,6 @@ def add_patient(m_username):
         indirizzo = Indirizzo(None, cap=request.form['form-zip-code'], strada=request.form['form-street-addr'])
         email = Email(None, indirizzo=request.form['form-email'])
         telefono = Telefono(None, numero=request.form['form-phonenumb'])
-
         try:
             db.session.add(documento)
             db.session.add(indirizzo)
@@ -270,9 +271,17 @@ def add_patient(m_username):
         p_email = db.session.query(Email).filter_by(indirizzo=email.indirizzo).first()
         p_telefono = db.session.query(Telefono).filter_by(numero=telefono.numero).first()
 
+        #regexp
+        p_cf=request.form['form-perscode'].upper()
+        if re.match('^[A-Z]{6}\d{2}[A-Z]\d{2}[A-Z]\d{3}[A-Z]$',p_cf) is None:
+            flash('CF is not valid, please insert a valid one')
+            return render_template('homepage/register.html', m_username=m_username)
+
+
+
         persona = Persona(None, nome=request.form['form-name'], cognome=request.form['form-surname'], \
                         username=request.form['form-user'], password=request.form['form-pass'],\
-                        cf=request.form['form-perscode'].upper(), indirizzo=p_indirizzo, email=p_email,\
+                        cf=p_cf, indirizzo=p_indirizzo, email=p_email,\
                         documento=p_documento, telefono=p_telefono, luogo_nascita=request.form['form-bplace'],\
                         data_nascita=request.form['form-bdate'])
 
