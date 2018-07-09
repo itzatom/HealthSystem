@@ -63,8 +63,7 @@ def edit_profile(username):
 
         #Check if password has changed
         if request.form['form-pass'] is not None:
-            if medico.persona.check_password(request.form['form-pass']):
-                persona.set_password(request.form['form-pass'])
+            persona.set_password(request.form['form-pass'])
 
         #Check if phonenumber has changed
         if medico.persona.telefono.numero != request.form['form-phonenumb']:
@@ -110,29 +109,22 @@ def edit_profile(username):
             return render_template('homepage/edit_doctor.html', user=medico)
 
         #Check if work day has changed
-        try:
-            read =  str(request.form['form-fday'])
-        except:
-            read = None
-
-        if read is not None:
-            if medico.stud_leg.da_giorno != str(request.form['form-fday']):
-                stud_leg.da_giorno = str(request.form['form-fday'])
+        if medico.stud_leg.da_giorno != str(request.form['form-fday']):
+            stud_leg.da_giorno = str(request.form['form-fday'])
 
         #Check if work day has changed
-        try:
-            read = str(request.form['form-tday'])
-        except:
-            read = None
-
-        if read is not None:
-            if medico.stud_leg.a_giorno != str(request.form['form-tday']):
-                stud_leg.a_giorno = str(request.form['form-tday'])
+        if medico.stud_leg.a_giorno != str(request.form['form-tday']):
+            stud_leg.a_giorno = str(request.form['form-tday'])
 
         try:
             db.session.commit()
         except:
             db.session.rollback()
+
+        if request.form['form-pass'] is not None:
+            logout_user()
+            flash('Password has changed, please log in.')
+            return redirect(url_for('index'))
 
         return redirect(request.args.get('next') or url_for('doctor', _username=medico.persona.username))
 
