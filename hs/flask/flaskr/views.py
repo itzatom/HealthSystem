@@ -182,7 +182,6 @@ def add_patient(m_username):
 
         return redirect(request.args.get('next') or url_for('doctor', _username=medico.username))
 
-
 """ Remove a patient choise """
 @app.route('/hs/remove/<p_username>', methods=['GET'])
 @login_required
