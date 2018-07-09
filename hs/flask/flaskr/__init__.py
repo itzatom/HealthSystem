@@ -1,6 +1,7 @@
 from flask import Flask, request, render_template, Blueprint
 from flask_mail import Mail
 from flask_sqlalchemy import SQLAlchemy
+from flask_pymongo import PyMongo
 from flask_login import LoginManager, login_required
 import os
 
