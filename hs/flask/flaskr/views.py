@@ -1,11 +1,9 @@
-from flaskr import app, db, os, mongo
-from flaskr import login_manager, mail
+from flaskr import app, db, os, mongo, login_manager, mail
 from flask import url_for, session, redirect, request, render_template, flash
 from flask_login import login_user, login_required, logout_user
 from flask_mail import Message
-from .sql.models import Persona
-from .sql.models import Medico, Paziente, Ricetta, TipoDoc, Documento, Indirizzo, Email, Telefono
-from datetime import date
+from .sql.models import Medico, Paziente, Ricetta, TipoDoc, Documento, Indirizzo, Email, Telefono, Persona, StudLeg
+from datetime import date, time
 
 login_manager.session_protection = 'strong'
 login_manager.login_view = 'login'
@@ -46,14 +44,131 @@ def logout():
 @login_required
 def edit_profile(username):
     persona = Persona.query.filter_by(username=username).first()
+    medico = Medico.query.filter_by(id_medico=persona.id_persona).first()
+
     if request.method == 'GET':
         try:
-            if persona.medico is not None:
-                return render_template('homepage/edit_patient.html', user=persona)
+            if medico is not None:
+                return render_template('homepage/edit_doctor.html', user=medico)
         except:
-            return render_template('homepage/edit_doctor.html', user=persona)
-    pass
-    """ da finire, bisogna aggiungere anche i campi in piú all'interno di edit_medico cioé quelli dello studio medico! """
+            paziente = Paziente.query.filter_by(id_paziente=persona.id_persona).first()
+            if paziente is not None:
+                return render_template('homepage/edit_patient.html', user=paziente)
+
+    if medico is not None:
+        #Check if email has changed
+        if medico.persona.email.indirizzo != request.form['form-email']:
+            email = db.session.query(Email).filter_by(id_email=medico.persona.id_email).first()
+            email.indirizzo = request.form['form-email']
+
+        #Check if password has changed
+        if request.form['form-pass'] is not None:
+            if medico.persona.check_password(request.form['form-pass']):
+                persona.set_password(request.form['form-pass'])
+
+        #Check if phonenumber has changed
+        if medico.persona.telefono.numero != request.form['form-phonenumb']:
+            telefono = db.session.query(Telefono).filter_by(id_telefono=medico.persona.id_telefono).first()
+            telefono.numero = request.form['form-phonenumb']
+
+        #Check if  address has changed
+        if medico.persona.indirizzo.strada != request.form['form-street-addr']:
+            indirizzo = db.session.query(Indirizzo).filter_by(id_indirizzo=medico.persona.id_indirizzo).first()
+            indirizzo.strada = request.form['form-street-addr']
+            if medico.persona.indirizzo.cap != request.form['form-zip-code']:
+                indirizzo.cap = request.form['form-zip-code']
+
+        #Medical office
+        #Check if address has changed
+        if medico.stud_leg.indirizzo.strada != request.form['form-waddr']:
+            indirizzo = db.session.query(Indirizzo).filter_by(id_indirizzo=medico.stud_leg.id_indirizzo).first()
+            indirizzo.strada = request.form['form-waddr']
+            if medico.stud_leg.indirizzo.cap != request.form['form-wzip-code']:
+                indirizzo.cap = request.form['form-wzip-code']
+
+        #Check if work time has changed
+        #Time start
+        if str(medico.stud_leg.orario_inizio.hour) is not str(request.form['form-wstart-h']):
+            stud_leg = StudLeg.query.filter_by(id_studio=medico.id_studio).first()
+            ora = (int(request.form['form-wstart-h']))
+
+            if str(medico.stud_leg.orario_inizio.minute) is not str(request.form['form-wstart-m']):
+                minuto = (int(request.form['form-wstart-m']))
+            stud_leg.orario_inizio = time(hour=ora, minute=minuto)
+
+        #Time end
+        if str(medico.stud_leg.orario_fine.hour) is not str(request.form['form-wend-h']):
+            stud_leg = StudLeg.query.filter_by(id_studio=medico.id_studio).first()
+            ora = (int(request.form['form-wend-h']))
+
+            if str(medico.stud_leg.orario_fine.minute) is not str(request.form['form-wend-m']):
+                minuto = (int(request.form['form-wend-m']))
+            stud_leg.orario_fine = time(hour=ora, minute=minuto)
+
+        if stud_leg.orario_inizio >= stud_leg.orario_fine:
+            flash('Start work time must be less than or equal end work time')
+            return render_template('homepage/edit_doctor.html', user=medico)
+
+        #Check if work day has changed
+        try:
+            read =  str(request.form['form-fday'])
+        except:
+            read = None
+
+        if read is not None:
+            if medico.stud_leg.da_giorno != str(request.form['form-fday']):
+                stud_leg.da_giorno = str(request.form['form-fday'])
+
+        #Check if work day has changed
+        try:
+            read = str(request.form['form-tday'])
+        except:
+            read = None
+
+        if read is not None:
+            if medico.stud_leg.a_giorno != str(request.form['form-tday']):
+                stud_leg.a_giorno = str(request.form['form-tday'])
+
+        try:
+            db.session.commit()
+        except:
+            db.session.rollback()
+
+        return redirect(request.args.get('next') or url_for('doctor', _username=medico.persona.username))
+
+    else:
+        paziente = Paziente.query.filter_by(id_paziente=persona.id_persona).first()
+        if paziente is not None:
+            #Check if email has changed
+            if paziente.persona.email.indirizzo != request.form['form-email']:
+                email = db.session.query(Email).filter_by(id_email=paziente.persona.id_email).first()
+                email.indirizzo = request.form['form-email']
+
+            #Check if password has changed
+            if request.form['form-pass'] is not None:
+                if paziente.persona.check_password(request.form['form-pass']):
+                    persona.set_password(request.form['form-pass'])
+
+
+            #Check if phonenumber has changed
+            if paziente.persona.telefono.numero != request.form['form-phonenumb']:
+                telefono = db.session.query(Telefono).filter_by(id_telefono=paziente.persona.id_telefono).first()
+                telefono.numero = request.form['form-phonenumb']
+
+            #Check if street address has changed
+            #Check if  address has changed
+            if paziente.persona.indirizzo.strada != request.form['form-street-addr']:
+                indirizzo = db.session.query(Indirizzo).filter_by(id_indirizzo=paziente.persona.id_indirizzo).first()
+                indirizzo.strada = request.form['form-street-addr']
+                if paziente.persona.indirizzo.cap != request.form['form-zip-code']:
+                    indirizzo.cap = request.form['form-zip-code']
+
+            try:
+                db.session.commit()
+            except:
+                db.session.rollback()
+
+            return redirect(request.args.get('next') or url_for('patient', _username=paziente.persona.username))
 
 #DOCTOR
 """ Get doctor homepage """

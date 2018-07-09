@@ -21,7 +21,7 @@
               <p class="card-text"><strong>Home address:</strong> {{ doctor.persona.indirizzo.strada}} , {{ doctor.persona.indirizzo.cap}}</p>
               <h6 class="card-subtitle mb-2 text-muted">Medical office</h6>
               <p class="card-text"><strong>Office addess:</strong> {{ doctor.stud_leg.indirizzo.strada}} , {{ doctor.stud_leg.indirizzo.cap}}</p>
-              <p class="card-text"><strong>Work start:</strong> {{ doctor.stud_leg.orario_inizio }} <strong> - Work end:</strong> {{ doctor.stud_leg.orario_fine}}</p>
+              <p class="card-text"><strong>Work start:</strong> {{ doctor.stud_leg.orario_inizio.hour }}:{{ doctor.stud_leg.orario_inizio.minute }} <strong> - Work end:</strong> {{ doctor.stud_leg.orario_fine.hour}}:{{ doctor.stud_leg.orario_fine.minute}}</p>
               <p class="card-text"><strong>From:</strong> {{ doctor.stud_leg.da_giorno | capitalize}} <strong>- To:</strong> {{ doctor.stud_leg.a_giorno | capitalize}}</p>
               <a class="btn btn-primary mt-1" href={{ url_for('edit_profile', username = doctor.persona.username) }} method='GET'>Edit your profile</a>
               <a href={{ url_for('add_patient', m_username = doctor.persona.username) }} method='GET' class="btn btn-success mt-1">Add a patient</a>

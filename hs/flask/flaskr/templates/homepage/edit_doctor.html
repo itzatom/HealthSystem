@@ -6,9 +6,83 @@
 {% block content %}
   {{ super() }}
 {%endblock%}
+
 {%block form%}
+    <h5 class="text-center" style="color: grey;">Medical Office</h5>
+    <div class="form-group">
+      <label for="waddr-form">Street address</label>
+      <input type="text" name="form-waddr" class="form-control" id="waddr-form" value="{{ user.stud_leg.indirizzo.strada }}">
+    </div>
+    <div class="form-group">
+      <label for="wzipcode-form">Zip code</label>
+      <input type="number" name="form-wzip-code" class="form-control" id="wzipcode-form" value={{ user.stud_leg.indirizzo.cap }}>
+    </div>
+
+    <div class="row">
+      {% for message in get_flashed_messages() %}
+      <div class="alert alert-warning mx-auto">
+        <button type="button" class="close" data-dismiss="alert">
+          &times;</button>
+        {{ message }}
+      </div>
+      {% endfor %}
+      <div class="form-group col-md-6">
+        <h5 for="time-form" class="text-center">Work start</h5>
+        <div class="row">
+          <div class=" col-md-6">
+            <h6 class="mt-1">Hour</h6>
+            <input type="number" name="form-wstart-h" class="form-control" id="time-form" value={{ user.stud_leg.orario_inizio.hour }} placeholder="Hour">
+          </div>
+          <div class="col-md-6">
+            <h6 class="mt-1">Minute</h6>
+            <input type="number" name="form-wstart-m" class="form-control" id="time-form" value={{ user.stud_leg.orario_inizio.minute }} placeholder="Minute">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group col-md-6">
+        <h5 for="wend-form" class="text-center">Work end</h5>
+        <div class="row">
+          <div class=" col-md-6">
+            <h6 class="mt-1">Hour</h6>
+            <input type="number" name="form-wend-h" class="form-control" id="time-form" value={{ user.stud_leg.orario_fine.hour }}>
+          </div>
+          <div class="col-md-6">
+            <h6 class="mt-1">Minute</h6>
+            <input type="number" name="form-wend-m" class="form-control" id="time-form" value={{ user.stud_leg.orario_fine.minute }}>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group col-md-6">
+        <label for="fday-form">From day</label>
+        <select name="form-fday" multiple class="form-control" id="fday-form">
+          <option "{%if 'lunedi' == user.stud_leg.da_giorno  %} selected {%endif%}">Lunedi</option>
+          <option "{%if 'martedi' == user.stud_leg.da_giorno %} selected {%endif%}">Martedi</option>
+          <option "{%if 'mercoledi' == user.stud_leg.da_giorno  %} selected {%endif%}">Mercoledi</option>
+          <option "{%if 'giovedi' == user.stud_leg.da_giorno  %} selected {%endif%}">Giovedi</option>
+          <option "{%if 'venerdi' == user.stud_leg.da_giorno  %} selected {%endif%}">Venerdi</option>
+        </select>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="tday-form">To day</label>
+        <select  name="form-tday" multiple class="form-control" id="tday-form" value={{ user.stud_leg.da_giorno }}>
+          <option "{%if 'lunedi' == user.stud_leg.a_giorno  %} selected {%endif%}">Lunedi</option>
+          <option "{%if 'martedi' == user.stud_leg.a_giorno %} selected {%endif%}">Martedi</option>
+          <option "{%if 'mercoledi' == user.stud_leg.a_giorno  %} selected {%endif%}">Mercoledi</option>
+          <option "{%if 'giovedi' == user.stud_leg.a_giorno  %} selected {%endif%}">Giovedi</option>
+          <option "{%if 'venerdi' == user.stud_leg.a_giorno  %} selected {%endif%}">Venerdi</option>
+        </select>
+      </div>
+    </div>
+
+
 <div class="text-center">
-  <a href={{ url_for('doctor', _username = user.username) }} class="btn btn-danger">Cancel</a>
+  <a href={{ url_for('doctor', _username = user.persona.username) }} class="btn btn-danger">Cancel</a>
   <button type="submit" class="btn btn-success">Confirm</button>
 </div>
+
+
 {%endblock%}

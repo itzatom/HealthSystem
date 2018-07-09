@@ -12,11 +12,11 @@
           <div class="card mt-4" style="background-color: rgba(0, 209, 255, 0.1);">
             <div class="card-body">
               <h4 class="card-title text-center mt-2">Edit your profile</h4>
-              <form role="form" action={{ url_for('edit_profile', username = m_username) }} method="post">
-
+              <form role="form" action={{ url_for('edit_profile', username = user.persona.username) }} method="post">
+                <h5 class="text-center" style="color: grey;">Registry</h5>
                 <div class="form-group">
                   <label for="email-form">Email address</label>
-                  <input type="email" name="form-email" class="form-control" id="email-form" placeholder={{ user.email.indirizzo }}>
+                  <input type="email" name="form-email" class="form-control" id="email-form" value={{ user.persona.email.indirizzo }}>
                 </div>
                 <div class="form-group">
                   <label for="pass-form">New password</label>
@@ -24,15 +24,15 @@
                 </div>
                 <div class="form-group">
                   <label for="phonenumb-form">Phone number</label>
-                  <input type="text" name="form-phonenumb" class="form-control" id="phonenumb-form" placeholder={{ user.telefono.numero }}>
+                  <input type="text" name="form-phonenumb" class="form-control" id="phonenumb-form" value={{ user.persona.telefono.numero }}>
                 </div>
                 <div class="form-group">
                   <label for="streetaddr-form">Street address</label>
-                  <input type="text" name="form-street-addr" class="form-control" id="streetaddr-form" placeholder={{ user.indirizzo.strada }}>
+                  <input type="text" name="form-street-addr" class="form-control" id="streetaddr-form"  value="{{ user.persona.indirizzo.strada }}">
                 </div>
                 <div class="form-group">
                   <label for="zipcode-form">Zip code</label>
-                  <input type="number" name="form-zip-code" class="form-control" id="zipcode-form" placeholder={{ user.indirizzo.cap }}>
+                  <input type="number" name="form-zip-code" class="form-control" id="zipcode-form" value={{ user.persona.indirizzo.cap }}>
                 </div>
                 {% block form %}{% endblock %}
               </form>
@@ -41,4 +41,5 @@
       </div>
     </div>
   </div>
+
 {% endblock %}
