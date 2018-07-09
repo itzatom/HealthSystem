@@ -1,4 +1,4 @@
-from flaskr import app, db, os
+from flaskr import app, db, os, mongo
 from flaskr import login_manager, mail
 from flask import url_for, session, redirect, request, render_template, flash
 from flask_login import login_user, login_required, logout_user
