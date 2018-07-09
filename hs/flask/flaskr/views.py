@@ -1,7 +1,8 @@
-from flaskr import app, db
+from flaskr import app, db, os
 from flaskr import login_manager, mail
 from flask import url_for, session, redirect, request, render_template, flash
 from flask_login import login_user, login_required, logout_user
+from flask_mail import Message
 from .sql.models import Persona
 from .sql.models import Medico, Paziente, Ricetta, TipoDoc, Documento, Indirizzo, Email, Telefono
 from datetime import date
@@ -81,39 +82,36 @@ def add_prescr(id_patient):
             db.session.rollback()
     return redirect(request.args.get('next') or url_for('info', p_username=pat.persona.username))
 
-""" Notify the patient about a prescription ------------------ """
+""" Notify the patient about a prescription """
 @app.route('/hs/notify/<id_prescription>', methods=['GET', 'POST'])
 @login_required
 def notify(id_prescription):
     prescr = Ricetta.query.filter_by(id_ricetta=id_prescription).first()
     p = Persona.query.filter_by(id_persona=prescr.id_paziente).first()
-    if request.method == 'GET':
-        return redirect(url_for('info', p_username=p.username))
-    else:
-        p = Persona.query.filter_by(id_persona=prescr.id_paziente).first()
-        text = "Hello from" + prescr.medico.persona.nome + prescr.medico.persona.cognome + \
-        "a new prescription is avaible in our office since " + prescr.data_emissione + \
-        ", see you soon."
-        msg = Message(text,
-                  recipients=[p.email.indirizzo])
+    try:
+        body = "Hello from %s" %  prescr.medico.persona.nome
+        body2 = " %s " % prescr.medico.persona.cognome
+        body3 =  "a new prescription is avaible in \
+        our office since %s, see you soon." % prescr.data_emissione
+        msg = Message('healthsystem',recipients=p.email.indirizzo)
+        msg.body = body + body2 + body3
         mail.send(msg)
-        return redirect(request.args.get('next') or url_for('info', p_username=p.username))
+    except Exception as e:
+        raise e
+    return redirect(request.args.get('next') or url_for('info', p_username=p.username))
 
 """ Remove prescription """
 @app.route('/hs/remove_prescr/<id_prescription>', methods=['GET', 'POST'])
 @login_required
 def remove_prescr(id_prescription):
+    prescr = Ricetta.query.filter_by(id_ricetta=id_prescription).first()
     p = Persona.query.filter_by(id_persona=prescr.id_paziente).first()
-    if request.method == 'GET':
-        return redirect(url_for('info'), p_username=p.username)
-    else:
-        prescr = Ricetta.query.filter_by(id_ricetta=id_prescription).first()
-        try:
-            db.session.query(Ricetta).filter(Ricetta.id_ricetta==id_prescription).delete()
-            db.session.commit()
-        except:
-            db.session.rollback()
-        return redirect(request.args.get('next') or url_for('info', p_username=p.username))
+    try:
+        db.session.delete(prescr)
+        db.session.commit()
+    except:
+        db.session.rollback()
+    return redirect(request.args.get('next') or url_for('info', p_username=p.username))
 
 """ Add a new patient """
 @app.route('/hs/doctor/<m_username>/newpatient', methods=['GET', 'POST'])
@@ -185,7 +183,7 @@ def remove_patient(p_username):
      except:
          db.session.rollback()
 
-     return redirect(request.args.get('next') or url_for('doctor', p_username=med.persona.username))
+     return redirect(request.args.get('next') or url_for('doctor', _username=med.persona.username))
 
 
 #PATIENT

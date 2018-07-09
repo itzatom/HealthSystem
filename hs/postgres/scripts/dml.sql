@@ -177,7 +177,7 @@ insert into telefono values (DEFAULT, '3465475436');
 insert into telefono values (DEFAULT, '9249880652');
 
 -- Insert on table EMAIL
-insert into email  values (DEFAULT, 'spadbery0@goodreads.com');
+insert into email  values (DEFAULT, 'vittorio.fones@gmail.com');
 insert into email  values (DEFAULT, 'agiacomuzzo1@state.gov');
 insert into email  values (DEFAULT, 'gdrakes2@php.net');
 insert into email  values (DEFAULT, 'rlangdon3@sbwire.com');
