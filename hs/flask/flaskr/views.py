@@ -63,7 +63,7 @@ def edit_profile(username):
 
         #Check if password has changed
         if request.form['form-pass'] is not None:
-            if medico.persona.check_password(request.form['form-pass']):
+            if not medico.persona.check_password(request.form['form-pass']):
                 persona.set_password(request.form['form-pass'])
 
         #Check if phonenumber has changed
