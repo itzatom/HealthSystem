@@ -7,24 +7,28 @@
 
 {% block content %}
   {{ super() }}
+
   <div class="container">
     <div class="row">
       <div class="col-sm-5">
-        <div>
-          <div class="card mt-5" style="background-color: rgba(0, 209, 255, 0.1);">
-            <div class="card-body">
-              <h4 class="card-title">{{ patient.nome | capitalize }} {{ patient.cognome | capitalize}}</h5>
-              <p class="card-text" ><strong>Mail address:</strong><a href="mailto:{{patient.email.indirizzo}}"> {{ patient.email.indirizzo }}</a></p>
-              <p class="card-text"><strong>Phone number:</strong> {{ patient.telefono.numero}}</p>
-              <p class="card-text"><strong>Document:</strong> {{ patient.documento.codice}}</p>
-              <p class="card-text"><strong>Home address:</strong> {{ patient.indirizzo.strada}} , {{ patient.indirizzo.cap}}</p>
-            </div>
+        <div class="card mt-5" style="background-color: rgba(0, 209, 255, 0.1);">
+          <div class="card-body">
+            <h4 class="text-center mt-1">
+              <a class="btn btn-primary mt-1 mx-auto" href={{ url_for('biometrics', username = patient.username) }} method='GET'>Biometrics</a>
+              <a class="btn btn-primary mt-1 mx-auto" href={{ url_for('health', username = patient.username) }} method='GET'>Health</a>
+            </h4>
+            <h4 class="card-title">{{ patient.nome | capitalize }} {{ patient.cognome | capitalize}}</h5>
+            <p class="card-text" ><strong>Mail address:</strong><a href="mailto:{{patient.email.indirizzo}}"> {{ patient.email.indirizzo }}</a></p>
+            <p class="card-text"><strong>Phone number:</strong> {{ patient.telefono.numero}}</p>
+            <p class="card-text"><strong>Document:</strong> {{ patient.documento.codice}}</p>
+            <p class="card-text"><strong>Home address:</strong> {{ patient.indirizzo.strada}} , {{ patient.indirizzo.cap}}</p>
+            <a class="btn btn-primary mt-1" href={{ url_for('edit_profile', username = patient.username) }} method='POST'>Edit profile</a>
           </div>
         </div>
       </div>
       <div class="col-sm-7">
         <ul class="list-group">
-            <h4 class="text-monospace text-center mt-4"> Prescriptions
+            <h4 class="text-monospace text-center mt-5"> Prescriptions
               <a id="presc-button" class="btn btn-success mt-1 mx-auto" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">Add</a>
             </h4>
 

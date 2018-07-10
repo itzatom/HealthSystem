@@ -4,6 +4,8 @@ from flask_login import login_user, login_required, logout_user
 from flask_mail import Message
 from .sql.models import Medico, Paziente, Ricetta, TipoDoc, Documento, Indirizzo, Email, Telefono, Persona, StudLeg
 from datetime import date, time
+import re
+
 
 login_manager.session_protection = 'strong'
 login_manager.login_view = 'login'
@@ -45,7 +47,7 @@ def logout():
 def edit_profile(username):
     persona = Persona.query.filter_by(username=username).first()
     medico = Medico.query.filter_by(id_medico=persona.id_persona).first()
-
+    paziente = Paziente.query.filter_by(id_paziente=persona.id_persona).first()
     if request.method == 'GET':
         try:
             if medico is not None:
@@ -61,10 +63,15 @@ def edit_profile(username):
             email = db.session.query(Email).filter_by(id_email=medico.persona.id_email).first()
             email.indirizzo = request.form['form-email']
 
+        a=request.form['form-pass']
+        b=request.form['conf-form-pass']
         #Check if password has changed
-        if request.form['form-pass'] is not None:
-            if not medico.persona.check_password(request.form['form-pass']):
+        if a is not None and b is not None:
+            if a==b and len(a) > 8:
                 persona.set_password(request.form['form-pass'])
+            else:
+                flash('Password error: less than 8 char or misplelled')
+                return redirect(url_for('edit_profile', username=persona.username))
 
         #Check if phonenumber has changed
         if medico.persona.telefono.numero != request.form['form-phonenumb']:
@@ -110,45 +117,32 @@ def edit_profile(username):
             return render_template('homepage/edit_doctor.html', user=medico)
 
         #Check if work day has changed
-        try:
-            read =  str(request.form['form-fday'])
-        except:
-            read = None
-
-        if read is not None:
-            if medico.stud_leg.da_giorno != str(request.form['form-fday']):
-                stud_leg.da_giorno = str(request.form['form-fday'])
+        if medico.stud_leg.da_giorno != str(request.form['form-fday']):
+            stud_leg.da_giorno = str(request.form['form-fday'])
 
         #Check if work day has changed
-        try:
-            read = str(request.form['form-tday'])
-        except:
-            read = None
-
-        if read is not None:
-            if medico.stud_leg.a_giorno != str(request.form['form-tday']):
-                stud_leg.a_giorno = str(request.form['form-tday'])
+        if medico.stud_leg.a_giorno != str(request.form['form-tday']):
+            stud_leg.a_giorno = str(request.form['form-tday'])
 
         try:
             db.session.commit()
         except:
             db.session.rollback()
 
+        if a is not None and b is not None:
+            logout_user()
+            flash('Password has changed, please log in.')
+            return redirect(url_for('index'))
+
         return redirect(request.args.get('next') or url_for('doctor', _username=medico.persona.username))
 
-    else:
+    elif paziente is not None:
         paziente = Paziente.query.filter_by(id_paziente=persona.id_persona).first()
         if paziente is not None:
             #Check if email has changed
             if paziente.persona.email.indirizzo != request.form['form-email']:
                 email = db.session.query(Email).filter_by(id_email=paziente.persona.id_email).first()
                 email.indirizzo = request.form['form-email']
-
-            #Check if password has changed
-            if request.form['form-pass'] is not None:
-                if paziente.persona.check_password(request.form['form-pass']):
-                    persona.set_password(request.form['form-pass'])
-
 
             #Check if phonenumber has changed
             if paziente.persona.telefono.numero != request.form['form-phonenumb']:
@@ -163,6 +157,11 @@ def edit_profile(username):
                 if paziente.persona.indirizzo.cap != request.form['form-zip-code']:
                     indirizzo.cap = request.form['form-zip-code']
 
+            if  paziente.persona.documento.id_documento != request.form['form-document-code']:
+                documento = db.session.query(Documento).filter_by(id_documento=paziente.id_documento).first()
+                documento.id_documento = request.form['form-document-code']
+                if paziente.persona.documento.tipo_documento != request.form['form-type-doc']:
+                    documento.id_documento.tipo_doc = request.form['form-type-doc']
             try:
                 db.session.commit()
             except:
@@ -217,7 +216,6 @@ def notify(id_prescription):
     p = Persona.query.filter_by(id_persona=prescr.id_paziente).first()
     try:
         msg = Message('healthsystem',recipients=[p.email.indirizzo])
-
         msg.body = "Hello from %s" %  prescr.medico.persona.nome + \
                     " %s " % prescr.medico.persona.cognome + \
                     "a new prescription is "  + \
@@ -225,7 +223,6 @@ def notify(id_prescription):
                     prescr.medico.stud_leg.indirizzo.strada + \
                     ", %s " % prescr.medico.stud_leg.indirizzo.cap + \
                     "since %s " % prescr.data_emissione + ". %s ." % prescr.campo
-
         mail.send(msg)
     except Exception as e:
         raise e
@@ -250,14 +247,12 @@ def remove_prescr(id_prescription):
 def add_patient(m_username):
     if request.method == 'GET':
         return render_template('homepage/register.html', m_username=m_username)
-
     else:
         tipo_doc = TipoDoc.query.filter_by(tipo_documento=request.form['form-type-doc'].lower()).first()
         documento = Documento(None, codice=request.form['form-document-code'].upper(), id_tipo=tipo_doc.id_tipo)
         indirizzo = Indirizzo(None, cap=request.form['form-zip-code'], strada=request.form['form-street-addr'])
         email = Email(None, indirizzo=request.form['form-email'])
         telefono = Telefono(None, numero=request.form['form-phonenumb'])
-
         try:
             db.session.add(documento)
             db.session.add(indirizzo)
@@ -272,12 +267,17 @@ def add_patient(m_username):
         p_email = db.session.query(Email).filter_by(indirizzo=email.indirizzo).first()
         p_telefono = db.session.query(Telefono).filter_by(numero=telefono.numero).first()
 
+        #regexp
+        p_cf=request.form['form-perscode'].upper()
+        if re.match('^[A-Z]{6}\d{2}[A-Z]\d{2}[A-Z]\d{3}[A-Z]$',p_cf) is None:
+            flash('CF is not valid, please insert a valid one')
+            return render_template('homepage/register.html', m_username=m_username)
+
         persona = Persona(None, nome=request.form['form-name'], cognome=request.form['form-surname'], \
                         username=request.form['form-user'], password=request.form['form-pass'],\
-                        cf=request.form['form-perscode'].upper(), indirizzo=p_indirizzo, email=p_email,\
+                        cf=p_cf, indirizzo=p_indirizzo, email=p_email,\
                         documento=p_documento, telefono=p_telefono, luogo_nascita=request.form['form-bplace'],\
                         data_nascita=request.form['form-bdate'])
-
         try:
             db.session.add(persona)
             db.session.commit()
@@ -286,9 +286,7 @@ def add_patient(m_username):
 
         paz = Persona.query.filter_by(username=persona.username).first()
         medico = Persona.query.filter_by(username=m_username).first()
-
         p = Paziente(id_paziente=paz.id_persona, id_medico=medico.id_persona)
-
         try:
             db.session.add(p)
             db.session.commit()
@@ -297,7 +295,7 @@ def add_patient(m_username):
 
         return redirect(request.args.get('next') or url_for('doctor', _username=medico.username))
 
-""" Remove a patient choise """
+""" Remove a patient """
 @app.route('/hs/remove/<p_username>', methods=['GET'])
 @login_required
 def remove_patient(p_username):
@@ -314,6 +312,17 @@ def remove_patient(p_username):
          db.session.rollback()
 
      return redirect(request.args.get('next') or url_for('doctor', _username=med.persona.username))
+
+@app.route('/hs/biometrics/<username>',methods=['GET'])
+@login_required
+def biometrics(username):
+    return 'biometrics'
+
+@app.route('/hs/username/<username>',methods=['GET'])
+@login_required
+def health(username):
+    return 'health'
+
 
 
 #PATIENT

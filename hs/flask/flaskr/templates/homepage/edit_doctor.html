@@ -8,6 +8,16 @@
 {%endblock%}
 
 {%block form%}
+
+    <div class="form-group">
+      <label for="pass-form">New password</label>
+      <input type="password" name="form-pass" class="form-control" id="pass-form" placeholder="New password...">
+    </div>
+    <div class="form-group">
+      <label for="pass-form">Confirm password</label>
+      <input type="password" name="conf-form-pass" class="form-control" id="conf-pass-form" placeholder="Repeat password...">
+    </div>
+    
     <h5 class="text-center" style="color: grey;">Medical Office</h5>
     <div class="form-group">
       <label for="waddr-form">Street address</label>
@@ -17,28 +27,19 @@
       <label for="wzipcode-form">Zip code</label>
       <input type="number" name="form-wzip-code" class="form-control" id="wzipcode-form" value={{ user.stud_leg.indirizzo.cap }} min="0" max="90000">
     </div>
-
-    <div class="row">
-      {% for message in get_flashed_messages() %}
-      <div class="alert alert-warning mx-auto">
-        <button type="button" class="close" data-dismiss="alert">
-          &times;</button>
-        {{ message }}
-      </div>
-      {% endfor %}
-      <div class="form-group col-md-6">
-        <h5 for="time-form" class="text-center">Work start</h5>
-        <div class="row">
-          <div class=" col-md-6">
-            <h6 class="mt-1">Hour</h6>
-            <input type="number" name="form-wstart-h" class="form-control" id="time-form" value={{ user.stud_leg.orario_inizio.hour }} placeholder="Hour" min="0" max="23">
-          </div>
-          <div class="col-md-6">
-            <h6 class="mt-1">Minute</h6>
-            <input type="number" name="form-wstart-m" class="form-control" id="time-form" value={{ user.stud_leg.orario_inizio.minute }} placeholder="Minute" min="0" max="59">
-          </div>
+    <div class="form-group col-md-6">
+      <h5 for="time-form" class="text-center">Work start</h5>
+      <div class="row">
+        <div class=" col-md-6">
+          <h6 class="mt-1">Hour</h6>
+          <input type="number" name="form-wstart-h" class="form-control" id="time-form" value={{ user.stud_leg.orario_inizio.hour }} placeholder="Hour" min="0" max="23">
+        </div>
+        <div class="col-md-6">
+          <h6 class="mt-1">Minute</h6>
+          <input type="number" name="form-wstart-m" class="form-control" id="time-form" value={{ user.stud_leg.orario_inizio.minute }} placeholder="Minute" min="0" max="59">
         </div>
       </div>
+    </div>
 
       <div class="form-group col-md-6">
         <h5 for="wend-form" class="text-center">Work end</h5>
