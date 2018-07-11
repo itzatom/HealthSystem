@@ -186,7 +186,11 @@ def doctor(_username):
 def info(p_username):
     p = Persona.query.filter_by(username=p_username).first()
     r = Ricetta.query.filter_by(id_paziente=p.id_persona).all()
-    return render_template('homepage/info.html', patient=p, prescription=r)
+    hspurp = mongo.db.health_purpose
+    datelist = hspurp.find( { "username": p.username}, {"_id": 0, "username": 1, "date": 1 })
+
+
+    return render_template('homepage/info.html', patient=p, prescription=r, hpdate=datelist)
 
 """ Add prescription """
 @app.route('/hs/add_prescr/<id_patient>', methods=['GET', 'POST'])
@@ -251,7 +255,14 @@ def add_patient(m_username):
         tipo_doc = TipoDoc.query.filter_by(tipo_documento=request.form['form-type-doc'].lower()).first()
         documento = Documento(None, codice=request.form['form-document-code'].upper(), id_tipo=tipo_doc.id_tipo)
         indirizzo = Indirizzo(None, cap=request.form['form-zip-code'], strada=request.form['form-street-addr'])
-        email = Email(None, indirizzo=request.form['form-email'])
+
+        if db.session.query(Email).filter_by(indirizzo=request.form['form-email']) is None:
+            email = Email(None, indirizzo=request.form['form-email'])
+        else:
+            flash('Email address already used')
+            return render_template('homepage/register.html', m_username=m_username)
+
+
         telefono = Telefono(None, numero=request.form['form-phonenumb'])
         try:
             db.session.add(documento)
@@ -262,16 +273,18 @@ def add_patient(m_username):
         except:
             db.session.rollback()
 
+
         p_documento = db.session.query(Documento).filter_by(codice=documento.codice).first()
         p_indirizzo = db.session.query(Indirizzo).filter_by(cap=indirizzo.cap, strada=indirizzo.strada).first()
         p_email = db.session.query(Email).filter_by(indirizzo=email.indirizzo).first()
         p_telefono = db.session.query(Telefono).filter_by(numero=telefono.numero).first()
 
         #regexp
-        p_cf=request.form['form-perscode'].upper()
-        if re.match('^[A-Z]{6}\d{2}[A-Z]\d{2}[A-Z]\d{3}[A-Z]$',p_cf) is None:
-            flash('CF is not valid, please insert a valid one')
-            return render_template('homepage/register.html', m_username=m_username)
+        p_cf = request.form['form-perscode'].upper()
+        if p_cf is not None:
+            if re.match('^[A-Z]{6}\d{2}[A-Z]\d{2}[A-Z]\d{3}[A-Z]$',p_cf) is None:
+                flash('CF is not valid, please insert a valid one')
+                return render_template('homepage/register.html', m_username=m_username)
 
         persona = Persona(None, nome=request.form['form-name'], cognome=request.form['form-surname'], \
                         username=request.form['form-user'], password=request.form['form-pass'],\
@@ -322,7 +335,6 @@ def biometrics(username):
 @login_required
 def health(username):
     return 'health'
-
 
 
 #PATIENT

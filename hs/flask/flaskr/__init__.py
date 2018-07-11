@@ -9,7 +9,6 @@ app = Flask(__name__)
 app.secret_key = os.environ.get('SECRETKEY')
 
 app.config['MONGO_DBNAME'] = 'healthsystem'
-app.config['MONGO_URI'] = 'mongodb://dbahealthsystem:passwddba@mongo:27017/healthsystem'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://dbahealthsystem:passwddba@postgres:5432/healthsystem'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 
@@ -23,7 +22,7 @@ app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
 app.config['MAIL_DEFAULT_SENDER']= os.environ.get('MAIL_USERNAME')
 
 mail = Mail(app)
-mongo = PyMongo(app)
+mongo = PyMongo(app, "mongodb://dbahealthsystem:passwddba@mongo:27017/healthsystem")
 db = SQLAlchemy(app)
 login_manager = LoginManager()
 login_manager.init_app(app)

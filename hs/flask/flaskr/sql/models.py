@@ -23,7 +23,7 @@ class TipoDoc(db.Model):
     id_tipo = db.Column(db.Integer, primary_key=True, server_default=db.text("nextval('tipo_doc_id_tipo_seq'::regclass)"))
     tipo_documento = db.Column(db.String(50))
 
-    def __init(self, id_tipo, documento):
+    def __init__(self, id_tipo, documento):
         self.id_tipo = id_tipo
         self.tipo_documento = tipo_documento
 
@@ -148,9 +148,6 @@ class Telefono(db.Model):
         self.id_telefono = id_telefono
         self.numero = numero
 
-    def __repr__(self):
-        return '<phone number {}>'.format(self.numero_cellulare)
-
 class Paziente(db.Model):
     __tablename__ = 'paziente'
 
@@ -176,7 +173,7 @@ class Ricetta(db.Model):
     medico = db.relationship('Medico')
     paziente = db.relationship('Paziente')
 
-    def __init(self, id_ricetta, id_paziente, id_medico, campo, data_emissione):
+    def __init__(self, id_ricetta, id_paziente, id_medico, campo, data_emissione):
         self.id_ricetta = id_ricetta
         self.id_paziente = id_paziente
         self.id_medico = id_medico
