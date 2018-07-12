@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Biometrics - info for {{ patient.username }}{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+
+
+{% block content %}
+  {{ super() }}
+
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-5">
+        <div class="card mt-5" style="background-color: rgba(0, 209, 255, 0.1);">
+          <div class="card-body">
+            <h4 class="card-title">{{ patient.nome | capitalize }} {{ patient.cognome | capitalize}}</h5>
+
+            <p class="card-text"><strong>Home address:</strong> {{ patient.indirizzo.strada}} , {{ patient.indirizzo.cap}}</p>
+          </div>
+        </div>
+
+        <h4 class="text-center mt-1">
+          <a class="btn btn-primary mt-1 mx-auto" href={{ url_for('info', username = patient.username) }} method='GET'>Go Back</a>
+        </h4>
+      </div>
+    </div>
+  </div>
+  
+  {% endblock %}

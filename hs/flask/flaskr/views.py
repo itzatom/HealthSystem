@@ -5,7 +5,7 @@ from flask_mail import Message
 from .sql.models import Medico, Paziente, Ricetta, TipoDoc, Documento, Indirizzo, Email, Telefono, Persona, StudLeg
 from datetime import date, time
 import re
-
+from bson.json_util import dumps
 
 login_manager.session_protection = 'strong'
 login_manager.login_view = 'login'
@@ -187,9 +187,7 @@ def info(p_username):
     p = Persona.query.filter_by(username=p_username).first()
     r = Ricetta.query.filter_by(id_paziente=p.id_persona).all()
     hspurp = mongo.db.health_purpose
-    datelist = hspurp.find( { "username": p.username}, {"_id": 0, "username": 1, "date": 1 })
-
-
+    datelist = hspurp.find( { "username": p.username}, {"_id": 0, "date": 1 })
     return render_template('homepage/info.html', patient=p, prescription=r, hpdate=datelist)
 
 """ Add prescription """
@@ -326,15 +324,21 @@ def remove_patient(p_username):
 
      return redirect(request.args.get('next') or url_for('doctor', _username=med.persona.username))
 
-@app.route('/hs/biometrics/<username>',methods=['GET'])
+@app.route('/hs/biometrics/<username>',methods=['GET','POST'])
 @login_required
 def biometrics(username):
-    return 'biometrics'
+    collection = mongo.db.biometrics
+    selected = request.form.get('dateselected')
+    data = collection.find({"username":username},{"_id":0,"date":selected})
+    return str(data[0])
 
 @app.route('/hs/username/<username>',methods=['GET'])
 @login_required
 def health(username):
-    return 'health'
+    collection = mongo.db.health_purpose
+    selected = request.form.get('dateselected')
+    data = collection.find({"username":username},{"_id":0,"date":selected})
+    return str(data[0])
 
 
 #PATIENT

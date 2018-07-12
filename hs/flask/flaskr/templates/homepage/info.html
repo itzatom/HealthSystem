@@ -20,16 +20,22 @@
             <p class="card-text"><strong>Home address:</strong> {{ patient.indirizzo.strada}} , {{ patient.indirizzo.cap}}</p>
           </div>
         </div>
-        <label>Select:</label>
-          <select name="option" width="300px">
-          {% for x in hpdate %}
-          <option value="{{ x.first }}" SELECTED>{{ x }}</option>
-          {% endfor %}
-          </select>
+
+        <form role="form" method="POST">
+          <div class="form-group">
+            <select name="dateselected" class="form-control">
+              {% for x in hpdate %}
+              <option "{% if loop.last %} SELECTED {% endif %}"> {{ x.date }} </option>
+              {% endfor %}
+            </select>
+          </div>
+        </form>
         <h4 class="text-center mt-1">
-          <a class="btn btn-primary mt-1 mx-auto" href={{ url_for('biometrics', username = patient.username) }} method='GET'>Biometrics</a>
-          <a class="btn btn-primary mt-1 mx-auto" href={{ url_for('health', username = patient.username) }} method='GET'>Health</a>
+          <a class="btn btn-primary mt-1 mx-auto" href={{ url_for('biometrics', username = patient.username) }} method="POST">Biometrics</a>
+          <a class="btn btn-primary mt-1 mx-auto" href={{ url_for('health', username = patient.username) }} method='POST'>Health</a>
         </h4>
+
+
       </div>
 
       <div class="col-sm-7">
