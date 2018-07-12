@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Biometrics - info for {{ patient.username }}{% endblock %}
+{% block title %}Biometrics - info for {{ data.username }}{% endblock %}
 {% block head %}
   {{ super() }}
 {% endblock %}
@@ -10,20 +10,34 @@
 
   <div class="container">
     <div class="row">
-      <div class="col-sm-5">
-        <div class="card mt-5" style="background-color: rgba(0, 209, 255, 0.1);">
-          <div class="card-body">
-            <h4 class="card-title">{{ patient.nome | capitalize }} {{ patient.cognome | capitalize}}</h5>
+      <div class="col-md-12">
+        <div>
+          <h4 class="text-monospace text-center mt-4">Biometrics information</h4>
+          <div class="card mt-4 mx-auto" style="background-color: rgba(0, 209, 255, 0.1);">
+            <div class="card-body">
+              <h6 class="card-subtitle mb-2 text-muted">User</h6>
+              <p class="card-text"><strong>Username: </strong> {{ data['username'] }}</p>
+              <h6 class="card-subtitle mb-2 text-muted">Steps</h6>
+              <p class="card-text"><strong>Steps number:</strong> {{  }} </p>
+              <p class="card-text"><strong></strong></p>
+              <p class="card-text"><strong></strong></p>
+              <h6 class="card-subtitle mb-2 text-muted">Medical office</h6>
+              <p class="card-text"><strong></strong></p>
+              <p class="card-text"><strong>:</strong> <strong>:</strong> </p>
+              <p class="card-text"><strong></strong> <strong>- To:</strong></p>
 
-            <p class="card-text"><strong>Home address:</strong> {{ patient.indirizzo.strada}} , {{ patient.indirizzo.cap}}</p>
+              <h4 class="text-center mt-1">
+                <a class="btn btn-primary mt-1 mx-auto" href={{ url_for('info', p_username = data.username) }} method='GET'>Go Back</a>
+              </h4>
+            </div>
           </div>
         </div>
 
-        <h4 class="text-center mt-1">
-          <a class="btn btn-primary mt-1 mx-auto" href={{ url_for('info', username = patient.username) }} method='GET'>Go Back</a>
-        </h4>
+
+
+
       </div>
     </div>
   </div>
-  
+
   {% endblock %}

@@ -11,7 +11,8 @@
   <div class="container">
     <div class="row">
       <div class="col-sm-5">
-        <div class="card mt-5" style="background-color: rgba(0, 209, 255, 0.1);">
+        <h4 class="text-monospace text-center mt-5">Patient registry</h4>
+        <div class="card mt-4" style="background-color: rgba(0, 209, 255, 0.1);">
           <div class="card-body">
             <h4 class="card-title">{{ patient.nome | capitalize }} {{ patient.cognome | capitalize}}</h5>
             <p class="card-text" ><strong>Mail address:</strong><a href="mailto:{{patient.email.indirizzo}}"> {{ patient.email.indirizzo }}</a></p>
@@ -21,19 +22,39 @@
           </div>
         </div>
 
-        <form role="form" method="POST">
-          <div class="form-group">
-            <select name="dateselected" class="form-control">
-              {% for x in hpdate %}
-              <option "{% if loop.last %} SELECTED {% endif %}"> {{ x.date }} </option>
-              {% endfor %}
-            </select>
+        <h4 class="text-monospace text-center mt-5">Patient informations</h4>
+        <div class="card mt-4" style="background-color: rgba(0, 209, 255, 0.1);">
+          <div class="card-body">
+            <h4 class="card-title">Select data</h5>
+              <form role="form"  method="get">
+                <div class="form-group">
+                  <select name="data" class="form-control">
+                    {% for x in hpdate %}
+                      <option value={{ x['date'] }} {% if loop.last %} selected {% endif %}> {{ x['date'] }} </option>
+                    {% endfor %}
+                  </select>
+
+
+                  <div class="row mt-2 justify-content-center">
+                    <div class="form-check form-check-inline">
+                      <label class="form-check-label input-group-text">
+                        <input class="form-check-input" type="radio" name="dataselected" id="inlineRadio1" value="biometrics" checked="checked">Biometrics
+                      </label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <label class="form-check-label input-group-text">
+                        <input class="form-check-input" type="radio" name="dataselected" id="inlineRadio2" value="health_data"> Health Data
+                      </label>
+                    </div>
+
+                    <a href={{ url_for('request_info', username = patient.username) }} method='GET' class="btn btn-primary">Confirm</a>
+                  </div>
+
+                </div>
+              </form>
+
           </div>
-        </form>
-        <h4 class="text-center mt-1">
-          <a class="btn btn-primary mt-1 mx-auto" href={{ url_for('biometrics', username = patient.username) }} method="POST">Biometrics</a>
-          <a class="btn btn-primary mt-1 mx-auto" href={{ url_for('health', username = patient.username) }} method='POST'>Health</a>
-        </h4>
+        </div>
 
 
       </div>
