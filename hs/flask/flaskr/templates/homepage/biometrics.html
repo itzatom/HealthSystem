@@ -18,13 +18,21 @@
               <h6 class="card-subtitle mb-2 text-muted">User</h6>
               <p class="card-text"><strong>Username: </strong> {{ data['username'] }}</p>
               <h6 class="card-subtitle mb-2 text-muted">Steps</h6>
-              <p class="card-text"><strong>Steps number:</strong> {{  }} </p>
-              <p class="card-text"><strong></strong></p>
-              <p class="card-text"><strong></strong></p>
-              <h6 class="card-subtitle mb-2 text-muted">Medical office</h6>
-              <p class="card-text"><strong></strong></p>
-              <p class="card-text"><strong>:</strong> <strong>:</strong> </p>
-              <p class="card-text"><strong></strong> <strong>- To:</strong></p>
+              <p class="card-text"><strong>Steps number:</strong> {{  data['steps.value'] }} </p>
+              <p class="card-text"><strong>Time stamp:</strong> {{  data['steps.value'] }}</p>
+              <h6 class="card-subtitle mb-2 text-muted">Calories</h6>
+              <p class="card-text"><strong>Burned:</strong> {{  data['caloriesBurned.value'] }} </p>
+              <p class="card-text"><strong>Time stamp:</strong> {{  data['caloriesBurned.timeStamp'] }}</p>
+              <h6 class="card-subtitle mb-2 text-muted">Distance</h6>
+              <p class="card-text"><strong>Traveled:</strong> {{  data['distanceTraveled.value'] }} </p>
+              <p class="card-text"><strong>Time stamp:</strong> {{  data['distanceTraveled.timeStamp'] }}</p>
+              <h6 class="card-subtitle mb-2 text-muted">Heart Rate</h6>
+              <p class="card-text"><strong>BPM:</strong> {{  data['BPM.value'] }} </p>
+              <p class="card-text"><strong>Time stamp:</strong> {{  data['BPM.timeStamp'] }}</p>
+              <h6 class="card-subtitle mb-2 text-muted">Sleep Session</h6>
+              <p class="card-text"><strong>Begin:</strong> {{  data['sleepSession.begin'] }} </p>
+              <p class="card-text"><strong>End:</strong> {{  data['sleepSession.end'] }}</p>
+
 
               <h4 class="text-center mt-1">
                 <a class="btn btn-primary mt-1 mx-auto" href={{ url_for('info', p_username = data.username) }} method='GET'>Go Back</a>
@@ -32,9 +40,6 @@
             </div>
           </div>
         </div>
-
-
-
 
       </div>
     </div>
