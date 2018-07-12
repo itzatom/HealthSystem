@@ -250,26 +250,41 @@ def add_patient(m_username):
     if request.method == 'GET':
         return render_template('homepage/register.html', m_username=m_username)
     else:
-        tipo_doc = TipoDoc.query.filter_by(tipo_documento=request.form['form-type-doc'].lower()).first()
-        documento = Documento(None, codice=request.form['form-document-code'].upper(), id_tipo=tipo_doc.id_tipo)
+
         indirizzo = Indirizzo(None, cap=request.form['form-zip-code'], strada=request.form['form-street-addr'])
 
-        if db.session.query(Email).filter_by(indirizzo=request.form['form-email']) is None:
+        tipo_doc = TipoDoc.query.filter_by(tipo_documento=request.form['form-type-doc'].lower()).first()
+        doc = db.session.query(Documento).filter_by(codice=request.form['form-document-code'].upper()).first()
+        if doc is None:
+            documento = Documento(None, codice=request.form['form-document-code'].upper(), id_tipo=tipo_doc.id_tipo)
+        else:
+            flash('document is already used')
+            return render_template('homepage/register.html', m_username=m_username)
+
+        mail = db.session.query(Email).filter_by(indirizzo=request.form['form-email']).first()
+        if  mail is None:
             email = Email(None, indirizzo=request.form['form-email'])
         else:
             flash('Email address already used')
             return render_template('homepage/register.html', m_username=m_username)
 
+        tel = db.session.query(Telefono).filter_by(numero=request.form['form-phonenumb']).first()
+        if tel is None:
+            telefono = Telefono(None, numero=request.form['form-phonenumb'])
+        else:
+            flash('Phone number already used')
+            return render_template('homepage/register.html', m_username=m_username)
 
-        telefono = Telefono(None, numero=request.form['form-phonenumb'])
-        try:
-            db.session.add(documento)
-            db.session.add(indirizzo)
-            db.session.add(email)
-            db.session.add(telefono)
-            db.session.commit()
-        except:
-            db.session.rollback()
+        #regexp
+        if db.session.query(Persona).filter_by(cf=request.form['form-perscode'].upper()).first() is None:
+            p_cf = request.form['form-perscode'].upper()
+            if p_cf is not None:
+                if re.match('^[A-Z]{6}\d{2}[A-Z]\d{2}[A-Z]\d{3}[A-Z]$',p_cf) is None:
+                    flash('CF is not valid, please insert a valid one')
+                    return render_template('homepage/register.html', m_username=m_username)
+        else:
+            flash('CF is already used')
+            return render_template('homepage/register.html', m_username=m_username)
 
 
         p_documento = db.session.query(Documento).filter_by(codice=documento.codice).first()
@@ -277,19 +292,25 @@ def add_patient(m_username):
         p_email = db.session.query(Email).filter_by(indirizzo=email.indirizzo).first()
         p_telefono = db.session.query(Telefono).filter_by(numero=telefono.numero).first()
 
-        #regexp
-        p_cf = request.form['form-perscode'].upper()
-        if p_cf is not None:
-            if re.match('^[A-Z]{6}\d{2}[A-Z]\d{2}[A-Z]\d{3}[A-Z]$',p_cf) is None:
-                flash('CF is not valid, please insert a valid one')
-                return render_template('homepage/register.html', m_username=m_username)
+        persona = Persona()
+        persona.nome = request.form['form-name']
+        persona.cognome = request.form['form-surname']
+        persona.username = request.form['form-user']
+        persona.password = request.form['form-pass']
+        persona.cf = p_cf
+        persona.indirizzo = indirizzo
+        persona.email = email
+        persona.documento = documento
+        persona.telefono = telefono
+        persona.luogo_nascita = request.form['form-bplace']
+        persona.data_nascita = request.form['form-bdate']
 
-        persona = Persona(None, nome=request.form['form-name'], cognome=request.form['form-surname'], \
-                        username=request.form['form-user'], password=request.form['form-pass'],\
-                        cf=p_cf, indirizzo=p_indirizzo, email=p_email,\
-                        documento=p_documento, telefono=p_telefono, luogo_nascita=request.form['form-bplace'],\
-                        data_nascita=request.form['form-bdate'])
+        
         try:
+            db.session.add(documento)
+            db.session.add(indirizzo)
+            db.session.add(email)
+            db.session.add(telefono)
             db.session.add(persona)
             db.session.commit()
         except:
