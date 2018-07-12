@@ -110,11 +110,11 @@
          // The width is the width of the image, and the algorithm chooses the best fit.
              if(window.innerWidth >= 800)
              {
-                $.backstretch(["https://es.best-wallpaper.net/wallpaper/1920x1080/1701/Stethoscope-medicine-tool_1920x1080.jpg"]);
+                $.backstretch({{ url_for('static', filename='assets/img/background/1-2x.jpg') }});
              }
             else
             {
-                $.backstretch(["https://www.serenamissori.it/wp-content/uploads/2017/07/medicina-funzionale-biotipizzata-750x480.jpg"]);
+                $.backstretch({{ url_for('static', filename='assets/img/background/1.jpg') }});
             }
             // Form validation
             $('.login-form input[type="text"], .login-form input[type="password"], .login-form textarea').on('focus', function() {

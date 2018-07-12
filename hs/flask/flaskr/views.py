@@ -186,7 +186,7 @@ def doctor(_username):
 def info(p_username):
     p = Persona.query.filter_by(username=p_username).first()
     r = Ricetta.query.filter_by(id_paziente=p.id_persona).all()
-    hspurp = mongo.db.health_purpose
+    hspurp = mongo.db.biometrics
     datelist = hspurp.find( { "username": p.username}, {"_id": 0, "date": 1 })
     return render_template('homepage/info.html', patient=p, prescription=r, hpdate=datelist)
 
@@ -345,27 +345,23 @@ def remove_patient(p_username):
 
      return redirect(request.args.get('next') or url_for('doctor', _username=med.persona.username))
 
-"""
-@app.route('/hs/biometrics/<username>',methods=['GET','POST'])
-@login_required
-def biometrics(username):
-    collection = mongo.db.biometrics
-    selected = request.form.get('dateselected')
-    data = collection.find({"username":username},{"_id":0,"date":selected})
-    return str(data[0])
 
-@app.route('/hs/username/<username>',methods=['GET'])
-@login_required
-def health(username):
-    collection = mongo.db.health_purpose
-    selected = request.form.get('dateselected')
-    data = collection.find({"username":username},{"_id":0,"date":selected})
-    return str(data[0])
-"""
-@app.route('/hs/request_info/<username>',methods=['GET','POST'])
+@app.route('/hs/request_info/<username>',methods=['POST'])
 @login_required
 def request_info(username):
-    return str(request.form.get('data'))
+    if request.method == 'POST':
+        selected = request.form.get('data')
+        page = request.form.get('dataselected')
+
+        if page == 'biometrics':
+            collection = mongo.db.biometrics
+            data = collection.find({"username":username, "date":selected},{"_id":0})
+            return render_template('homepage/biometrics.html', data=data[0])
+
+        elif page == 'health_data':
+            collection = mongo.db.health_purpose
+            data = collection.find({"username":username, "date":selected},{"_id":0})
+            return render_template('homepage/healthdata.html', data=data[0])
 
 @app.route('/hs/about',methods=['GET','POST'])
 def about():
