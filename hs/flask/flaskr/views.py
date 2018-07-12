@@ -305,7 +305,7 @@ def add_patient(m_username):
         persona.luogo_nascita = request.form['form-bplace']
         persona.data_nascita = request.form['form-bdate']
 
-        
+
         try:
             db.session.add(documento)
             db.session.add(indirizzo)
@@ -345,6 +345,7 @@ def remove_patient(p_username):
 
      return redirect(request.args.get('next') or url_for('doctor', _username=med.persona.username))
 
+"""
 @app.route('/hs/biometrics/<username>',methods=['GET','POST'])
 @login_required
 def biometrics(username):
@@ -360,7 +361,11 @@ def health(username):
     selected = request.form.get('dateselected')
     data = collection.find({"username":username},{"_id":0,"date":selected})
     return str(data[0])
-
+"""
+@app.route('/hs/request_info/<username>',methods=['GET','POST'])
+@login_required
+def request_info(username):
+    return str(request.form.get('dataselected'))
 
 #PATIENT
 @app.route('/hs/patient/<_username>', methods=['GET','POST'])
