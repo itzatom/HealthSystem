@@ -365,7 +365,11 @@ def health(username):
 @app.route('/hs/request_info/<username>',methods=['GET','POST'])
 @login_required
 def request_info(username):
-    return str(request.form.get('dataselected'))
+    return str(request.form.get('data'))
+
+@app.route('/hs/about',methods=['GET','POST'])
+def about():
+    return render_template('homepage/about.html')
 
 #PATIENT
 @app.route('/hs/patient/<_username>', methods=['GET','POST'])
