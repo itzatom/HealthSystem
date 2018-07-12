@@ -9,7 +9,7 @@ class Indirizzo(db.Model):
 
     id_indirizzo = db.Column(db.Integer, primary_key=True, server_default=db.text("nextval('indirizzo_id_indirizzo_seq'::regclass)"))
     cap = db.Column(db.Integer, nullable=False)
-    strada = db.Column(db.String(100), nullable=False, unique=True)
+    strada = db.Column(db.String(100), nullable=False)
 
     def __init__(self, id_indirizzo, cap, strada):
         self.id_indirizzo = id_indirizzo
@@ -50,21 +50,6 @@ class Persona(UserMixin, db.Model):
     email = db.relationship('Email', foreign_keys=[id_email])
     documento = db.relationship('Documento', foreign_keys=[id_documento])
     telefono = db.relationship('Telefono', foreign_keys=[id_telefono])
-
-
-    def __init__(self, id_persona, nome, cognome, username, password, cf, indirizzo, email, documento, telefono, luogo_nascita, data_nascita):
-        self.id_persona = id_persona
-        self.nome = nome
-        self.cognome = cognome
-        self.username = username
-        self.set_password(password)
-        self.cf = cf
-        self.id_indirizzo = indirizzo.id_indirizzo
-        self.id_email = email.id_email
-        self.id_documento = documento.id_documento
-        self.id_telefono = telefono.id_telefono
-        self.luogo_nascita = luogo_nascita
-        self.data_nascita = data_nascita
 
 
     def get_id(self):
@@ -172,10 +157,3 @@ class Ricetta(db.Model):
 
     medico = db.relationship('Medico')
     paziente = db.relationship('Paziente')
-
-    def __init__(self, id_ricetta, id_paziente, id_medico, campo, data_emissione):
-        self.id_ricetta = id_ricetta
-        self.id_paziente = id_paziente
-        self.id_medico = id_medico
-        self.campo = campo
-        self.data_emissione = data_emissione
