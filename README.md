@@ -14,7 +14,7 @@ The main purposes is to increase the comunication between doctors and patients. 
 ### Some screenshots
 | Login | Doctor homepage | Patient Homepage
 |:--:|:--:|:--:|
-| ![original](https://imgur.com/YUOX97u) | ![doctor](https://imgur.com/q0CYnI5) | ![patient](https://imgur.com/q0CYnI5) |
+| ![original](https://i.imgur.com/YUOX97u.png) | ![doctor](https://i.imgur.com/q0CYnI5.png) | ![patient](https://i.imgur.com/q0CYnI5.png) |
 
 ## Features
 Every doctor and patient got the same functions, down below are illustrated doctor first:
