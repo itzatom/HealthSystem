@@ -1,17 +1,9 @@
-<h1 align="center"><img alt="HealthSystem Logo" src="" width="320"></h1>
-<p align="center">
-  <img src="https://i.imgur.com/NwZwVHN.jpg" width="200">
-  <p align="center">Enanched comunication<p>
-  <p align="center">
-    <sup>
-      <i> Increasing the comunication between doctors and patients  </i>
-    </sup>
-  </p>
-</p>
-
+<h1 align="center"><img alt="HealthSystem Logo" src="https://i.imgur.com/NwZwVHN.jpg" width="320"></h1>
+<h2 align="center"> Enanched comunication </h2>
 
 ### About
-**Health system** is an University (Università degli Studi di Napoli Parthenope) project created by **Vittorio Fones** and **Antonio Mentone** (by an idea of Antonio Mentone).
+**Health system** is an University (Università degli Studi di Napoli Parthenope) project created by **Vittorio Fones** and **Antonio Mentone** (by an idea of Antonio Mentone).<br>
+Increasing the comunication between doctors and patients is the main purpose of this project.
 
 ### How does it work
 * Inside docker containers are working together flask, mongo, nginx, postgres
