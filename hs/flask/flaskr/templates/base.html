@@ -8,32 +8,28 @@
 
       <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <!-- Bootstrap 4 -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+      <!-- Bootstrap 4 -->
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
 
     <title>{% block title %}{% endblock %} - HealthSystem</title>
     {% endblock %}
   </head>
-  <body>
+  <body  style="background: #D3F7FF;">
     {% block body %}
     <div id="content">
       {% block content %}
         <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #007b95;">
-          <a class="navbar-brand" href="#">HealthSystem</a>
+          <a class="navbar-brand" href="#">
+            <img src="{{ url_for('static', filename='assets/img/backgrounds/logo.jpg') }}" width="50%" height="50%" alt="Logo">
+          </a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
             <ul class="navbar-nav">
-              <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-              </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">About</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Contact</a>
+                <a class="nav-link" href="{{url_for('about')}}">About</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link " href={{ url_for('logout') }}>Logout</a>
@@ -44,10 +40,11 @@
       {% endblock %}
     </div>
     {% block footer %}
-      <div id="footer">
-        &copy; Copyright 2018 by <a href="http://domain.invalid/">Antonio Mentone, Vittorio Fones</a>.
+      <div id="footer" class="footer  fixed-bottom navbar navbar-fixed-bottom justify-content-center mt-4 pt-4" style="background-color: rgba(171, 171, 171, 0.3); position: relative">
+        <p class="text-center">&copy; Copyright 2018 by <a href="mailto:antonio.mentone.96@gmail.com">Antonio Mentone</a>, <a href="mailto:vittorio.fones@gmail.com"> Vittorio Fones</a>.</p>
       </div>
     {% endblock %}
-  {% endblock %}
+    {% endblock %}
+
   </body>
 </html>

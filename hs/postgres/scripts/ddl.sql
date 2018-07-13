@@ -30,7 +30,7 @@ CREATE TABLE DOCUMENTO
 );
 
 CREATE TABLE TELEFONO
-(	
+(
 	ID_TELEFONO serial primary key,
 	NUMERO varchar(11) not null unique
 );
@@ -55,7 +55,7 @@ CREATE TABLE PERSONA
     ID_EMAIL integer unique not null references EMAIL(ID_EMAIL),
     ID_DOCUMENTO integer unique not null references DOCUMENTO(ID_DOCUMENTO),
     ID_TELEFONO integer unique not null references TELEFONO(ID_TELEFONO),
-	LUOGO_NASCITA varchar(50) not null, 
+	LUOGO_NASCITA varchar(50) not null,
 	DATA_NASCITA date not null
 );
 
