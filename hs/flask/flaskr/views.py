@@ -443,7 +443,7 @@ def final_insert(p_username):
 
         data.get('steps').append({'value': str(request.form["steps"]),'timeStamp': str(date) })
         data.get('caloriesBurned').append({'value': str(request.form["caloriesBurned"]),'timeStamp': str(date) })
-        data.get('distanceTraveled').append({'value':round( (int((request.form['caloriesBurned']))/(1312.33)), 2),'timeStamp': str(date) })
+        data.get('distanceTraveled').append({'value':round( (int((request.form['distanceTraveled']))/(1312.33)), 2),'timeStamp': str(date) })
         data.get('BPM').append({'pulse': request.form['BPM'],'timeStamp': str(date) })
 
         begin=str(request.form['beginSession-h'])+":"+str(request.form['beginSession-m'])
