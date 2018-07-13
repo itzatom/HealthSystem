@@ -7,20 +7,9 @@
   {{ super() }}
 {%endblock%}
 {%block form%}
-<div class="form-group">
-  <label for="choose-document">Choose document</label>
-  <select name="form-type-doc" multiple class="form-control" id="choose-document">
-    <option>Passport</option>
-    <option>Driver card</option>
-    <option>Identity document</option>
-  </select>
-</div>
-<div class="form-group">
-  <label for="document-form">Document code</label>
-  <input type="text" name="form-document-code" class="form-control" id="document-form" placeholder="Patient document code...">
-</div>
+
 <div class="text-center">
-  <a href={{ url_for('patient', _username = user.username) }} class="btn btn-danger">Cancel</a>
+  <a href={{ url_for('patient', _username = user.persona.username) }} class="btn btn-danger">Cancel</a>
   <button type="submit" class="btn btn-success">Confirm</button>
 </div>
 {%endblock%}

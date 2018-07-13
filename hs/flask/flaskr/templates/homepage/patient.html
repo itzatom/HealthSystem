@@ -7,17 +7,90 @@
 {% block content %}
   {{ super() }}
 
-  <div class=container>
+  <div class="container">
     <div class="row">
-      <div class="col-sm-6">
-        <hgroup>
-          <h1>Patient</h1> 
-        </hgroup>
+        <div class="col-md-4">
+          <h4 class="text-monospace text-center mt-4">Your profile </h4>
+          <div class="card mt-4" style="background-color: rgba(0, 209, 255, 0.1);">
+            <div class="card-body">
+              <h4 class="card-title">{{  paziente.persona.nome | capitalize }} {{  paziente.persona.cognome | capitalize}}</h5>
+              <p class="card-text"><strong>Phone number:</strong> {{   paziente.persona.telefono.numero}}</p>
+              <p class="card-text"><strong>Mail address:</strong> {{  paziente.persona.email.indirizzo }}</p>
+              <p class="card-text"><strong>Document:</strong> {{   paziente.persona.documento.codice}}</p>
+              <h6 class="card-subtitle mb-2 text-muted">Medical office</h6>
+              <p class="card-text"><strong>Home address:</strong> {{   paziente.persona.indirizzo.strada}} , {{  paziente.persona.indirizzo.cap}}</p>
+              <a class="btn btn-primary mt-1" href={{ url_for('edit_profile', username= paziente.persona.username) }} method='GET'>Edit your profile</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <h4 class="text-monospace text-center mt-4">dio </h4>
+          <div class="card mt-4" style="background-color: rgba(0, 209, 255, 0.1);">
+            <div class="card-body">
+              <h4 class="card-title">{{  paziente.persona.nome | capitalize }} {{  paziente.persona.cognome | capitalize}}</h5>
+              <p class="card-text"><strong>Phone number:</strong> {{   paziente.persona.telefono.numero}}</p>
+              <p class="card-text"><strong>Mail address:</strong> {{  paziente.persona.email.indirizzo }}</p>
+              <p class="card-text"><strong>Document:</strong> {{   paziente.persona.documento.codice}}</p>
+              <h6 class="card-subtitle mb-2 text-muted">Medical office</h6>
+              <p class="card-text"><strong>Home address:</strong> {{   paziente.persona.indirizzo.strada}} , {{  paziente.persona.indirizzo.cap}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <h4 class="text-monospace text-center mt-4">profile </h4>
+          <div class="card mt-4" style="background-color: rgba(0, 209, 255, 0.1);">
+            <div class="card-body">
+              <h4 class="card-title">{{  paziente.persona.nome | capitalize }} {{  paziente.persona.cognome | capitalize}}</h5>
+              <p class="card-text"><strong>Phone number:</strong> {{   paziente.persona.telefono.numero}}</p>
+              <p class="card-text"><strong>Mail address:</strong> {{  paziente.persona.email.indirizzo }}</p>
+              <p class="card-text"><strong>Document:</strong> {{   paziente.persona.documento.codice}}</p>
+              <h6 class="card-subtitle mb-2 text-muted">Medical office</h6>
+              <p class="card-text"><strong>Home address:</strong> {{   paziente.persona.indirizzo.strada}} , {{  paziente.persona.indirizzo.cap}}</p>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="col-sm-6">
-
-      </div>
+      <div class="row">
+          <div class="col-md-4">
+            <h4 class="text-monospace text-center mt-4">Your profile </h4>
+            <div class="card mt-4" style="background-color: rgba(0, 209, 255, 0.1);">
+              <div class="card-body">
+                <h4 class="card-title">{{  paziente.persona.nome | capitalize }} {{  paziente.persona.cognome | capitalize}}</h5>
+                <p class="card-text"><strong>Phone number:</strong> {{   paziente.persona.telefono.numero}}</p>
+                <p class="card-text"><strong>Mail address:</strong> {{  paziente.persona.email.indirizzo }}</p>
+                <p class="card-text"><strong>Document:</strong> {{   paziente.persona.documento.codice}}</p>
+                <h6 class="card-subtitle mb-2 text-muted">Medical office</h6>
+                <p class="card-text"><strong>Home address:</strong> {{   paziente.persona.indirizzo.strada}} , {{  paziente.persona.indirizzo.cap}}</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <h4 class="text-monospace text-center mt-4">dio </h4>
+            <div class="card mt-4" style="background-color: rgba(0, 209, 255, 0.1);">
+              <div class="card-body">
+                <h4 class="card-title">{{  paziente.persona.nome | capitalize }} {{  paziente.persona.cognome | capitalize}}</h5>
+                <p class="card-text"><strong>Phone number:</strong> {{   paziente.persona.telefono.numero}}</p>
+                <p class="card-text"><strong>Mail address:</strong> {{  paziente.persona.email.indirizzo }}</p>
+                <p class="card-text"><strong>Document:</strong> {{   paziente.persona.documento.codice}}</p>
+                <h6 class="card-subtitle mb-2 text-muted">Medical office</h6>
+                <p class="card-text"><strong>Home address:</strong> {{   paziente.persona.indirizzo.strada}} , {{  paziente.persona.indirizzo.cap}}</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <h4 class="text-monospace text-center mt-4">profile </h4>
+            <div class="card mt-4" style="background-color: rgba(0, 209, 255, 0.1);">
+              <div class="card-body">
+                <h4 class="card-title">{{  paziente.persona.nome | capitalize }} {{  paziente.persona.cognome | capitalize}}</h5>
+                <p class="card-text"><strong>Phone number:</strong> {{   paziente.persona.telefono.numero}}</p>
+                <p class="card-text"><strong>Mail address:</strong> {{  paziente.persona.email.indirizzo }}</p>
+                <p class="card-text"><strong>Document:</strong> {{   paziente.persona.documento.codice}}</p>
+                <h6 class="card-subtitle mb-2 text-muted">Medical office</h6>
+                <p class="card-text"><strong>Home address:</strong> {{   paziente.persona.indirizzo.strada}} , {{  paziente.persona.indirizzo.cap}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
     </div>
-  </div>
 
 {% endblock %}

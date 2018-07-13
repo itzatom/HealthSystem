@@ -49,11 +49,9 @@ def edit_profile(username):
     medico = Medico.query.filter_by(id_medico=persona.id_persona).first()
     paziente = Paziente.query.filter_by(id_paziente=persona.id_persona).first()
     if request.method == 'GET':
-        try:
-            if medico is not None:
-                return render_template('homepage/edit_doctor.html', user=medico)
-        except:
-            paziente = Paziente.query.filter_by(id_paziente=persona.id_persona).first()
+        if medico is not None:
+            return render_template('homepage/edit_doctor.html', user=medico)
+        else:
             if paziente is not None:
                 return render_template('homepage/edit_patient.html', user=paziente)
 
@@ -65,6 +63,7 @@ def edit_profile(username):
 
         a=request.form['form-pass']
         b=request.form['conf-form-pass']
+        
         #Check if password has changed
         if a is not None and b is not None:
             if a==b and len(a) > 8:
@@ -137,37 +136,48 @@ def edit_profile(username):
         return redirect(request.args.get('next') or url_for('doctor', _username=medico.persona.username))
 
     elif paziente is not None:
+
         paziente = Paziente.query.filter_by(id_paziente=persona.id_persona).first()
-        if paziente is not None:
-            #Check if email has changed
-            if paziente.persona.email.indirizzo != request.form['form-email']:
-                email = db.session.query(Email).filter_by(id_email=paziente.persona.id_email).first()
-                email.indirizzo = request.form['form-email']
+        mail = request.form['form-email']
 
-            #Check if phonenumber has changed
-            if paziente.persona.telefono.numero != request.form['form-phonenumb']:
-                telefono = db.session.query(Telefono).filter_by(id_telefono=paziente.persona.id_telefono).first()
-                telefono.numero = request.form['form-phonenumb']
+        #Check if email has changed
+        if paziente.persona.email.indirizzo != mail:
+            email = db.session.query(Email).filter_by(id_email=paziente.persona.id_email).first()
+            email.indirizzo = request.form['form-email']
+        else:
+            flash('Email address already used')
+            return render_template('homepage/edit_patient.html', user=paziente.persona.username)
 
-            #Check if street address has changed
-            #Check if  address has changed
-            if paziente.persona.indirizzo.strada != request.form['form-street-addr']:
-                indirizzo = db.session.query(Indirizzo).filter_by(id_indirizzo=paziente.persona.id_indirizzo).first()
-                indirizzo.strada = request.form['form-street-addr']
-                if paziente.persona.indirizzo.cap != request.form['form-zip-code']:
-                    indirizzo.cap = request.form['form-zip-code']
+        a=request.form['form-pass']
+        b=request.form['conf-form-pass']
+        #Check if password has changed
+        if a is not None and b is not None:
+            if a==b and len(a) > 8:
+                persona.set_password(request.form['form-pass'])
+            else:
+                flash('Password error: less than 8 char or misplelled')
+                return redirect(url_for('edit_profile', username=persona.username))
+        else:
+            pass
 
-            if  paziente.persona.documento.id_documento != request.form['form-document-code']:
-                documento = db.session.query(Documento).filter_by(id_documento=paziente.id_documento).first()
-                documento.id_documento = request.form['form-document-code']
-                if paziente.persona.documento.tipo_documento != request.form['form-type-doc']:
-                    documento.id_documento.tipo_doc = request.form['form-type-doc']
-            try:
-                db.session.commit()
-            except:
-                db.session.rollback()
+        #Check if phonenumber has changed
+        if medico.persona.telefono.numero != request.form['form-phonenumb']:
+            telefono = db.session.query(Telefono).filter_by(id_telefono=medico.persona.id_telefono).first()
+            telefono.numero = request.form['form-phonenumb']
 
-            return redirect(request.args.get('next') or url_for('patient', _username=paziente.persona.username))
+        #Check if  address has changed
+        if medico.persona.indirizzo.strada != request.form['form-street-addr']:
+            indirizzo = db.session.query(Indirizzo).filter_by(id_indirizzo=medico.persona.id_indirizzo).first()
+            indirizzo.strada = request.form['form-street-addr']
+            if medico.persona.indirizzo.cap != request.form['form-zip-code']:
+                indirizzo.cap = request.form['form-zip-code']
+
+        try:
+            db.session.commit()
+        except:
+            db.session.rollback()
+
+        return redirect(request.args.get('next') or url_for('patient', _username=paziente.persona.username))
 
 #DOCTOR
 """ Get doctor homepage """
@@ -372,4 +382,6 @@ def about():
 @login_required
 def patient(_username):
     if request.method == 'GET':
-        return render_template('homepage/patient.html', Persona=_username);
+        persona = Persona.query.filter_by(username=_username).first()
+        paziente = Paziente.query.filter_by(id_paziente=persona.id_persona).first()
+        return render_template('homepage/patient.html', paziente=paziente);
