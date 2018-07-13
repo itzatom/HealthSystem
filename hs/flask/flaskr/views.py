@@ -5,13 +5,8 @@ from flask_mail import Message
 from .sql.models import Medico, Paziente, Ricetta, TipoDoc, Documento, Indirizzo, Email, Telefono, Persona, StudLeg
 from datetime import date, time, datetime
 import re
-<<<<<<< HEAD
 from bson import json_util
 import json
-=======
-import os
-from bson.json_util import dumps
->>>>>>> f8177818136a30e88ca0e9903c0209be090a2090
 
 from geopy import geocoders
 from geopy.exc import GeocoderTimedOut
