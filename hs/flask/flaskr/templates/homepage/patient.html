@@ -36,10 +36,9 @@
             <div class="card-body">
               <h4 class="card-title">Tell to your doctor</h5>
                   <p class="card-text mt-4">Press the button to send information about your health</p>
-                    <div class="mt-5 text-center">
+                  <div class="mt-5 mb-2 text-center">
                       <a  href={{ url_for('first_insert', p_username = paziente.persona.username) }}  method='get' class="btn btn-primary mt-5">Go</a>
                   </div>
-
             </div>
           </div>
         </div>
@@ -52,8 +51,8 @@
             <h4 class="card-title">What's new?</h5>
             <p class="card-text mt-4">Press the button to see if there are new medical prescriptions or to read the previous ones</p>
 
-              <div class="text-center mt-5">
-                <a class="btn btn-warning mt-5 mb-1" href={{ url_for('get_prescription', p_username = paziente.persona.username) }} method='GET'>Look now</a>
+              <div class="text-center mt-4">
+                <a class="btn btn-warning mt-5 mb-2" href={{ url_for('get_prescription', p_username = paziente.persona.username) }} method='GET'>Look now</a>
               </div>
           </div>
         </div>
@@ -81,11 +80,10 @@
       <div class="col-md-4">
         <h4 class="text-monospace text-center mt-4">How were you?</h4>
         <div class="card mt-4" style="background-color: rgba(0, 209, 255, 0.1);">
-
           <div class="card-body">
             <h4 class="card-title">The past of yourself</h4>
             <p class="card-text">Select the date and press the button to select what type of information you want to see</p>
-              <div class="form-group">
+              <div class="form-group mt-2">
                 <form role="form" action="{{ url_for('request_info', username = paziente.persona.username) }}" method="POST">
                 <select name="data" class="form-control">
                   {% for x in hpdate %}
