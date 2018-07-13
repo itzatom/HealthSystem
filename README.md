@@ -2,7 +2,7 @@
 
 
 **Health system** is an University (Università degli Studi di Napoli Parthenope) project created by **Vittorio Fones** and **Antonio Mentone** (by an idea of Antonio Mentone).
-The main purposes is to increase the comunication between doctors and patients. <br>
+The main purposes is to increase the comunication between doctors and patients.
 
 ### How does it work
 * Inside docker containers are working together flask, mongo, nginx, postgres
@@ -10,6 +10,7 @@ The main purposes is to increase the comunication between doctors and patients. 
 * flask is creating web page dinamically with Jinja2
 * after a successful login, information are queried from postgres
 * mongo is used for storing information about biometrics and health purposes
+
 
 ### Some screenshots
 | Login | Doctor homepage | Patient Homepage
@@ -36,6 +37,7 @@ Patient:
 
 ### Requirements
 The system is developed under osx and arch linux running docker latest version but probably will work the same with other version.
+
 To avoid bugs/crash/errors run this version:
 
 * Docker version 18.03.1-ce, build 9ee9f40
@@ -70,12 +72,14 @@ Inside hs folder run:
 ```bash
 $ docker-compose up --build -d
 ```
-If you want to read log don't run in detached mode (remove -d)
+If you want to read log don't run in detached mode (remove -d).
+
 Now go to your browser and go to: http://127.0.0.1 and you are ready to go.
 
 ### Credential
-To login use usernames provided in hs/postgres/dml.sql
-Password for ALL users is "tecweb"
+To login use usernames provided in hs/postgres/dml.sql .
+
+Password for ALL users is "tecweb".
 
 Or here there are some:
 Doctor:
