@@ -10,6 +10,7 @@ Flask-Login==0.4.1
 Flask-Mail==0.9.1
 Flask-PyMongo==2.0.0
 Flask-SQLAlchemy==2.1
+geopy
 gunicorn==19.9.0
 idna==2.7
 imagesize==1.0.0

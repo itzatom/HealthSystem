@@ -41,6 +41,8 @@ services:
             - SECRETKEY=${SECRETKEY}
             - MAIL_USERNAME=${MAIL_USERNAME}
             - MAIL_PASSWORD=${MAIL_PASSWORD}
+            - MAPS=${MAPS}
+            - GAPI=${GAPI}
         depends_on:
             - mongo
             - postgres

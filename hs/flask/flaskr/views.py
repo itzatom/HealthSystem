@@ -5,7 +5,13 @@ from flask_mail import Message
 from .sql.models import Medico, Paziente, Ricetta, TipoDoc, Documento, Indirizzo, Email, Telefono, Persona, StudLeg
 from datetime import date, time
 import re
+import os
 from bson.json_util import dumps
+
+from geopy import geocoders
+from geopy.exc import GeocoderTimedOut
+
+
 
 login_manager.session_protection = 'strong'
 login_manager.login_view = 'login'
@@ -402,8 +408,15 @@ def patient(_username):
         datelist = hspurp.find( { "username": _username}, {"_id": 0, "date": 1 })
         datelist = datelist.distinct('date')
 
+        ind = (db.session.query(Indirizzo).join(StudLeg).all())
+        lenind = len([i for i in ind])
 
-        return render_template('homepage/patient.html', paziente=paziente, hpdate=datelist);
+        GAPI = os.environ.get('GAPI')
+        maps = os.environ.get('MAPS')
+        g = geocoders.GoogleV3(api_key=GAPI)
+        location = [g.geocode( str(ind[i].strada) + " " + str(ind[i].cap), timeout=10) for i in range(0,lenind)]
+
+        return render_template('homepage/patient.html', paziente=paziente, hpdate=datelist, location=location,mapstoken=maps);
 
 """ Get prescription """
 @app.route('/hs/patient/prescription/<p_username>')
