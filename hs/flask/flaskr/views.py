@@ -7,14 +7,9 @@ from datetime import date, time, datetime
 import re
 from bson import json_util
 import json
-<<<<<<< HEAD
 import os
-=======
-
->>>>>>> 65d2aaa4498ec4b7ccbe5bfa3644babc9b83bc5f
 from geopy import geocoders
 from geopy.exc import GeocoderTimedOut
-
 
 
 login_manager.session_protection = 'strong'
