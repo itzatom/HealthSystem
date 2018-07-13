@@ -5,14 +5,9 @@ from flask_mail import Message
 from .sql.models import Medico, Paziente, Ricetta, TipoDoc, Documento, Indirizzo, Email, Telefono, Persona, StudLeg
 from datetime import date, time, datetime
 import re
-<<<<<<< HEAD
 from bson import json_util
 import json
-=======
 import os
-from bson.json_util import dumps
->>>>>>> f8177818136a30e88ca0e9903c0209be090a2090
-
 from geopy import geocoders
 from geopy.exc import GeocoderTimedOut
 
@@ -436,12 +431,29 @@ def get_prescription(p_username):
 @login_required
 def final_insert(p_username):
     if request.method == 'GET':
-        return render_template('homepage/insert_biometrics.html', p_username=p_username, current_date=datetime.today().strftime('%Y/%m/%d'))
+        return render_template('homepage/insert_biometrics.html', p_username=p_username,  current_date=datetime.today().strftime('%Y/%m/%d'))
 
     if request.method == 'POST':
-        return str(json_util.dumps(request.form))
 
-        json_form = json.loads(json_util.dumps(request.form))
+        skeleton={'username':"",'steps':[],'caloriesBurned':[],'distanceTraveled':[],'BPM':[],'sleepSession':[],'date':""}
+        data = json.loads(json_util.dumps(skeleton))
+
+        date = datetime.today().strftime('%H:%M')
+
+        data['username'] = p_username
+
+        data.get('steps').append({'value': str(request.form["steps"]),'timeStamp': str(date) })
+        data.get('caloriesBurned').append({'value': str(request.form["caloriesBurned"]),'timeStamp': str(date) })
+        data.get('distanceTraveled').append({'value':round( (int((request.form['caloriesBurned']))/(1312.33)), 2),'timeStamp': str(date) })
+        data.get('BPM').append({'pulse': request.form['BPM'],'timeStamp': str(date) })
+
+        begin=str(request.form['beginSession-h'])+":"+str(request.form['beginSession-m'])
+        end=str(request.form['endSession-h'])+":"+str(request.form['endSession-m'])
+        data.get('sleepSession').append({'begin': begin,'end': end })
+
+        data['date'] =  current_date=datetime.today().strftime('%Y/%m/%d')
+
+        json_form = json.loads(json_util.dumps(data))
         collection = mongo.db.biometrics
         collection.insert_one(json_form)
         return redirect(request.args.get('next') or url_for('patient', _username=p_username))
