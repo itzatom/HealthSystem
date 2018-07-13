@@ -3,9 +3,10 @@ from flask import url_for, session, redirect, request, render_template, flash
 from flask_login import login_user, login_required, logout_user
 from flask_mail import Message
 from .sql.models import Medico, Paziente, Ricetta, TipoDoc, Documento, Indirizzo, Email, Telefono, Persona, StudLeg
-from datetime import date, time
+from datetime import date, time, datetime
 import re
-from bson.json_util import dumps
+from bson import json_util
+import json
 
 login_manager.session_protection = 'strong'
 login_manager.login_view = 'login'
@@ -414,12 +415,29 @@ def get_prescription(p_username):
 
     return render_template('homepage/read_prescription.html', prescription=r)
 
-@app.route('/hs/patient/biometrics/<p_username>')
+@app.route('/hs/patient/biometrics/<p_username>', methods=['GET','POST'])
 @login_required
-def biometrics(p_username):
-    pass
+def final_insert(p_username):
+    if request.method == 'GET':
+        return render_template('homepage/insert_biometrics.html', p_username=p_username, current_date=datetime.today().strftime('%Y/%m/%d'))
 
-@app.route('/hs/patient/health_data/<p_username>')
+    if request.method == 'POST':
+        return str(json_util.dumps(request.form))
+
+        json_form = json.loads(json_util.dumps(request.form))
+        collection = mongo.db.biometrics
+        collection.insert_one(json_form)
+        return redirect(request.args.get('next') or url_for('patient', _username=p_username))
+
+
+@app.route('/hs/patient/healthdata/<p_username>', methods=['GET','POST'])
 @login_required
-def health_data(p_username):
-    pass
+def first_insert(p_username):
+    if request.method == 'GET':
+        return render_template('homepage/insert_healthdata.html', p_username=p_username, current_date=datetime.today().strftime('%Y/%m/%d'))
+
+    if request.method == 'POST':
+        json_health_data = json.loads(json_util.dumps(request.form))
+        collection = mongo.db.health_purpose
+        collection.insert_one(json_health_data)
+        return redirect(request.args.get('next') or url_for('final_insert', p_username=p_username))

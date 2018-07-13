@@ -87,7 +87,7 @@
               <p class="card-text mt-4">Press the button to see if there are new medical prescriptions or to read the previous ones</p>
 
                 <div class="text-center mt-5">
-                  <a class="btn btn-warning mt-5 mb-1" href={{ url_for('get_prescription', p_username = paziente.persona.username) }} method='GET'>Edit your profile</a>
+                  <a class="btn btn-warning mt-5 mb-1" href={{ url_for('get_prescription', p_username = paziente.persona.username) }} method='GET'>Look now</a>
                 </div>
             </div>
           </div>
@@ -98,10 +98,9 @@
             <div class="card mt-4" style="background-color: rgba(0, 209, 255, 0.1);">
               <div class="card-body">
                 <h4 class="card-title">Tell to your doctor</h5>
-                    <p class="card-text mt-4">Press the button you prefer to send information about your health</p>
+                    <p class="card-text mt-4">Press the button to send information about your health</p>
                       <div class="mt-5 text-center">
-                        <a  href={{ url_for('biometrics', p_username = paziente.persona.username) }}  method='get' class="btn btn-primary mt-5">Biometrics</a>
-                        <a  href={{ url_for('health_data', p_username = paziente.persona.username) }}  method='get' class="btn btn-primary mt-5">Health</a>
+                        <a  href={{ url_for('first_insert', p_username = paziente.persona.username) }}  method='get' class="btn btn-primary mt-5">Go</a>
                     </div>
 
               </div>
