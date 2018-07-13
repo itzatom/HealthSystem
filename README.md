@@ -1,4 +1,4 @@
-<h1 align="center"><img alt="HealthSystem Logo" src="https://i.imgur.com/VDeGLof.png" width="320"></h1>
+<h1 align="center"><img alt="HealthSystem Logo" src="https://i.imgur.com/NwZwVHN.jpg" width="320"></h1>
 
 
 **Health system** is an University (Università degli Studi di Napoli Parthenope) project created by **Vittorio Fones** and **Antonio Mentone** (by an idea of Antonio Mentone).
