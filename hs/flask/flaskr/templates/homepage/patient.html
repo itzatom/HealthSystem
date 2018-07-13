@@ -41,6 +41,45 @@
           </div>
         </div>
         <div class="col-md-4">
+          <h4 class="text-monospace text-center mt-4">How were you?</h4>
+          <div class="card mt-4" style="background-color: rgba(0, 209, 255, 0.1);">
+
+            <div class="card-body">
+              <h4 class="card-title">The past of yourself</h4>
+              <p class="card-text">Select the date and press the button to select what type of information you want to see</p>
+                <div class="form-group">
+                  <form role="form" action="{{ url_for('request_info', username = paziente.persona.username) }}" method="POST">
+                  <select name="data" class="form-control">
+                    {% for x in hpdate %}
+                      <option value={{ x }} {% if loop.last %} selected {% endif %}> {{ x }} </option>
+                    {% endfor %}
+                  </select>
+
+
+                  <div class="text-center">
+                    <div class="form-check form-check-inline mt-1">
+                      <label class="form-check-label input-group-text">
+                        <input class="form-check-input" type="radio" name="dataselected" id="inlineRadio1" value="biometrics" checked="checked">Biometrics
+                      </label>
+                    </div>
+                    <div class="form-check form-check-inline mt-1">
+                      <label class="form-check-label input-group-text">
+                        <input class="form-check-input" type="radio" name="dataselected" id="inlineRadio2" value="health_data">Health Data
+                      </label>
+                    </div>
+
+                    <div class="text-center">
+                      <button type="submit"  method='post' class="btn btn-primary mt-1 mb-0 text-center">Confirm</button>
+                    </div>
+                  </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+      <div class="row">
+        <div class="col-md-4">
           <h4 class="text-monospace text-center mt-4">Medical prescription</h4>
           <div class="card mt-4" style="background-color: rgba(0, 209, 255, 0.1);">
             <div class="card-body">
@@ -48,36 +87,23 @@
               <p class="card-text mt-4">Press the button to see if there are new medical prescriptions or to read the previous ones</p>
 
                 <div class="text-center mt-5">
-                  <a class="btn btn-warning mt-5 mb-2" href={{ url_for('get_prescription', p_username = paziente.persona.username) }} method='GET'>Edit your profile</a>
+                  <a class="btn btn-warning mt-5 mb-1" href={{ url_for('get_prescription', p_username = paziente.persona.username) }} method='GET'>Edit your profile</a>
                 </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="row">
-          <div class="col-md-4">
-            <h4 class="text-monospace text-center mt-4">The past of yourself</h4>
-            <div class="card mt-4" style="background-color: rgba(0, 209, 255, 0.1);">
-              <div class="card-body">
-                <h4 class="card-title">{{  paziente.persona.nome | capitalize }} {{  paziente.persona.cognome | capitalize}}</h5>
-                <p class="card-text"><strong>Phone number:</strong> {{   paziente.persona.telefono.numero}}</p>
-                <p class="card-text"><strong>Mail address:</strong> {{  paziente.persona.email.indirizzo }}</p>
-                <p class="card-text"><strong>Document:</strong> {{   paziente.persona.documento.codice}}</p>
-                <h6 class="card-subtitle mb-2 text-muted">Medical office</h6>
-                <p class="card-text"><strong>Home address:</strong> {{   paziente.persona.indirizzo.strada}} , {{  paziente.persona.indirizzo.cap}}</p>
-              </div>
-            </div>
-          </div>
+
           <div class="col-md-4">
             <h4 class="text-monospace text-center mt-4">How are you?</h4>
             <div class="card mt-4" style="background-color: rgba(0, 209, 255, 0.1);">
               <div class="card-body">
-                <h4 class="card-title">{{  paziente.persona.nome | capitalize }} {{  paziente.persona.cognome | capitalize}}</h5>
-                <p class="card-text"><strong>Phone number:</strong> {{   paziente.persona.telefono.numero}}</p>
-                <p class="card-text"><strong>Mail address:</strong> {{  paziente.persona.email.indirizzo }}</p>
-                <p class="card-text"><strong>Document:</strong> {{   paziente.persona.documento.codice}}</p>
-                <h6 class="card-subtitle mb-2 text-muted">Medical office</h6>
-                <p class="card-text"><strong>Home address:</strong> {{   paziente.persona.indirizzo.strada}} , {{  paziente.persona.indirizzo.cap}}</p>
+                <h4 class="card-title">Tell to your doctor</h5>
+                    <p class="card-text mt-4">Press the button you prefer to send information about your health</p>
+                      <div class="mt-5 text-center">
+                        <a  href={{ url_for('biometrics', p_username = paziente.persona.username) }}  method='get' class="btn btn-primary mt-5">Biometrics</a>
+                        <a  href={{ url_for('health_data', p_username = paziente.persona.username) }}  method='get' class="btn btn-primary mt-5">Health</a>
+                    </div>
+
               </div>
             </div>
           </div>

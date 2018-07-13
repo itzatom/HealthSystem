@@ -210,6 +210,8 @@ def info(p_username):
     r = Ricetta.query.filter_by(id_paziente=p.id_persona).all()
     hspurp = mongo.db.biometrics
     datelist = hspurp.find( { "username": p.username}, {"_id": 0, "date": 1 })
+    datelist = datelist.distinct('date')
+
     return render_template('homepage/info.html', patient=p, prescription=r, hpdate=datelist)
 
 """ Add prescription """
@@ -378,12 +380,12 @@ def request_info(username):
         if page == 'biometrics':
             collection = mongo.db.biometrics
             data = collection.find({"username":username, "date":selected},{"_id":0})
-            return render_template('homepage/biometrics.html', data=data[0])
+            return render_template('homepage/biometrics.html', data=data)
 
         elif page == 'health_data':
             collection = mongo.db.health_purpose
             data = collection.find({"username":username, "date":selected},{"_id":0})
-            return render_template('homepage/healthdata.html', data=data[0])
+            return render_template('homepage/healthdata.html', data=data)
 
 @app.route('/hs/about',methods=['GET','POST'])
 def about():
@@ -396,7 +398,12 @@ def patient(_username):
     if request.method == 'GET':
         persona = Persona.query.filter_by(username=_username).first()
         paziente = Paziente.query.filter_by(id_paziente=persona.id_persona).first()
-        return render_template('homepage/patient.html', paziente=paziente);
+        hspurp = mongo.db.biometrics
+        datelist = hspurp.find( { "username": _username}, {"_id": 0, "date": 1 })
+        datelist = datelist.distinct('date')
+
+
+        return render_template('homepage/patient.html', paziente=paziente, hpdate=datelist);
 
 """ Get prescription """
 @app.route('/hs/patient/prescription/<p_username>')
@@ -406,3 +413,13 @@ def get_prescription(p_username):
     r = Ricetta.query.filter_by(id_paziente=p.id_persona).all()
 
     return render_template('homepage/read_prescription.html', prescription=r)
+
+@app.route('/hs/patient/biometrics/<p_username>')
+@login_required
+def biometrics(p_username):
+    pass
+
+@app.route('/hs/patient/health_data/<p_username>')
+@login_required
+def health_data(p_username):
+    pass

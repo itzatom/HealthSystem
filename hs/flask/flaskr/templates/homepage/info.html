@@ -30,7 +30,7 @@
                 <div class="form-group">
                   <select name="data" class="form-control">
                     {% for x in hpdate %}
-                      <option value={{ x['date'] }} {% if loop.last %} selected {% endif %}> {{ x['date'] }} </option>
+                      <option value={{ x }} {% if loop.last %} selected {% endif %}> {{ x }} </option>
                     {% endfor %}
                   </select>
 
