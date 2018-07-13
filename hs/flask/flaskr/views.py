@@ -63,7 +63,7 @@ def edit_profile(username):
 
         a=request.form['form-pass']
         b=request.form['conf-form-pass']
-        
+
         #Check if password has changed
         if a is not None and b is not None:
             if a==b and len(a) > 8:
@@ -385,3 +385,12 @@ def patient(_username):
         persona = Persona.query.filter_by(username=_username).first()
         paziente = Paziente.query.filter_by(id_paziente=persona.id_persona).first()
         return render_template('homepage/patient.html', paziente=paziente);
+
+""" Get prescription """
+@app.route('/hs/patient/prescription/<p_username>')
+@login_required
+def get_prescription(p_username):
+    p = Persona.query.filter_by(username=p_username).first()
+    r = Ricetta.query.filter_by(id_paziente=p.id_persona).all()
+
+    return render_template('homepage/read_prescription.html', prescription=r)

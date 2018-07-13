@@ -14,45 +14,49 @@
           <div class="card mt-4" style="background-color: rgba(0, 209, 255, 0.1);">
             <div class="card-body">
               <h4 class="card-title">{{  paziente.persona.nome | capitalize }} {{  paziente.persona.cognome | capitalize}}</h5>
-              <p class="card-text"><strong>Phone number:</strong> {{   paziente.persona.telefono.numero}}</p>
               <p class="card-text"><strong>Mail address:</strong> {{  paziente.persona.email.indirizzo }}</p>
+              <p class="card-text"><strong>Phone number:</strong> {{   paziente.persona.telefono.numero}}</p>
               <p class="card-text"><strong>Document:</strong> {{   paziente.persona.documento.codice}}</p>
-              <h6 class="card-subtitle mb-2 text-muted">Medical office</h6>
               <p class="card-text"><strong>Home address:</strong> {{   paziente.persona.indirizzo.strada}} , {{  paziente.persona.indirizzo.cap}}</p>
-              <a class="btn btn-primary mt-1" href={{ url_for('edit_profile', username= paziente.persona.username) }} method='GET'>Edit your profile</a>
+              <div class="text-center">
+                <a class="btn btn-primary mt-1" href={{ url_for('edit_profile', username= paziente.persona.username) }} method='GET'>Edit your profile</a>
+              </div>
             </div>
           </div>
         </div>
         <div class="col-md-4">
-          <h4 class="text-monospace text-center mt-4">dio </h4>
+          <h4 class="text-monospace text-center mt-4">Your doctor</h4>
           <div class="card mt-4" style="background-color: rgba(0, 209, 255, 0.1);">
             <div class="card-body">
-              <h4 class="card-title">{{  paziente.persona.nome | capitalize }} {{  paziente.persona.cognome | capitalize}}</h5>
-              <p class="card-text"><strong>Phone number:</strong> {{   paziente.persona.telefono.numero}}</p>
-              <p class="card-text"><strong>Mail address:</strong> {{  paziente.persona.email.indirizzo }}</p>
-              <p class="card-text"><strong>Document:</strong> {{   paziente.persona.documento.codice}}</p>
-              <h6 class="card-subtitle mb-2 text-muted">Medical office</h6>
-              <p class="card-text"><strong>Home address:</strong> {{   paziente.persona.indirizzo.strada}} , {{  paziente.persona.indirizzo.cap}}</p>
+              <h4 class="card-title">{{  paziente.medico.persona.nome | capitalize }} {{  paziente.medico.persona.cognome | capitalize}}</h5>
+                <p class="card-text"><strong>Mail address:</strong> {{  paziente.medico.persona.email.indirizzo }}</p>
+              <p class="card-text"><strong>Phone number:</strong> {{   paziente.medico.persona.telefono.numero}}</p>
+              <div class="mt-4">
+                <h6 class="card-subtitle mt-4 mb-2 text-muted text-center">Medical office</h6>
+                <p class="card-text mt-3"><strong>Office addess:</strong> {{ paziente.medico.stud_leg.indirizzo.strada}} , {{ paziente.medico.stud_leg.indirizzo.cap}}</p>
+                <p class="card-text"><strong>Work start:</strong> {{ paziente.medico.stud_leg.orario_inizio.hour }}:{{ paziente.medico.stud_leg.orario_inizio.minute }} <strong> - Work end:</strong> {{ paziente.medico.stud_leg.orario_fine.hour}}:{{ paziente.medico.stud_leg.orario_fine.minute}}</p>
+                <p class="card-text"><strong>From:</strong> {{ paziente.medico.stud_leg.da_giorno | capitalize}} <strong>- To:</strong> {{ paziente.medico.stud_leg.a_giorno | capitalize}}</p>
+              </div>
             </div>
           </div>
         </div>
         <div class="col-md-4">
-          <h4 class="text-monospace text-center mt-4">profile </h4>
+          <h4 class="text-monospace text-center mt-4">Medical prescription</h4>
           <div class="card mt-4" style="background-color: rgba(0, 209, 255, 0.1);">
             <div class="card-body">
-              <h4 class="card-title">{{  paziente.persona.nome | capitalize }} {{  paziente.persona.cognome | capitalize}}</h5>
-              <p class="card-text"><strong>Phone number:</strong> {{   paziente.persona.telefono.numero}}</p>
-              <p class="card-text"><strong>Mail address:</strong> {{  paziente.persona.email.indirizzo }}</p>
-              <p class="card-text"><strong>Document:</strong> {{   paziente.persona.documento.codice}}</p>
-              <h6 class="card-subtitle mb-2 text-muted">Medical office</h6>
-              <p class="card-text"><strong>Home address:</strong> {{   paziente.persona.indirizzo.strada}} , {{  paziente.persona.indirizzo.cap}}</p>
+              <h4 class="card-title">What's new?</h5>
+              <p class="card-text mt-4">Press the button to see if there are new medical prescriptions or to read the previous ones</p>
+
+                <div class="text-center mt-5">
+                  <a class="btn btn-warning mt-5 mb-2" href={{ url_for('get_prescription', p_username = paziente.persona.username) }} method='GET'>Edit your profile</a>
+                </div>
             </div>
           </div>
         </div>
       </div>
       <div class="row">
           <div class="col-md-4">
-            <h4 class="text-monospace text-center mt-4">Your profile </h4>
+            <h4 class="text-monospace text-center mt-4">The past of yourself</h4>
             <div class="card mt-4" style="background-color: rgba(0, 209, 255, 0.1);">
               <div class="card-body">
                 <h4 class="card-title">{{  paziente.persona.nome | capitalize }} {{  paziente.persona.cognome | capitalize}}</h5>
@@ -65,7 +69,7 @@
             </div>
           </div>
           <div class="col-md-4">
-            <h4 class="text-monospace text-center mt-4">dio </h4>
+            <h4 class="text-monospace text-center mt-4">How are you?</h4>
             <div class="card mt-4" style="background-color: rgba(0, 209, 255, 0.1);">
               <div class="card-body">
                 <h4 class="card-title">{{  paziente.persona.nome | capitalize }} {{  paziente.persona.cognome | capitalize}}</h5>
@@ -78,7 +82,7 @@
             </div>
           </div>
           <div class="col-md-4">
-            <h4 class="text-monospace text-center mt-4">profile </h4>
+            <h4 class="text-monospace text-center mt-4">Hospital Map</h4>
             <div class="card mt-4" style="background-color: rgba(0, 209, 255, 0.1);">
               <div class="card-body">
                 <h4 class="card-title">{{  paziente.persona.nome | capitalize }} {{  paziente.persona.cognome | capitalize}}</h5>
