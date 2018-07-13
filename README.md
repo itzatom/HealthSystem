@@ -13,9 +13,9 @@ The main purposes is to increase the comunication between doctors and patients.
 
 
 ### Some screenshots
-| Login | Doctor homepage | Patient Homepage
-|:--:|:--:|:--:|
-| ![original](https://i.imgur.com/YUOX97u.png) | ![doctor](https://i.imgur.com/q0CYnI5.png) | ![patient](https://i.imgur.com/q0CYnI5.png) |
+| Login | Doctor homepage | Patient Homepage | Mobile
+|:--:|:--:|:--:|:--:|
+| ![original](https://i.imgur.com/YUOX97u.png) | ![doctor](https://i.imgur.com/5V0xxpP.png) | ![patient](https://i.imgur.com/QaVCYuP.png) | ![mobile](https://i.imgur.com/Sr4sSHd.jpg) |
 
 ## Features
 Every doctor and patient got the same functions, down below are illustrated doctor first:
@@ -26,7 +26,7 @@ Doctor:
 - [x] List all patients
 - [x] Detailed info about patients  
 - [x] Add/remove prescriptions
-- [x] Notify via email about new prescritions
+- [x] Notify via email about new prescriptions
 - [x] Biometrics/health data shown by date
 
 Patient:
@@ -36,7 +36,7 @@ Patient:
 - [x] Check personal doctor informations
 
 ### Requirements
-The system is developed under osx and arch linux running docker latest version but probably will work the same with other version.
+The system is developed under OS X and Arch Linux running docker latest version but probably will work the same with other version.
 
 To avoid bugs/crash/errors run this version:
 
@@ -58,6 +58,9 @@ Inside .env file copy that:
 
 ```bash
   SECRETKEY="my super secret key"
+  MAPS=
+  GAPI=
+
 
   MAIL_USERNAME=
   MAIL_PASSWORD=
@@ -66,7 +69,9 @@ Inside .env file copy that:
   POSTGRES_PASSWORD=postgres
 ```
 
-If you want to use flask-mail and be able to send emails about new prescriptions, insert Google credential in MAIL_USERNAME and MAIL_PASSWORD.
+If you want to use flask-mail and be able to send emails about new prescriptions, insert Google credential in MAIL_USERNAME and MAIL_PASSWORD.<br>
+If you want to use Google Api and LeafLet Api use your own otherwise Map will not render and return error.<br>
+n.d.r. **DON'T** use quotes or will return error.
 
 Inside hs folder run:
 ```bash
