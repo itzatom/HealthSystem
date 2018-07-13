@@ -61,10 +61,13 @@ def edit_profile(username):
             email = db.session.query(Email).filter_by(id_email=medico.persona.id_email).first()
             email.indirizzo = request.form['form-email']
 
-        a=request.form['form-pass']
-        b=request.form['conf-form-pass']
-        
         #Check if password has changed
+        a=request.form['form-pass']
+        if a == '':
+            a = None
+        b=request.form['conf-form-pass']
+        if b == '':
+            b = None
         if a is not None and b is not None:
             if a==b and len(a) > 8:
                 persona.set_password(request.form['form-pass'])
@@ -146,36 +149,45 @@ def edit_profile(username):
             email.indirizzo = request.form['form-email']
         else:
             flash('Email address already used')
-            return render_template('homepage/edit_patient.html', user=paziente.persona.username)
+            return render_template('homepage/edit_patient.html', user=paziente)
 
-        a=request.form['form-pass']
-        b=request.form['conf-form-pass']
         #Check if password has changed
+        a=request.form['form-pass']
+        if a == '':
+            a = None
+        b=request.form['conf-form-pass']
+        if b == '':
+            b = None
+
         if a is not None and b is not None:
             if a==b and len(a) > 8:
                 persona.set_password(request.form['form-pass'])
             else:
                 flash('Password error: less than 8 char or misplelled')
                 return redirect(url_for('edit_profile', username=persona.username))
-        else:
-            pass
 
         #Check if phonenumber has changed
-        if medico.persona.telefono.numero != request.form['form-phonenumb']:
-            telefono = db.session.query(Telefono).filter_by(id_telefono=medico.persona.id_telefono).first()
+        if paziente.persona.telefono.numero != request.form['form-phonenumb']:
+            telefono = db.session.query(Telefono).filter_by(id_telefono=paziente.persona.id_telefono).first()
             telefono.numero = request.form['form-phonenumb']
 
         #Check if  address has changed
-        if medico.persona.indirizzo.strada != request.form['form-street-addr']:
-            indirizzo = db.session.query(Indirizzo).filter_by(id_indirizzo=medico.persona.id_indirizzo).first()
+        if paziente.persona.indirizzo.strada != request.form['form-street-addr']:
+            indirizzo = db.session.query(Indirizzo).filter_by(id_indirizzo=paziente.persona.id_indirizzo).first()
             indirizzo.strada = request.form['form-street-addr']
-            if medico.persona.indirizzo.cap != request.form['form-zip-code']:
+            if paziente.persona.indirizzo.cap != request.form['form-zip-code']:
                 indirizzo.cap = request.form['form-zip-code']
 
         try:
             db.session.commit()
         except:
             db.session.rollback()
+
+        if a is not None and b is not None:
+            if a==b and len(a) > 8:
+                logout_user()
+                flash('Password has changed, please log in.')
+                return redirect(url_for('index'))
 
         return redirect(request.args.get('next') or url_for('patient', _username=paziente.persona.username))
 
