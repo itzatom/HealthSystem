@@ -21,7 +21,7 @@
       {% block content %}
         <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #007b95;">
           <a class="navbar-brand">
-            <img src="{{ url_for('static', filename='assets/img/backgrounds/logo.png') }}" width="10%" height="10%" alt="Logo"></img>
+            <img src="{{ url_for('static', filename='assets/img/backgrounds/logo.png') }}" style="max-width:150px;" width="auto" height="auto" alt="Logo" id="logo"></img>
           </a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -45,6 +45,7 @@
       </div>
     {% endblock %}
     {% endblock %}
-
+    <script>
+    </script>
   </body>
 </html>

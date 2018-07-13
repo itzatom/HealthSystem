@@ -55,10 +55,10 @@ def edit_profile(username):
     paziente = Paziente.query.filter_by(id_paziente=persona.id_persona).first()
     if request.method == 'GET':
         if medico is not None:
-            return render_template('homepage/edit_doctor.html', user=medico)
+            return render_template('edit/edit_doctor.html', user=medico)
         else:
             if paziente is not None:
-                return render_template('homepage/edit_patient.html', user=paziente)
+                return render_template('edit/edit_patient.html', user=paziente)
 
     if medico is not None:
         #Check if email has changed
@@ -121,7 +121,7 @@ def edit_profile(username):
 
         if stud_leg.orario_inizio >= stud_leg.orario_fine:
             flash('Start work time must be less than or equal end work time')
-            return render_template('homepage/edit_doctor.html', user=medico)
+            return render_template('edit/edit_doctor.html', user=medico)
 
         #Check if work day has changed
         if medico.stud_leg.da_giorno != str(request.form['form-fday']):
@@ -154,7 +154,7 @@ def edit_profile(username):
             email.indirizzo = request.form['form-email']
         else:
             flash('Email address already used')
-            return render_template('homepage/edit_patient.html', user=paziente)
+            return render_template('edit/edit_patient.html', user=paziente)
 
         #Check if password has changed
         a=request.form['form-pass']
@@ -205,7 +205,7 @@ def doctor(_username):
         pers = Persona.query.filter_by(username=_username).first()
         doc = Medico.query.filter_by(id_medico=pers.id_persona).first()
         patients = (Paziente.query.filter_by(id_medico=doc.id_medico).all())
-        return render_template('homepage/doctor.html', doctor=doc, users=patients);
+        return render_template('doctor/doctor.html', doctor=doc, users=patients);
 
 """ Get info of a patient """
 @app.route('/hs/info/<p_username>')
@@ -217,7 +217,7 @@ def info(p_username):
     datelist = hspurp.find( { "username": p.username}, {"_id": 0, "date": 1 })
     datelist = datelist.distinct('date')
 
-    return render_template('homepage/info.html', patient=p, prescription=r, hpdate=datelist)
+    return render_template('infopatients/info.html', patient=p, prescription=r, hpdate=datelist)
 
 """ Add prescription """
 @app.route('/hs/add_prescr/<id_patient>', methods=['GET', 'POST'])
@@ -277,7 +277,7 @@ def remove_prescr(id_prescription):
 @login_required
 def add_patient(m_username):
     if request.method == 'GET':
-        return render_template('homepage/register.html', m_username=m_username)
+        return render_template('doctor/register.html', m_username=m_username)
     else:
 
         indirizzo = Indirizzo(None, cap=request.form['form-zip-code'], strada=request.form['form-street-addr'])
@@ -288,21 +288,21 @@ def add_patient(m_username):
             documento = Documento(None, codice=request.form['form-document-code'].upper(), id_tipo=tipo_doc.id_tipo)
         else:
             flash('document is already used')
-            return render_template('homepage/register.html', m_username=m_username)
+            return render_template('doctor/register.html', m_username=m_username)
 
         mail = db.session.query(Email).filter_by(indirizzo=request.form['form-email']).first()
         if  mail is None:
             email = Email(None, indirizzo=request.form['form-email'])
         else:
             flash('Email address already used')
-            return render_template('homepage/register.html', m_username=m_username)
+            return render_template('doctor/register.html', m_username=m_username)
 
         tel = db.session.query(Telefono).filter_by(numero=request.form['form-phonenumb']).first()
         if tel is None:
             telefono = Telefono(None, numero=request.form['form-phonenumb'])
         else:
             flash('Phone number already used')
-            return render_template('homepage/register.html', m_username=m_username)
+            return render_template('doctor/register.html', m_username=m_username)
 
         #regexp
         if db.session.query(Persona).filter_by(cf=request.form['form-perscode'].upper()).first() is None:
@@ -310,10 +310,10 @@ def add_patient(m_username):
             if p_cf is not None:
                 if re.match('^[A-Z]{6}\d{2}[A-Z]\d{2}[A-Z]\d{3}[A-Z]$',p_cf) is None:
                     flash('CF is not valid, please insert a valid one')
-                    return render_template('homepage/register.html', m_username=m_username)
+                    return render_template('doctor/register.html', m_username=m_username)
         else:
             flash('CF is already used')
-            return render_template('homepage/register.html', m_username=m_username)
+            return render_template('doctor/register.html', m_username=m_username)
 
 
         p_documento = db.session.query(Documento).filter_by(codice=documento.codice).first()
@@ -385,16 +385,16 @@ def request_info(username):
         if page == 'biometrics':
             collection = mongo.db.biometrics
             data = collection.find({"username":username, "date":selected},{"_id":0})
-            return render_template('homepage/biometrics.html', data=data)
+            return render_template('infopatients/biometrics.html', data=data)
 
         elif page == 'health_data':
             collection = mongo.db.health_purpose
             data = collection.find({"username":username, "date":selected},{"_id":0})
-            return render_template('homepage/healthdata.html', data=data)
+            return render_template('infopatients/healthdata.html', data=data)
 
 @app.route('/hs/about',methods=['GET','POST'])
 def about():
-    return render_template('homepage/about.html')
+    return render_template('about.html')
 
 #PATIENT
 @app.route('/hs/patient/<_username>', methods=['GET','POST'])
@@ -415,7 +415,7 @@ def patient(_username):
         g = geocoders.GoogleV3(api_key=GAPI)
         location = [g.geocode( str(ind[i].strada) + " " + str(ind[i].cap), timeout=10) for i in range(0,lenind)]
 
-        return render_template('homepage/patient.html', paziente=paziente, hpdate=datelist, location=location,mapstoken=maps);
+        return render_template('patient/patient.html', paziente=paziente, hpdate=datelist, location=location,mapstoken=maps);
 
 """ Get prescription """
 @app.route('/hs/patient/prescription/<p_username>')
@@ -424,13 +424,13 @@ def get_prescription(p_username):
     p = Persona.query.filter_by(username=p_username).first()
     r = Ricetta.query.filter_by(id_paziente=p.id_persona).all()
 
-    return render_template('homepage/read_prescription.html', prescription=r)
+    return render_template('patient/read_prescription.html', prescription=r)
 
 @app.route('/hs/patient/biometrics/<p_username>', methods=['GET','POST'])
 @login_required
 def final_insert(p_username):
     if request.method == 'GET':
-        return render_template('homepage/insert_biometrics.html', p_username=p_username,  current_date=datetime.today().strftime('%Y/%m/%d'))
+        return render_template('patient/insert_biometrics.html', p_username=p_username,  current_date=datetime.today().strftime('%Y/%m/%d'))
 
     if request.method == 'POST':
 
@@ -462,7 +462,7 @@ def final_insert(p_username):
 @login_required
 def first_insert(p_username):
     if request.method == 'GET':
-        return render_template('homepage/insert_healthdata.html', p_username=p_username, current_date=datetime.today().strftime('%Y/%m/%d'))
+        return render_template('patient/insert_healthdata.html', p_username=p_username, current_date=datetime.today().strftime('%Y/%m/%d'))
 
     if request.method == 'POST':
         json_health_data = json.loads(json_util.dumps(request.form))
