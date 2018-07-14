@@ -1,6 +1,6 @@
 from flaskr import app, db, os, mongo, login_manager, mail
-from flask import url_for, session, redirect, request, render_template, flash
-from flask_login import login_user, login_required, logout_user
+from flask import url_for, session, redirect, request, render_template, flash, jsonify
+from flask_login import login_user, login_required, logout_user, current_user
 from flask_mail import Message
 from .sql.models import Medico, Paziente, Ricetta, TipoDoc, Documento, Indirizzo, Email, Telefono, Persona, StudLeg
 from datetime import date, time, datetime
@@ -202,10 +202,13 @@ def edit_profile(username):
 @login_required
 def doctor(_username):
     if request.method == 'GET':
-        pers = Persona.query.filter_by(username=_username).first()
-        doc = Medico.query.filter_by(id_medico=pers.id_persona).first()
-        patients = (Paziente.query.filter_by(id_medico=doc.id_medico).all())
-        return render_template('doctor/doctor.html', doctor=doc, users=patients);
+        if current_user.is_authenticated:
+            pers = Persona.query.filter_by(username=_username).first()
+            doc = Medico.query.filter_by(id_medico=pers.id_persona).first()
+            patients = (Paziente.query.filter_by(id_medico=doc.id_medico).all())
+            return render_template('doctor/doctor.html', doctor=doc, users=patients);
+        else:
+            return redirect(url_for('login'))
 
 """ Get info of a patient """
 @app.route('/hs/info/<p_username>')
@@ -443,7 +446,7 @@ def final_insert(p_username):
 
         data.get('steps').append({'value': str(request.form["steps"]),'timeStamp': str(date) })
         data.get('caloriesBurned').append({'value': str(request.form["caloriesBurned"]),'timeStamp': str(date) })
-        data.get('distanceTraveled').append({'value':round( (int((request.form['distanceTraveled']))/(1312.33)), 2),'timeStamp': str(date) })
+        data.get('distanceTraveled').append({'value': round( (int((request.form['distanceTraveled']))/(1312.33)), 2),'timeStamp': str(date) })
         data.get('BPM').append({'pulse': request.form['BPM'],'timeStamp': str(date) })
 
         begin=str(request.form['beginSession-h'])+":"+str(request.form['beginSession-m'])
@@ -456,6 +459,38 @@ def final_insert(p_username):
         collection = mongo.db.biometrics
         collection.insert_one(json_form)
         return redirect(request.args.get('next') or url_for('patient', _username=p_username))
+
+
+@app.route('/hs/raspberry/<username>',methods=['POST'])
+def rasp(username):
+    if request.method == 'GET':
+        return "302"
+    elif request.method == 'POST':
+        value = request.get_json()
+        skeleton = {'username':"",'steps':[],'caloriesBurned':[],'distanceTraveled':[],'BPM':[],'sleepSession':[],'date':""}
+        data = json.loads(json_util.dumps(skeleton))
+        time = datetime.today().strftime('%H:%M')
+        datatime = str(datetime.today().strftime('%Y/%m/%d'))
+
+        if value is not None:
+            if username is not None:
+                user = Persona.query.filter_by(username=username).first()
+                if user.check_password(value['pwd']):
+                    collection = mongo.db.biometrics
+
+                    data['username'] = str(user.username)
+                    data['date'] = datatime
+
+                    data.get('BPM').append({'pulse': str(value['BPM']),'timestamp': str(time)})
+                    data.get('steps').append({'value': "N/A",'timeStamp': "N/A" })
+                    data.get('caloriesBurned').append({'value': "N/A",'timeStamp': "N/A" })
+                    data.get('distanceTraveled').append({'value': "N/A",'timeStamp': "N/A" })
+                    data.get('sleepSession').append({'begin': "N/A",'end': "N/A" })
+
+                    collection.insert_one(data)
+    return "200"
+
+
 
 
 @app.route('/hs/patient/healthdata/<p_username>', methods=['GET','POST'])
