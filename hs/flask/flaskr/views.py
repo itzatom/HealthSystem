@@ -443,21 +443,21 @@ def final_insert(p_username):
         date = datetime.today().strftime('%H:%M')
 
         data['username'] = p_username
-
         data.get('steps').append({'value': str(request.form["steps"]),'timeStamp': str(date) })
         data.get('caloriesBurned').append({'value': str(request.form["caloriesBurned"]),'timeStamp': str(date) })
-        data.get('distanceTraveled').append({'value': round( (int((request.form['distanceTraveled']))/(1312.33)), 2),'timeStamp': str(date) })
+        data.get('distanceTraveled').append({'value': round( (int(request.form['steps'])/(1312.33)), 2),'timeStamp': str(date) })
         data.get('BPM').append({'pulse': request.form['BPM'],'timeStamp': str(date) })
 
         begin=str(request.form['beginSession-h'])+":"+str(request.form['beginSession-m'])
         end=str(request.form['endSession-h'])+":"+str(request.form['endSession-m'])
         data.get('sleepSession').append({'begin': begin,'end': end })
 
-        data['date'] =  current_date=datetime.today().strftime('%Y/%m/%d')
+        data['date'] = datetime.today().strftime('%Y/%m/%d')
 
         json_form = json.loads(json_util.dumps(data))
         collection = mongo.db.biometrics
         collection.insert_one(json_form)
+
         return redirect(request.args.get('next') or url_for('patient', _username=p_username))
 
 
