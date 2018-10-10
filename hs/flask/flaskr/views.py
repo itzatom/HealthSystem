@@ -40,6 +40,29 @@ def login():
     flash('Invalid username or password.')
     return render_template('index.html')
 
+@app.route('/api/login', methods=['GET', 'POST'])
+def apilogin():
+    if request.method == 'GET':
+        return jsonify(method='get'), 403
+
+    inp_username = request.form['form-username']
+    inp_password = request.form['form-password']
+    user = Persona.query.filter_by(username=inp_username).first()
+
+    if user is not None and user.check_password(inp_password):
+        login_user(user)
+        doctor = Medico.query.filter_by(id_medico=user.id_persona).first()
+
+        if doctor is not None:
+            data = [{"url": url_for('doctor', _username=user)}]
+            return jsonify(data), 200
+        else:
+            data = [{"url": url_for('patient', _username=user)}]
+            return jsonify(data), 200
+
+    error =[{"error":"username or password wrong"}]
+    return jsonify(error), 403
+
 @app.route('/hs/logout')
 @login_required
 def logout():
