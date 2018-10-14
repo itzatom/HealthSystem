@@ -44,25 +44,26 @@ def login():
 def apilogin():
     if request.method == 'GET':
         return jsonify(method='get'), 403
+    if request.method == 'POST':
+        if not request.form or request.form['form-username'] == '' or request.form['form-password'] == '':
+            return jsonify(error='insert username and password'), 403
 
-    inp_username = request.form['form-username']
-    inp_password = request.form['form-password']
-    user = Persona.query.filter_by(username=inp_username).first()
+        inp_username = request.form['form-username']
+        inp_password = request.form['form-password']
+        user = Persona.query.filter_by(username=inp_username).first()
+   
+        if user is not None and user.check_password(inp_password):
+            login_user(user)
+            doctor = Medico.query.filter_by(id_medico=user.id_persona).first()
+            if doctor is not None:
+                data = {"url": url_for('doctor', _username=inp_username)}
+                return jsonify(data), 200
+            else:
+                data = {"url": url_for('patient', _username=inp_username)}
+                return jsonify(data), 200
 
-    if user is not None and user.check_password(inp_password):
-        login_user(user)
-        doctor = Medico.query.filter_by(id_medico=user.id_persona).first()
-
-        if doctor is not None:
-            data = [{"url": url_for('doctor', _username=user)}]
-            return jsonify(data), 200
-        else:
-            data = [{"url": url_for('patient', _username=user)}]
-            return jsonify(data), 200
-
-    error =[{"error":"username or password wrong"}]
-    return jsonify(error), 403
-
+        return jsonify(error='username or password wrong'), 403
+    
 @app.route('/hs/logout')
 @login_required
 def logout():
