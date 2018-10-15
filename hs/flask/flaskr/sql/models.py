@@ -1,6 +1,9 @@
+from flask import request, redirect
 from flaskr import login_manager
-from flaskr import db
+from flaskr import app, db
 from werkzeug.security import check_password_hash, generate_password_hash
+from itsdangerous import (TimedJSONWebSignatureSerializer
+                          as Serializer, BadSignature, SignatureExpired)
 from flask_login import UserMixin
 
 
@@ -60,10 +63,30 @@ class Persona(UserMixin, db.Model):
 
     def check_password(self, password):
         return check_password_hash(self.password, password)
-
+    '''
     @login_manager.user_loader
     def load_user(id_persona):
         return Persona.query.get(int(id_persona))
+    '''
+    @login_manager.request_loader
+    def load_user_from_request(request):
+        token = request.headers.get('token')
+        if token is not "" or token is not None:
+            s = Serializer(app.config['SECRET_KEY'])
+            try:
+                data = s.loads(token)
+            except SignatureExpired:
+                return None # valid token, but expired
+            except BadSignature:
+                return None # invalid token
+            if data:
+                user = Persona.query.get(data['id'])
+                return user
+        return None
+
+    def generate_auth_token(self, expiration = 600):
+        s = Serializer(app.config['SECRET_KEY'], expires_in = expiration)
+        return s.dumps({ 'id': self.id_persona })
 
 class StudLeg(db.Model):
     __tablename__ = 'stud_leg'

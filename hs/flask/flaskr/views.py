@@ -11,10 +11,6 @@ import os
 from geopy import geocoders
 from geopy.exc import GeocoderTimedOut
 
-
-login_manager.session_protection = 'strong'
-login_manager.login_view = 'login'
-
 @app.route('/', methods=['GET'])
 def index():
     return render_template('index.html')
@@ -55,11 +51,13 @@ def apilogin():
         if user is not None and user.check_password(inp_password):
             login_user(user)
             doctor = Medico.query.filter_by(id_medico=user.id_persona).first()
+            token = user.generate_auth_token()
             if doctor is not None:
-                data = {"url": url_for('doctor', _username=inp_username)}
+                data = {"url": url_for('doctor', _username=inp_username),'token': token.decode('ascii')}
                 return jsonify(data), 200
             else:
-                data = {"url": url_for('patient', _username=inp_username)}
+                token = user.generate_auth_token()
+                data = {"url": url_for('patient', _username=inp_username), 'token': token.decode('ascii')}
                 return jsonify(data), 200
 
         return jsonify(error='username or password wrong'), 403
